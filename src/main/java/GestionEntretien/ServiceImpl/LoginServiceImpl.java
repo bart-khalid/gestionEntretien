@@ -37,7 +37,8 @@ public class LoginServiceImpl implements LoginService {
         Login foundedlogin = findByUsername(username);
         if (foundedlogin == null) {
             return -1;
-        } else if (foundedlogin.getPassword() != password) {
+        }
+        if (foundedlogin.getPassword().equals(password) == false ) {
             return -2;
         } else {
             return 1;
