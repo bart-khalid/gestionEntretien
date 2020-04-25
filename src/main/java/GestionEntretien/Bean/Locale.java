@@ -6,11 +6,14 @@
 package GestionEntretien.Bean;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,8 +28,51 @@ public class Locale implements Serializable {
     private Long id;
     private String nom;
     
-    @ManyToMany
-    private Materiel materiel;
+    @OneToMany(mappedBy = "localeItem")
+    private List<Materiel> MyMateriels;
+    
+    @ManyToOne
+    private Materiel materielItem;
+    
+    @OneToMany(mappedBy = "locale")
+    private List<Prestation> prestation;
+
+    public Materiel getMaterielItem() {
+        return materielItem;
+    }
+
+    public void setMaterielItem(Materiel materielItem) {
+        this.materielItem = materielItem;
+    }
+    
+    
+    
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public List<Materiel> getMyMateriels() {
+        return MyMateriels;
+    }
+
+    public void setMyMateriels(List<Materiel> MyMateriels) {
+        this.MyMateriels = MyMateriels;
+    }
+
+    public List<Prestation> getPrestation() {
+        return prestation;
+    }
+
+    public void setPrestation(List<Prestation> prestation) {
+        this.prestation = prestation;
+    }
+    
+     
 
     public Long getId() {
         return id;

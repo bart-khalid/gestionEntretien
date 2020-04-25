@@ -24,10 +24,10 @@ public class PresBonLivraison implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    protected double numeroBonLivraison;
-    protected Date dateBonLivraison;
-    protected double montant;
-    protected String nomPrestataire;
+    private double numeroBonLivraison;
+    private Date dateBonLivraison;
+    private double montant;
+    private String nomPrestataire;
 
     @OneToOne
     private PrestationExterne prestationExterne;

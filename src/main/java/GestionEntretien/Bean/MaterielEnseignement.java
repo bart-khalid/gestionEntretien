@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author lenovo
  */
 @Entity
-public class MaterielEnseignement implements Serializable {
+public class MaterielEnseignement extends Materiel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
