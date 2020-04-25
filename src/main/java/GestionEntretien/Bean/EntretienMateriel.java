@@ -6,49 +6,34 @@
 package GestionEntretien.Bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
- * @author Zakaria
+ * @author lenovo
  */
 @Entity
-public class Login implements Serializable {
+public class EntretienMateriel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String username;
-    private String password;
-    private String type;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String Username) {
-        this.username = Username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String Password) {
-        this.password = Password;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String Type) {
-        this.type = Type;
-    }
+    private Date dateEntretien;
+    private String fournisseur;
+    private double montant;
+    private double numFacture;
+    
+    
+    @ManyToOne
+    private Materiel materiel;
+    
 
     public Long getId() {
         return id;
@@ -68,10 +53,10 @@ public class Login implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Login)) {
+        if (!(object instanceof EntretienMateriel)) {
             return false;
         }
-        Login other = (Login) object;
+        EntretienMateriel other = (EntretienMateriel) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,7 +65,7 @@ public class Login implements Serializable {
 
     @Override
     public String toString() {
-        return "GestionEntretien.Bean.Login[ id=" + id + " ]";
+        return "GestionEntretien.Bean.EntretienMateriel[ id=" + id + " ]";
     }
     
 }

@@ -13,41 +13,32 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Zakaria
+ * @author lenovo
  */
 @Entity
-public class Login implements Serializable {
+public class PrestationInterne extends Prestation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String username;
-    private String password;
-    private String type;
+    private String nomAgent;
+    private double codeAgent;
 
-    public String getUsername() {
-        return username;
+    public String getNomAgent() {
+        return nomAgent;
     }
 
-    public void setUsername(String Username) {
-        this.username = Username;
+    public void setNomAgent(String nomAgent) {
+        this.nomAgent = nomAgent;
     }
 
-    public String getPassword() {
-        return password;
+    public double getCodeAgent() {
+        return codeAgent;
     }
 
-    public void setPassword(String Password) {
-        this.password = Password;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String Type) {
-        this.type = Type;
+    public void setCodeAgent(double codeAgent) {
+        this.codeAgent = codeAgent;
     }
 
     public Long getId() {
@@ -68,10 +59,10 @@ public class Login implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Login)) {
+        if (!(object instanceof PrestationInterne)) {
             return false;
         }
-        Login other = (Login) object;
+        PrestationInterne other = (PrestationInterne) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,7 +71,7 @@ public class Login implements Serializable {
 
     @Override
     public String toString() {
-        return "GestionEntretien.Bean.Login[ id=" + id + " ]";
+        return "GestionEntretien.Bean.PrestationInterne[ id=" + id + " ]";
     }
-    
+
 }
