@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @author Zakaria
  */
 @Repository
-public interface LoginDao extends JpaRepository<Login, Long> {
+public interface LoginRepository extends JpaRepository<Login, Long> {
     public Login findByUsername(String username);
     public List<Login> findByType(String type);
 }
