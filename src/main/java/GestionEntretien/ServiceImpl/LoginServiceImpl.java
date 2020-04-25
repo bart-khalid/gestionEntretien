@@ -6,11 +6,11 @@
 package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.Login;
-import GestionEntretien.Dao.LoginDao;
 import GestionEntretien.Service.LoginService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import GestionEntretien.Dao.LoginRepository;
 
 /**
  *
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    LoginDao logindao;
+    LoginRepository logindao;
 
     @Override
     public Login findByUsername(String username) {
