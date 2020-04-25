@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -90,6 +91,86 @@ public class PrestationExterne extends Prestation implements Serializable {
     @Override
     public String toString() {
         return "GestionEntretien.Bean.PrestationExterne[ id=" + id + " ]";
+    }
+
+    public boolean isIsBonCommande() {
+        return isBonCommande;
+    }
+
+    public void setIsBonCommande(boolean isBonCommande) {
+        this.isBonCommande = isBonCommande;
+    }
+
+    public boolean isIsBonLivraison() {
+        return isBonLivraison;
+    }
+
+    public void setIsBonLivraison(boolean isBonLivraison) {
+        this.isBonLivraison = isBonLivraison;
+    }
+
+    public PresBonCommande getPresBonCommande() {
+        return presBonCommande;
+    }
+
+    public void setPresBonCommande(PresBonCommande presBonCommande) {
+        this.presBonCommande = presBonCommande;
+    }
+
+    public PresBonLivraison getPresBonLivraison() {
+        return presBonLivraison;
+    }
+
+    public void setPresBonLivraison(PresBonLivraison presBonLivraison) {
+        this.presBonLivraison = presBonLivraison;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public String getTypeEntretien() {
+        return typeEntretien;
+    }
+
+    public void setTypeEntretien(String typeEntretien) {
+        this.typeEntretien = typeEntretien;
+    }
+
+    public Date getDatePrestation() {
+        return datePrestation;
+    }
+
+    public void setDatePrestation(Date datePrestation) {
+        this.datePrestation = datePrestation;
+    }
+
+    public boolean isIsReclamed() {
+        return isReclamed;
+    }
+
+    public void setIsReclamed(boolean isReclamed) {
+        this.isReclamed = isReclamed;
+    }
+
+    public String getRefrenceReclamation() {
+        return refrenceReclamation;
+    }
+
+    public void setRefrenceReclamation(String refrenceReclamation) {
+        this.refrenceReclamation = refrenceReclamation;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
 }

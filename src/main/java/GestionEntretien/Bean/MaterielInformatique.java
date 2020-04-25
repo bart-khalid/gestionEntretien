@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -55,6 +56,46 @@ public class MaterielInformatique extends Materiel implements Serializable {
     @Override
     public String toString() {
         return "GestionEntretien.Bean.MaterielInformatique[ id=" + id + " ]";
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
+    public double getNbrEntite() {
+        return nbrEntite;
+    }
+
+    public void setNbrEntite(double nbrEntite) {
+        this.nbrEntite = nbrEntite;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public List<LocalDetails> getLocalDetails() {
+        return localDetails;
+    }
+
+    public void setLocalDetails(List<LocalDetails> localDetails) {
+        this.localDetails = localDetails;
+    }
+
+    public List<EntretienMateriel> getEntretienMateriel() {
+        return entretienMateriel;
+    }
+
+    public void setEntretienMateriel(List<EntretienMateriel> entretienMateriel) {
+        this.entretienMateriel = entretienMateriel;
     }
     
 }

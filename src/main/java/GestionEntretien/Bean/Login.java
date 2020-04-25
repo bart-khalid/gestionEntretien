@@ -26,6 +26,7 @@ public class Login implements Serializable {
     private String password;
     private String type;
 
+    
     public String getUsername() {
         return username;
     }

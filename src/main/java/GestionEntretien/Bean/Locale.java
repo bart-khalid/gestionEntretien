@@ -5,14 +5,13 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -28,26 +27,14 @@ public class Locale implements Serializable {
     private Long id;
     private String nom;
     
-    @OneToMany(mappedBy = "localeItem")
-    private List<Materiel> MyMateriels;
-    
-    @ManyToOne
-    private Materiel materielItem;
-    
+    @OneToMany(mappedBy = "local")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<LocalDetails> LocalDetails;
+
     @OneToMany(mappedBy = "locale")
-    private List<Prestation> prestation;
-
-    public Materiel getMaterielItem() {
-        return materielItem;
-    }
-
-    public void setMaterielItem(Materiel materielItem) {
-        this.materielItem = materielItem;
-    }
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Prestation> prestations;
     
-    
-    
-
     public String getNom() {
         return nom;
     }
@@ -56,23 +43,15 @@ public class Locale implements Serializable {
         this.nom = nom;
     }
 
-    public List<Materiel> getMyMateriels() {
-        return MyMateriels;
+    public List<LocalDetails> getLocalDetails() {
+        return LocalDetails;
     }
 
-    public void setMyMateriels(List<Materiel> MyMateriels) {
-        this.MyMateriels = MyMateriels;
-    }
-
-    public List<Prestation> getPrestation() {
-        return prestation;
-    }
-
-    public void setPrestation(List<Prestation> prestation) {
-        this.prestation = prestation;
+    public void setLocalDetails(List<LocalDetails> LocalDetails) {
+        this.LocalDetails = LocalDetails;
     }
     
-     
+    
 
     public Long getId() {
         return id;
@@ -105,6 +84,14 @@ public class Locale implements Serializable {
     @Override
     public String toString() {
         return "GestionEntretien.Bean.Locale[ id=" + id + " ]";
+    }
+
+    public List<Prestation> getPrestations() {
+        return prestations;
+    }
+
+    public void setPrestations(List<Prestation> prestations) {
+        this.prestations = prestations;
     }
     
 }

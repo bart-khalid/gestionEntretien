@@ -98,4 +98,12 @@ public class PresBonLivraison implements Serializable {
         return "GestionEntretien.Bean.PresBonLivraison[ id=" + id + " ]";
     }
 
+    public PrestationExterne getPrestationExterne() {
+        return prestationExterne;
+    }
+
+    public void setPrestationExterne(PrestationExterne prestationExterne) {
+        this.prestationExterne = prestationExterne;
+    }
+
 }

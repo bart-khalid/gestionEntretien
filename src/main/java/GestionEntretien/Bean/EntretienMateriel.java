@@ -67,5 +67,45 @@ public class EntretienMateriel implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.EntretienMateriel[ id=" + id + " ]";
     }
+
+    public Date getDateEntretien() {
+        return dateEntretien;
+    }
+
+    public void setDateEntretien(Date dateEntretien) {
+        this.dateEntretien = dateEntretien;
+    }
+
+    public String getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(String fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
+    public double getNumFacture() {
+        return numFacture;
+    }
+
+    public void setNumFacture(double numFacture) {
+        this.numFacture = numFacture;
+    }
+
+    public Materiel getMateriel() {
+        return materiel;
+    }
+
+    public void setMateriel(Materiel materiel) {
+        this.materiel = materiel;
+    }
     
 }

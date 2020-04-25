@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -35,25 +36,37 @@ public class Materiel implements Serializable {
     protected String nom;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateEntrerFac;
-    
-    
-    @ManyToOne
-    protected Locale localeItem;
-    
-    @OneToMany(mappedBy = "materielItem")
-    protected List<Locale> localesIn;
-    
+
     @OneToMany(mappedBy = "materiel")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    protected List<LocalDetails> localDetails;
+
+    @OneToMany(mappedBy = "materiel")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected List<EntretienMateriel> entretienMateriel;
 
-    public List<Locale> getLocales() {
-        return localesIn;
+    @OneToMany(mappedBy = "materiel")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<EntretienMateriel> entretiens;
+
+    public List<EntretienMateriel> getEntretiens() {
+        return entretiens;
     }
 
-    public void setLocales(List<Locale> locales) {
-        this.localesIn = locales;
+    public void setEntretiens(List<EntretienMateriel> entretiens) {
+        this.entretiens = entretiens;
+    }
+    
+    
+    public List<LocalDetails> getLocalDetails() {
+        return localDetails;
     }
 
+    public void setLocalDetails(List<LocalDetails> localDetails) {
+        this.localDetails = localDetails;
+    }
+
+    
     public List<EntretienMateriel> getEntretienMateriel() {
         return entretienMateriel;
     }
@@ -61,8 +74,6 @@ public class Materiel implements Serializable {
     public void setEntretienMateriel(List<EntretienMateriel> entretienMateriel) {
         this.entretienMateriel = entretienMateriel;
     }
-    
-    
 
     public String getMarque() {
         return marque;
@@ -128,5 +139,5 @@ public class Materiel implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.Materiel[ id=" + id + " ]";
     }
-    
+
 }

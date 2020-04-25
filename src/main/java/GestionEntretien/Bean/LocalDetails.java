@@ -5,25 +5,54 @@
  */
 package GestionEntretien.Bean;
 
+import GestionEntretien.Bean.Locale;
+import GestionEntretien.Bean.Materiel;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
- * @author lenovo
+ * @author Zakaria
  */
 @Entity
-public class MaterielEnseignement extends Materiel implements Serializable {
+public class LocalDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+ 
+    @ManyToOne
+    private Materiel materiel;
+    
+    @ManyToOne
+    private Locale local;
+    
+    
 
+    public Materiel getMateriel() {
+        return materiel;
+    }
+
+    public void setMateriel(Materiel materiel) {
+        this.materiel = materiel;
+    }
+
+    public Locale getLocal() {
+        return local;
+    }
+
+    public void setLocal(Locale local) {
+        this.local = local;
+    }
+    
+    
+    
+    
     public Long getId() {
         return id;
     }
@@ -42,10 +71,10 @@ public class MaterielEnseignement extends Materiel implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MaterielEnseignement)) {
+        if (!(object instanceof LocalDetails)) {
             return false;
         }
-        MaterielEnseignement other = (MaterielEnseignement) object;
+        LocalDetails other = (LocalDetails) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -54,47 +83,7 @@ public class MaterielEnseignement extends Materiel implements Serializable {
 
     @Override
     public String toString() {
-        return "GestionEntretien.Bean.MaterielEnseignement[ id=" + id + " ]";
-    }
-
-    public String getMarque() {
-        return marque;
-    }
-
-    public void setMarque(String marque) {
-        this.marque = marque;
-    }
-
-    public double getNbrEntite() {
-        return nbrEntite;
-    }
-
-    public void setNbrEntite(double nbrEntite) {
-        this.nbrEntite = nbrEntite;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public List<LocalDetails> getLocalDetails() {
-        return localDetails;
-    }
-
-    public void setLocalDetails(List<LocalDetails> localDetails) {
-        this.localDetails = localDetails;
-    }
-
-    public List<EntretienMateriel> getEntretienMateriel() {
-        return entretienMateriel;
-    }
-
-    public void setEntretienMateriel(List<EntretienMateriel> entretienMateriel) {
-        this.entretienMateriel = entretienMateriel;
+        return "GestionEntretien.Bean.LocalDetails[ id=" + id + " ]";
     }
     
 }

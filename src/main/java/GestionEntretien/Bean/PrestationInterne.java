@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -72,6 +73,54 @@ public class PrestationInterne extends Prestation implements Serializable {
     @Override
     public String toString() {
         return "GestionEntretien.Bean.PrestationInterne[ id=" + id + " ]";
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public String getTypeEntretien() {
+        return typeEntretien;
+    }
+
+    public void setTypeEntretien(String typeEntretien) {
+        this.typeEntretien = typeEntretien;
+    }
+
+    public Date getDatePrestation() {
+        return datePrestation;
+    }
+
+    public void setDatePrestation(Date datePrestation) {
+        this.datePrestation = datePrestation;
+    }
+
+    public boolean isIsReclamed() {
+        return isReclamed;
+    }
+
+    public void setIsReclamed(boolean isReclamed) {
+        this.isReclamed = isReclamed;
+    }
+
+    public String getRefrenceReclamation() {
+        return refrenceReclamation;
+    }
+
+    public void setRefrenceReclamation(String refrenceReclamation) {
+        this.refrenceReclamation = refrenceReclamation;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
 }

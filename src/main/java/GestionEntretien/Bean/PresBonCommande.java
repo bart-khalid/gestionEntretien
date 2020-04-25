@@ -99,5 +99,13 @@ public class PresBonCommande implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.PresBonCommande[ id=" + id + " ]";
     }
+
+    public PrestationExterne getPrestationExterne() {
+        return prestationExterne;
+    }
+
+    public void setPrestationExterne(PrestationExterne prestationExterne) {
+        this.prestationExterne = prestationExterne;
+    }
     
 }

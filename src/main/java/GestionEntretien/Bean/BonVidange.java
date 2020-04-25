@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,6 +55,54 @@ public class BonVidange extends Bon implements Serializable {
     @Override
     public String toString() {
         return "GestionEntretien.Bean.BonVidange[ id=" + id + " ]";
+    }
+
+    public double getNumeroBon() {
+        return numeroBon;
+    }
+
+    public void setNumeroBon(double numeroBon) {
+        this.numeroBon = numeroBon;
+    }
+
+    public Date getDateBon() {
+        return dateBon;
+    }
+
+    public void setDateBon(Date dateBon) {
+        this.dateBon = dateBon;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
+    public double getNumFacture() {
+        return numFacture;
+    }
+
+    public void setNumFacture(double numFacture) {
+        this.numFacture = numFacture;
+    }
+
+    public String getNomPrestataire() {
+        return nomPrestataire;
+    }
+
+    public void setNomPrestataire(String nomPrestataire) {
+        this.nomPrestataire = nomPrestataire;
+    }
+
+    public Vehicule getVehicule() {
+        return vehicule;
+    }
+
+    public void setVehicule(Vehicule vehicule) {
+        this.vehicule = vehicule;
     }
     
 }

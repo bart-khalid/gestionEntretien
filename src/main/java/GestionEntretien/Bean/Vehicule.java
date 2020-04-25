@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -35,6 +35,7 @@ public class Vehicule implements Serializable {
     private Date dateEntrerParc;
 
     @OneToMany(mappedBy = "vehicule")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Bon> bonsVehicule;
 
     public Date getDateEntrerParc() {
