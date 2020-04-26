@@ -45,19 +45,6 @@ public class Materiel implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected List<EntretienMateriel> entretienMateriel;
 
-    @OneToMany(mappedBy = "materiel")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<EntretienMateriel> entretiens;
-
-    public List<EntretienMateriel> getEntretiens() {
-        return entretiens;
-    }
-
-    public void setEntretiens(List<EntretienMateriel> entretiens) {
-        this.entretiens = entretiens;
-    }
-    
-    
     public List<LocalDetails> getLocalDetails() {
         return localDetails;
     }
