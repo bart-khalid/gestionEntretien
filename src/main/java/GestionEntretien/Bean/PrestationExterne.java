@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -18,23 +19,60 @@ import javax.persistence.OneToOne;
  * @author lenovo
  */
 @Entity
-public class PrestationExterne extends Prestation implements Serializable {
+public class PrestationExterne implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String reference;
+    private String typeEntretien;
+    private Date date;
+    private boolean Reclamed;
+    private String refrenceReclamation;
+    
     private String nomPrestataire;
     private double montantFac;
-    private double numeroFac;
-    private boolean isBonCommande;
-    private boolean isBonLivraison;
+    private String numeroFac;
+    private boolean bonCommande;
+    private boolean bonLivraison;
 
+    
+    @ManyToOne
+    protected Locale locale;
+    
     @OneToOne
     private PresBonCommande presBonCommande;
 
     @OneToOne
     private PresBonLivraison presBonLivraison;
+
+    public boolean isReclamed() {
+        return Reclamed;
+    }
+
+    public void setReclamed(boolean Reclamed) {
+        this.Reclamed = Reclamed;
+    }
+
+    public boolean isBonCommande() {
+        return bonCommande;
+    }
+
+    public void setBonCommande(boolean BonCommande) {
+        this.bonCommande = BonCommande;
+    }
+
+    public boolean isBonLivraison() {
+        return bonLivraison;
+    }
+
+    public void setBonLivraison(boolean BonLivraison) {
+        this.bonLivraison = BonLivraison;
+    }
+    
+    
 
     public String getNomPrestataire() {
         return nomPrestataire;
@@ -52,11 +90,11 @@ public class PrestationExterne extends Prestation implements Serializable {
         this.montantFac = montantFac;
     }
 
-    public double getNumeroFac() {
+    public String getNumeroFac() {
         return numeroFac;
     }
 
-    public void setNumeroFac(double numeroFac) {
+    public void setNumeroFac(String numeroFac) {
         this.numeroFac = numeroFac;
     }
 
@@ -93,22 +131,6 @@ public class PrestationExterne extends Prestation implements Serializable {
         return "GestionEntretien.Bean.PrestationExterne[ id=" + id + " ]";
     }
 
-    public boolean isIsBonCommande() {
-        return isBonCommande;
-    }
-
-    public void setIsBonCommande(boolean isBonCommande) {
-        this.isBonCommande = isBonCommande;
-    }
-
-    public boolean isIsBonLivraison() {
-        return isBonLivraison;
-    }
-
-    public void setIsBonLivraison(boolean isBonLivraison) {
-        this.isBonLivraison = isBonLivraison;
-    }
-
     public PresBonCommande getPresBonCommande() {
         return presBonCommande;
     }
@@ -141,21 +163,15 @@ public class PrestationExterne extends Prestation implements Serializable {
         this.typeEntretien = typeEntretien;
     }
 
-    public Date getDatePrestation() {
-        return datePrestation;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDatePrestation(Date datePrestation) {
-        this.datePrestation = datePrestation;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public boolean isIsReclamed() {
-        return isReclamed;
-    }
-
-    public void setIsReclamed(boolean isReclamed) {
-        this.isReclamed = isReclamed;
-    }
+    
 
     public String getRefrenceReclamation() {
         return refrenceReclamation;

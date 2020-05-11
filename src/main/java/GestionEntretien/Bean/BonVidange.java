@@ -11,18 +11,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author lenovo
  */
 @Entity
-public class BonVidange extends Bon implements Serializable {
+public class BonVidange implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private double numeroBon;
+    private Date dateBon;
+    private double montant;
+    private double numFacture;
+    private String nomPrestataire;
+    
+    @ManyToOne
+    protected Vehicule vehicule;
+    
+    @ManyToOne
+    private Fournisseur fournisseur;
+    
+    private String type;
 
     public Long getId() {
         return id;

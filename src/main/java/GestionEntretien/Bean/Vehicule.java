@@ -36,8 +36,43 @@ public class Vehicule implements Serializable {
 
     @OneToMany(mappedBy = "vehicule")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<Bon> bonsVehicule;
+    private List<BonCarburant> bonsVehiculeC;
 
+    @OneToMany(mappedBy = "vehicule")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<BonReparation> bonsVehiculeR;
+    
+    @OneToMany(mappedBy = "vehicule")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<BonVidange> bonsVehiculeV;
+
+    public List<BonCarburant> getBonsVehiculeC() {
+        return bonsVehiculeC;
+    }
+
+    public void setBonsVehiculeC(List<BonCarburant> bonsVehiculeC) {
+        this.bonsVehiculeC = bonsVehiculeC;
+    }
+
+    public List<BonReparation> getBonsVehiculeR() {
+        return bonsVehiculeR;
+    }
+
+    public void setBonsVehiculeR(List<BonReparation> bonsVehiculeR) {
+        this.bonsVehiculeR = bonsVehiculeR;
+    }
+
+    public List<BonVidange> getBonsVehiculeV() {
+        return bonsVehiculeV;
+    }
+
+    public void setBonsVehiculeV(List<BonVidange> bonsVehiculeV) {
+        this.bonsVehiculeV = bonsVehiculeV;
+    }
+    
+    
+    
+    
     public Date getDateEntrerParc() {
         return dateEntrerParc;
     }
@@ -46,13 +81,7 @@ public class Vehicule implements Serializable {
         this.dateEntrerParc = dateEntrerParc;
     }
 
-    public List<Bon> getBonsVehicule() {
-        return bonsVehicule;
-    }
-
-    public void setBonsVehicule(List<Bon> bonsVehicule) {
-        this.bonsVehicule = bonsVehicule;
-    }
+  
 
     public String getType() {
         return type;

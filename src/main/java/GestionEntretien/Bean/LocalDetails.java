@@ -5,14 +5,15 @@
  */
 package GestionEntretien.Bean;
 
-import GestionEntretien.Bean.Locale;
-import GestionEntretien.Bean.Materiel;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,13 +26,104 @@ public class LocalDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
- 
+    private String reference;
+    private String materielLocale;
+    private String localeAssocie;
+    private Date dateAchat;
+
+    
+    @ManyToOne 
+    private Locale locale;
+    
     @ManyToOne
     private Materiel materiel;
     
-    @ManyToOne
-    private Locale local;
     
+    @OneToMany (mappedBy = "materiel")
+    private List<Entretien> entretiensMateriele;
+    
+    
+    @OneToMany(mappedBy = "materiel")
+    private List<Reclamation> reclamations;
+
+    
+    
+    
+    
+    
+    public List<Entretien> getEntretiensMateriele() {
+        return entretiensMateriele;
+    }
+
+    public void setEntretiensMateriele(List<Entretien> entretiensMateriele) {
+        this.entretiensMateriele = entretiensMateriele;
+    }
+
+    
+    
+    
+    
+    
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+    
+    
+    public List<Reclamation> getReclamations() {
+        return reclamations;
+    }
+
+    public void setReclamations(List<Reclamation> reclamations) {
+        this.reclamations = reclamations;
+    }
+    
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+//    public Entretien getEntretiensMateriel() {
+//        return entretiensMateriel;
+//    }
+//
+//    public void setEntretiensMateriel(Entretien entretiensMateriel) {
+//        this.entretiensMateriel = entretiensMateriel;
+//    }
+//    
+    
+    
+    
+    public String getMaterielLocale() {
+        return materielLocale;
+    }
+
+    public void setMaterielLocale(String materielLocale) {
+        this.materielLocale = materielLocale;
+    }
+
+    public String getLocaleAssocie() {
+        return localeAssocie;
+    }
+
+    public void setLocaleAssocie(String localeAssocie) {
+        this.localeAssocie = localeAssocie;
+    }
+
+    public Date getDateAchat() {
+        return dateAchat;
+    }
+
+    public void setDateAchat(Date dateAchat) {
+        this.dateAchat = dateAchat;
+    }
     
 
     public Materiel getMateriel() {
@@ -42,15 +134,6 @@ public class LocalDetails implements Serializable {
         this.materiel = materiel;
     }
 
-    public Locale getLocal() {
-        return local;
-    }
-
-    public void setLocal(Locale local) {
-        this.local = local;
-    }
-    
-    
     
     
     public Long getId() {
@@ -84,6 +167,10 @@ public class LocalDetails implements Serializable {
     @Override
     public String toString() {
         return "GestionEntretien.Bean.LocalDetails[ id=" + id + " ]";
+    }
+
+    public LocalDetails findByReeference(String reference) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

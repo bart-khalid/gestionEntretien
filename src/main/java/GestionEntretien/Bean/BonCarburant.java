@@ -6,25 +6,63 @@
 package GestionEntretien.Bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author lenovo
  */
 @Entity
-public class BonCarburant extends Bon implements Serializable {
+public class BonCarburant implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private double numeroBon;
+    private Date dateBon;
+    private double montant;
+    private double numFacture;
+    private String nomPrestataire;
+    
+    @ManyToOne
+    private Vehicule vehicule;
+    
+    @ManyToOne
+    private Fournisseur fournisseur;
+    
     private double kilometrage;
+    private BigDecimal liter;
 
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+
+    
+    
+    
+    
+    
+    public BigDecimal getLiter() {
+        return liter;
+    }
+
+    public void setLiter(BigDecimal liter) {
+        this.liter = liter;
+    }
+
+    
+    
     public double getKilometrage() {
         return kilometrage;
     }

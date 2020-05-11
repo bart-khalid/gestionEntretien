@@ -25,15 +25,60 @@ public class Locale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private String nom;
+    private String departement;
+    private String type;
+    private double nbrMateriel;
     
-    @OneToMany(mappedBy = "local")
+    @OneToMany(mappedBy = "locale")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<LocalDetails> LocalDetails;
+    private List<LocalDetails> localDetails;
 
     @OneToMany(mappedBy = "locale")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<Prestation> prestations;
+    private List<PrestationInterne> prestationsI;
+    
+    @OneToMany(mappedBy = "locale")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<PrestationExterne> prestationsE;
+
+    
+    
+    
+    public double getNbrMateriel() {
+        return nbrMateriel;
+    }
+
+    public void setNbrMateriel(double nbrMateriel) {
+        this.nbrMateriel = nbrMateriel;
+    }
+
+    
+    public String getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(String departement) {
+        this.departement = departement;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
     
     public String getNom() {
         return nom;
@@ -44,11 +89,11 @@ public class Locale implements Serializable {
     }
 
     public List<LocalDetails> getLocalDetails() {
-        return LocalDetails;
+        return localDetails;
     }
 
     public void setLocalDetails(List<LocalDetails> LocalDetails) {
-        this.LocalDetails = LocalDetails;
+        this.localDetails = LocalDetails;
     }
     
     
@@ -86,12 +131,22 @@ public class Locale implements Serializable {
         return "GestionEntretien.Bean.Locale[ id=" + id + " ]";
     }
 
-    public List<Prestation> getPrestations() {
-        return prestations;
+    public List<PrestationInterne> getPrestationsI() {
+        return prestationsI;
     }
 
-    public void setPrestations(List<Prestation> prestations) {
-        this.prestations = prestations;
+    public void setPrestationsI(List<PrestationInterne> prestationsI) {
+        this.prestationsI = prestationsI;
     }
+
+    public List<PrestationExterne> getPrestationsE() {
+        return prestationsE;
+    }
+
+    public void setPrestationsE(List<PrestationExterne> prestationsE) {
+        this.prestationsE = prestationsE;
+    }
+
+ 
     
 }

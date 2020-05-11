@@ -11,21 +11,57 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author lenovo
  */
 @Entity
-public class PrestationInterne extends Prestation implements Serializable {
+public class PrestationInterne implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+   
+    private String reference;
+    private String typeEntretien;
+    private Date date;
+    private boolean Reclamed;
+    private String refrenceReclamation;
     private String nomAgent;
-    private double codeAgent;
+    private String codeAgent;
 
+    @ManyToOne
+    private Locale locale;
+
+    @ManyToOne 
+    private Agent agent;
+
+    
+    
+    
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+    
+    
+    
+    public boolean isReclamed() {
+        return Reclamed;
+    }
+
+    public void setReclamed(boolean Reclamed) {
+        this.Reclamed = Reclamed;
+    }
+    
+    
+    
     public String getNomAgent() {
         return nomAgent;
     }
@@ -34,11 +70,11 @@ public class PrestationInterne extends Prestation implements Serializable {
         this.nomAgent = nomAgent;
     }
 
-    public double getCodeAgent() {
+    public String getCodeAgent() {
         return codeAgent;
     }
 
-    public void setCodeAgent(double codeAgent) {
+    public void setCodeAgent(String codeAgent) {
         this.codeAgent = codeAgent;
     }
 
@@ -91,22 +127,15 @@ public class PrestationInterne extends Prestation implements Serializable {
         this.typeEntretien = typeEntretien;
     }
 
-    public Date getDatePrestation() {
-        return datePrestation;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDatePrestation(Date datePrestation) {
-        this.datePrestation = datePrestation;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public boolean isIsReclamed() {
-        return isReclamed;
-    }
-
-    public void setIsReclamed(boolean isReclamed) {
-        this.isReclamed = isReclamed;
-    }
-
+    
     public String getRefrenceReclamation() {
         return refrenceReclamation;
     }

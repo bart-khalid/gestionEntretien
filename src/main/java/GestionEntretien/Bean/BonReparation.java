@@ -11,26 +11,55 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author lenovo
  */
 @Entity
-public class BonReparation extends Bon implements Serializable {
+public class BonReparation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nomPiecesRepares;
+    private double numeroBon;
+    private Date dateBon;
+    private double montant;
+    private double numFacture;
+    private String nomPrestataire;
+    
+    @ManyToOne
+    private Vehicule vehicule;
+    
+    private String Description;
 
-    public String getNomPiecesRepares() {
-        return nomPiecesRepares;
+    @ManyToOne
+    private Fournisseur fournisseur;
+
+    
+    
+    
+    
+    
+    public Fournisseur getFournisseur() {
+        return fournisseur;
     }
 
-    public void setNomPiecesRepares(String nomPiecesRepares) {
-        this.nomPiecesRepares = nomPiecesRepares;
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+    
+    
+    
+    
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
 
     public Long getId() {

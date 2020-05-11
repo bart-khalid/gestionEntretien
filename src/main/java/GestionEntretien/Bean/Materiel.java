@@ -24,27 +24,56 @@ import javax.persistence.OneToMany;
  * @author lenovo
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Materiel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+    private String reference;
     protected String marque;
     protected double nbrEntite;
     protected String nom;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date dateEntrerFac;
+    protected String type;
+    
 
     @OneToMany(mappedBy = "materiel")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected List<LocalDetails> localDetails;
 
-    @OneToMany(mappedBy = "materiel")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    protected List<EntretienMateriel> entretienMateriel;
 
+    @ManyToOne 
+    private Fournisseur fournisseur;
+
+    
+    
+    
+    
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+    
+    
     public List<LocalDetails> getLocalDetails() {
         return localDetails;
     }
@@ -53,14 +82,6 @@ public class Materiel implements Serializable {
         this.localDetails = localDetails;
     }
 
-    
-    public List<EntretienMateriel> getEntretienMateriel() {
-        return entretienMateriel;
-    }
-
-    public void setEntretienMateriel(List<EntretienMateriel> entretienMateriel) {
-        this.entretienMateriel = entretienMateriel;
-    }
 
     public String getMarque() {
         return marque;
@@ -86,13 +107,6 @@ public class Materiel implements Serializable {
         this.nom = nom;
     }
 
-    public Date getDateEntrerFac() {
-        return dateEntrerFac;
-    }
-
-    public void setDateEntrerFac(Date dateEntrerFac) {
-        this.dateEntrerFac = dateEntrerFac;
-    }
 
     public Long getId() {
         return id;
