@@ -5,7 +5,7 @@
  */
 package GestionEntretien.Dao;
 
-import GestionEntretien.Bean.MaterielEnseignement;
+import GestionEntretien.Bean.LocalDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface MaterielInformatiqueRepository extends JpaRepository<MaterielEnseignement, Long>{
+public interface LocalDetailsRepository extends JpaRepository<LocalDetails, Long>{
     
+    public LocalDetails findByReference(String reference);
 }

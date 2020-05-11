@@ -5,8 +5,9 @@
  */
 package GestionEntretien.Dao;
 
-import GestionEntretien.Bean.Bon;
+import GestionEntretien.Bean.Fournisseur;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface BonRepository extends JpaRepository<Bon, Long>{
-    
+public interface FournisseurRepository extends JpaRepository<Fournisseur, Long>{
+//    @Query(value = "select fournisseur from fournisseur where nom=")
+//    public Fournisseur findByNomAndAdresse(String nom, String adresse);
 }

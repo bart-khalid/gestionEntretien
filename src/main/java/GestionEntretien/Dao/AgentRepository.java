@@ -5,7 +5,7 @@
  */
 package GestionEntretien.Dao;
 
-import GestionEntretien.Bean.Prestation;
+import GestionEntretien.Bean.Agent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface PrestationRepository extends JpaRepository<Prestation, Long>{
+public interface AgentRepository extends JpaRepository<Agent, Long>{
+
+    public Agent findByCodeAgent(String codeAgent);
     
 }

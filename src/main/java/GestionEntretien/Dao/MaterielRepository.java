@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MaterielRepository extends JpaRepository<Materiel, Long>{
-    
+    public Materiel findByReference(String reference);
 }

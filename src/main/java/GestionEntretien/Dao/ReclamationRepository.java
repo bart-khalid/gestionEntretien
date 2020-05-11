@@ -5,7 +5,7 @@
  */
 package GestionEntretien.Dao;
 
-import GestionEntretien.Bean.EntretienMateriel;
+import GestionEntretien.Bean.Reclamation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface EntretienMaterielRepository extends JpaRepository<EntretienMateriel, Long>{
+public interface ReclamationRepository extends JpaRepository<Reclamation, Long>{
+
+    public Reclamation findByReference(String reference);
     
 }
