@@ -8,6 +8,7 @@ package GestionEntretien.ServiceImpl;
 import GestionEntretien.Bean.Agent;
 import GestionEntretien.Dao.AgentRepository;
 import GestionEntretien.Service.AgentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,11 @@ public class AgentImpl implements AgentService{
         Agent foundedAgent = agentRepository.findByCodeAgent(codeAgent);
         agentRepository.delete(foundedAgent);
         return 1;
+    }
+
+    @Override
+    public List<Agent> findAll() {
+       return agentRepository.findAll();
     }
     
 }

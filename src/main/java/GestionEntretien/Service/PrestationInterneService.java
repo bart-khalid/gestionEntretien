@@ -5,16 +5,17 @@
  */
 package GestionEntretien.Service;
 
-import GestionEntretien.Bean.Locale;
+import GestionEntretien.Bean.PrestationInterne;
 import java.util.List;
 
 /**
  *
  * @author lenovo
  */
-public interface LocaleService {
-    public int save(Locale locale);
-    public int update(Locale locale);
+public interface PrestationInterneService {
+    public int save(PrestationInterne preInterne);
+    public int update(PrestationInterne preInterne);
     public int delete(String reference);
-    public List<Locale> findAll();
+    public List<PrestationInterne> findAll();
+    
 }

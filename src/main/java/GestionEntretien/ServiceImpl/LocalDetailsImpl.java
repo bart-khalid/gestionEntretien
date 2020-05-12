@@ -128,4 +128,9 @@ public class LocalDetailsImpl implements LocalDetailsService {
         return 1;
     }
 
+    @Override
+    public List<LocalDetails> findAll() {
+        return localDetailsRepository.findAll();
+    }
+
 }

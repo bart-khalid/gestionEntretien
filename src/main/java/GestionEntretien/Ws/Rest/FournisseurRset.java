@@ -8,9 +8,11 @@ package GestionEntretien.Ws.Rest;
 import GestionEntretien.Bean.Agent;
 import GestionEntretien.Bean.Fournisseur;
 import GestionEntretien.Service.FournisseurService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,7 +42,13 @@ public class FournisseurRset {
     }
     
     @DeleteMapping("/deleteFournisseur")
-    public int deleteByCodeAgent(@RequestBody Fournisseur fournisseur){
+    public int delete(@RequestBody Fournisseur fournisseur) {
         return fournisseurService.delete(fournisseur);
     }
+
+    @GetMapping("/")
+    public List<Fournisseur> findAll() {
+        return fournisseurService.findAll();
+    }
+    
 }

@@ -5,8 +5,8 @@
  */
 package GestionEntretien.Service;
 
-import GestionEntretien.Bean.Agent;
 import GestionEntretien.Bean.Fournisseur;
+import java.util.List;
 
 /**
  *
@@ -16,4 +16,5 @@ public interface FournisseurService {
     public int save(Fournisseur fournisseur);
     public int update(Fournisseur fournisseur);
     public int delete(Fournisseur fournisseur);
+    public List<Fournisseur> findAll();
 }

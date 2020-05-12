@@ -6,6 +6,7 @@
 package GestionEntretien.Service;
 
 import GestionEntretien.Bean.LocalDetails;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,5 @@ public interface LocalDetailsService {
     public int save(LocalDetails localDetails);
     public int update(LocalDetails localDetails);
     public int delete(String referenceMaterielLocal);
+    public List<LocalDetails> findAll();
 }

@@ -6,6 +6,7 @@
 package GestionEntretien.Service;
 
 import GestionEntretien.Bean.Agent;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,5 @@ public interface AgentService {
     public int save(Agent agent);
     public int update(Agent agent);
     public int deleteByCodeAgent(String codeAgent);
+    public List<Agent> findAll();
 }

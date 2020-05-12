@@ -7,9 +7,11 @@ package GestionEntretien.Ws.Rest;
 
 import GestionEntretien.Bean.Vehicule;
 import GestionEntretien.Service.VehiculeService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +41,13 @@ public class VehiculeRest {
     }
     
     @DeleteMapping("/deleteVehicule")
-    public int dalete(@RequestBody Vehicule vehicule){
+    public int delete(@RequestBody Vehicule vehicule){
         return vehiculeService.delete(vehicule);
     }
+
+    @GetMapping("/")
+    public List<Vehicule> findAll() {
+        return vehiculeService.findAll();
+    }
+    
 }

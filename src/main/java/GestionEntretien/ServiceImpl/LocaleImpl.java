@@ -8,6 +8,7 @@ package GestionEntretien.ServiceImpl;
 import GestionEntretien.Bean.Locale;
 import GestionEntretien.Dao.LocaleRepository;
 import GestionEntretien.Service.LocaleService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,11 @@ public class LocaleImpl implements LocaleService{
         Locale foundedLocale = localeRepository.findByReference(reference);
         localeRepository.delete(foundedLocale);
         return 1;
+    }
+
+    @Override
+    public List<Locale> findAll() {
+        return localeRepository.findAll();
     }
     
 }

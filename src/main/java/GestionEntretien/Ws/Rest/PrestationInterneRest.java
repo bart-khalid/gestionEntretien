@@ -5,8 +5,8 @@
  */
 package GestionEntretien.Ws.Rest;
 
-import GestionEntretien.Bean.Locale;
-import GestionEntretien.Service.LocaleService;
+import GestionEntretien.Bean.PrestationInterne;
+import GestionEntretien.Service.PrestationInterneService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,29 +25,30 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("GestionEntretien/locale")
-public class LocaleRest {
+@RequestMapping("GestionEntretien/prestationInterne")
+public class PrestationInterneRest {
     @Autowired
-    private LocaleService localeService;
-    
+    private PrestationInterneService prestationInterneService;
+
     @PostMapping("/")
-    public int save(@RequestBody Locale locale){
-        return localeService.save(locale);
+    public int save(@RequestBody PrestationInterne preInterne) {
+        return prestationInterneService.save(preInterne);
     }
-    
+
     @PutMapping("/update")
-    public int update(@RequestBody Locale locale){
-        return localeService.update(locale);
+    public int update(@RequestBody PrestationInterne preInterne) {
+        return prestationInterneService.update(preInterne);
     }
-    
-    @DeleteMapping("/deleteLocale/{reference}")
-    public int delete(@PathVariable String reference){
-        return localeService.delete(reference);
+
+    @DeleteMapping("/deletePrestationInterne/{reference}")
+    public int delete(@PathVariable String reference) {
+        return prestationInterneService.delete(reference);
     }
 
     @GetMapping("/")
-    public List<Locale> findAll() {
-        return localeService.findAll();
+    public List<PrestationInterne> findAll() {
+        return prestationInterneService.findAll();
     }
+    
     
 }

@@ -31,13 +31,38 @@ public class PrestationInterne implements Serializable {
     private boolean Reclamed;
     private String refrenceReclamation;
     private String nomAgent;
-    private String codeAgent;
+    private String nomLocale;
 
     @ManyToOne
     private Locale locale;
 
     @ManyToOne 
     private Agent agent;
+    
+    
+    @ManyToOne
+    private LocalDetails materielLoclae;
+
+    
+    
+    public LocalDetails getMaterielLoclae() {
+        return materielLoclae;
+    }
+
+    public void setMaterielLoclae(LocalDetails materielLoclae) {
+        this.materielLoclae = materielLoclae;
+    }
+
+    
+    
+    
+    public String getNomLocale() {
+        return nomLocale;
+    }
+
+    public void setNomLocale(String nomLocale) {
+        this.nomLocale = nomLocale;
+    }
 
     
     
@@ -68,14 +93,6 @@ public class PrestationInterne implements Serializable {
 
     public void setNomAgent(String nomAgent) {
         this.nomAgent = nomAgent;
-    }
-
-    public String getCodeAgent() {
-        return codeAgent;
-    }
-
-    public void setCodeAgent(String codeAgent) {
-        this.codeAgent = codeAgent;
     }
 
     public Long getId() {

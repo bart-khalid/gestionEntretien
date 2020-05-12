@@ -25,6 +25,7 @@ public class Entretien implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date dateEntretien;
+    private String nomMateriel;
     private String prestataire;
     private double montant;
     private String numFacture;
@@ -35,11 +36,28 @@ public class Entretien implements Serializable {
     
     @ManyToOne
     private Locale loclale;
-    
-    
-    
-    
 
+    
+    
+    public String getNomMateriel() {
+        return nomMateriel;
+    }
+
+    public void setNomMateriel(String nomMateriel) {
+        this.nomMateriel = nomMateriel;
+    }
+
+    public Entretien(Date dateEntretien, String nomMateriel, String prestataire, double montant, String numFacture) {
+        this.dateEntretien = dateEntretien;
+        this.nomMateriel = nomMateriel;
+        this.prestataire = prestataire;
+        this.montant = montant;
+        this.numFacture = numFacture;
+    }
+
+    public Entretien() {
+    }
+    
     public LocalDetails getMateriel() {
         return materiel;
     }

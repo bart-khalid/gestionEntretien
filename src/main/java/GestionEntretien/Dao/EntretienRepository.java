@@ -5,7 +5,7 @@
  */
 package GestionEntretien.Dao;
 
-import GestionEntretien.Bean.PrestationInterne;
+import GestionEntretien.Bean.Entretien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +14,9 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface PrestationInterneRepository extends JpaRepository<PrestationInterne, Long>{
+public interface EntretienRepository extends JpaRepository<Entretien, Long>{
 
-    public PrestationInterne findByReference(String reference);
+    public Entretien findByNumFacture(String reference);
+    
     
 }

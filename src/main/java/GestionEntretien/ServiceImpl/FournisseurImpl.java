@@ -8,6 +8,7 @@ package GestionEntretien.ServiceImpl;
 import GestionEntretien.Bean.Fournisseur;
 import GestionEntretien.Dao.FournisseurRepository;
 import GestionEntretien.Service.FournisseurService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,11 @@ public class FournisseurImpl implements FournisseurService{
     public int delete(Fournisseur fournisseur) {
         fournisseurRepository.delete(fournisseur);
         return 1;
+    }
+
+    @Override
+    public List<Fournisseur> findAll() {
+        return fournisseurRepository.findAll();
     }
     
 }

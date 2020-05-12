@@ -6,6 +6,7 @@
 package GestionEntretien.Service;
 
 import GestionEntretien.Bean.Vehicule;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,5 @@ public interface VehiculeService {
     public int save(Vehicule vehicule);
     public int update(Vehicule vehicule);
     public int delete(Vehicule vehicule);
+    public List<Vehicule> findAll();
 }

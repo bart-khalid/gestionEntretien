@@ -48,6 +48,11 @@ public class LoginRest {
     public int Connect(@PathVariable String username,@PathVariable String password) {
         return loginservice.Connect(username, password);
     }
+
+    @GetMapping("/")
+    public List<Login> findAll() {
+        return loginservice.findAll();
+    }
     
     
 }

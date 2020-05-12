@@ -56,5 +56,10 @@ public class MaterielImpl implements MaterielService{
         materielRepository.delete(foundedMateriel);
         return 1;
     }
+
+    @Override
+    public List<Materiel> findAll() {
+        return materielRepository.findAll();
+    }
     
 }

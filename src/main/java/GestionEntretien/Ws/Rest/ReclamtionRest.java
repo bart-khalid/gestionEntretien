@@ -44,4 +44,5 @@ public class ReclamtionRest {
    public int reclamationSeen(@PathVariable String reference) {
        return reclamtionService.reclamationSeen(reference);
    }
+   
 }

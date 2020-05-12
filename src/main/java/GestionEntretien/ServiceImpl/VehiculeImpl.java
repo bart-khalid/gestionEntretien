@@ -8,6 +8,7 @@ package GestionEntretien.ServiceImpl;
 import GestionEntretien.Bean.Vehicule;
 import GestionEntretien.Dao.VehiculeRepository;
 import GestionEntretien.Service.VehiculeService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,11 @@ public class VehiculeImpl implements VehiculeService{
     public int delete(Vehicule vehicule) {
         vehiculeRepository.delete(vehicule);
         return 1;
+    }
+
+    @Override
+    public List<Vehicule> findAll() {
+        return vehiculeRepository.findAll();
     }
     
 }

@@ -64,4 +64,9 @@ public class LoginServiceImpl implements LoginService {
         return 1;
     }
 
+    @Override
+    public List<Login> findAll() {
+        return logindao.findAll();
+    }
+
 }
