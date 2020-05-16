@@ -34,7 +34,7 @@ public class BonVidange implements Serializable {
     protected Vehicule vehicule;
     
     @ManyToOne
-    private Fournisseur fournisseur;
+    private FournisseurSV fournisseur;
     
     private String type;
 

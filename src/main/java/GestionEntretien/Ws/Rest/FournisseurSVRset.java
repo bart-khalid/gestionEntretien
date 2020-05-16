@@ -6,8 +6,7 @@
 package GestionEntretien.Ws.Rest;
 
 import GestionEntretien.Bean.Agent;
-import GestionEntretien.Bean.Fournisseur;
-import GestionEntretien.Service.FournisseurService;
+import GestionEntretien.Bean.FournisseurSV;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import GestionEntretien.Service.FournisseurSVService;
 
 /**
  *
@@ -27,27 +27,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/fournisseur")
-public class FournisseurRset {
+public class FournisseurSVRset {
     @Autowired
-    private FournisseurService fournisseurService;
+    private FournisseurSVService fournisseurService;
     
     @PostMapping("/")
-    public int save(@RequestBody Fournisseur fournisseur){
+    public int save(@RequestBody FournisseurSV fournisseur){
         return fournisseurService.save(fournisseur);
     }
     
     @PutMapping("/update")
-    public int update(@RequestBody Fournisseur fournisseur){
+    public int update(@RequestBody FournisseurSV fournisseur){
         return fournisseurService.update(fournisseur);
     }
     
-    @DeleteMapping("/deleteFournisseur")
-    public int delete(@RequestBody Fournisseur fournisseur) {
-        return fournisseurService.delete(fournisseur);
+    @DeleteMapping("/deleteFournisseur/{nom}/{adresse}")
+    public int delete(@PathVariable String nom,@PathVariable String adresse) {
+        return fournisseurService.delete(nom, adresse);
     }
 
     @GetMapping("/")
-    public List<Fournisseur> findAll() {
+    public List<FournisseurSV> findAll() {
         return fournisseurService.findAll();
     }
     

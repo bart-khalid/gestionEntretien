@@ -36,18 +36,18 @@ public class BonReparation implements Serializable {
     private String Description;
 
     @ManyToOne
-    private Fournisseur fournisseur;
+    private FournisseurSV fournisseur;
 
     
     
     
     
     
-    public Fournisseur getFournisseur() {
+    public FournisseurSV getFournisseur() {
         return fournisseur;
     }
 
-    public void setFournisseur(Fournisseur fournisseur) {
+    public void setFournisseur(FournisseurSV fournisseur) {
         this.fournisseur = fournisseur;
     }
     

@@ -35,16 +35,16 @@ public class BonCarburant implements Serializable {
     private Vehicule vehicule;
     
     @ManyToOne
-    private Fournisseur fournisseur;
+    private FournisseurSV fournisseur;
     
     private double kilometrage;
     private BigDecimal liter;
 
-    public Fournisseur getFournisseur() {
+    public FournisseurSV getFournisseur() {
         return fournisseur;
     }
 
-    public void setFournisseur(Fournisseur fournisseur) {
+    public void setFournisseur(FournisseurSV fournisseur) {
         this.fournisseur = fournisseur;
     }
 

@@ -29,12 +29,13 @@ public class Materiel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
+    private Long id;
     private String reference;
-    protected String marque;
-    protected double nbrEntite;
-    protected String nom;
-    protected String type;
+    private String marque;
+    private double nbrEntite;
+    private String nom;
+    private String type;
+    private static Long nbrMateriel=0L;
     
 
     @OneToMany(mappedBy = "materiel")
@@ -43,11 +44,19 @@ public class Materiel implements Serializable {
 
 
     @ManyToOne 
-    private Fournisseur fournisseur;
+    private FournisseurSV fournisseur;
 
     
     
     
+    public static Long getNbrMateriel() {
+        return nbrMateriel;
+    }
+
+    public static void setNbrMateriel(Long nbrMateriel) {
+        Materiel.nbrMateriel = nbrMateriel;
+    }
+
     
     public String getReference() {
         return reference;
@@ -65,11 +74,11 @@ public class Materiel implements Serializable {
         this.type = type;
     }
 
-    public Fournisseur getFournisseur() {
+    public FournisseurSV getFournisseur() {
         return fournisseur;
     }
 
-    public void setFournisseur(Fournisseur fournisseur) {
+    public void setFournisseur(FournisseurSV fournisseur) {
         this.fournisseur = fournisseur;
     }
     
