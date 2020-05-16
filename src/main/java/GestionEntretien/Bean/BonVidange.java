@@ -24,19 +24,21 @@ public class BonVidange implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private double numeroBon;
-    private Date dateBon;
-    private double montant;
-    private double numFacture;
-    private String nomPrestataire;
+    private double numbonV;
+    private Date datebonV;
+    private double montantvignetteV;
+    private double prixunitaireV;
+    private double totalbrutV;
+    private double kilometrageV;
+    private double quantiteV;
+    private String descriptionV;
+    private String typehuileV;
     
     @ManyToOne
-    protected Vehicule vehicule;
+    private Vehicule vehiculeV;
     
     @ManyToOne
-    private Fournisseur fournisseur;
-    
-    private String type;
+    private Fournisseur fournisseurV;
 
     public Long getId() {
         return id;
@@ -46,77 +48,93 @@ public class BonVidange implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public double getNumbonV() {
+        return numbonV;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BonVidange)) {
-            return false;
-        }
-        BonVidange other = (BonVidange) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setNumbonV(double numbonV) {
+        this.numbonV = numbonV;
     }
 
-    @Override
-    public String toString() {
-        return "GestionEntretien.Bean.BonVidange[ id=" + id + " ]";
+    public Date getDatebonV() {
+        return datebonV;
     }
 
-    public double getNumeroBon() {
-        return numeroBon;
+    public void setDatebonV(Date datebonV) {
+        this.datebonV = datebonV;
     }
 
-    public void setNumeroBon(double numeroBon) {
-        this.numeroBon = numeroBon;
+    public double getMontantvignetteV() {
+        return montantvignetteV;
     }
 
-    public Date getDateBon() {
-        return dateBon;
+    public void setMontantvignetteV(double montantvignetteV) {
+        this.montantvignetteV = montantvignetteV;
     }
 
-    public void setDateBon(Date dateBon) {
-        this.dateBon = dateBon;
+    public double getPrixunitaireV() {
+        return prixunitaireV;
     }
 
-    public double getMontant() {
-        return montant;
+    public void setPrixunitaireV(double prixunitaireV) {
+        this.prixunitaireV = prixunitaireV;
     }
 
-    public void setMontant(double montant) {
-        this.montant = montant;
+    public double getTotalbrutV() {
+        return totalbrutV;
     }
 
-    public double getNumFacture() {
-        return numFacture;
+    public void setTotalbrutV(double totalbrutV) {
+        this.totalbrutV = totalbrutV;
     }
 
-    public void setNumFacture(double numFacture) {
-        this.numFacture = numFacture;
+    public double getKilometrageV() {
+        return kilometrageV;
     }
 
-    public String getNomPrestataire() {
-        return nomPrestataire;
+    public void setKilometrageV(double kilometrageV) {
+        this.kilometrageV = kilometrageV;
     }
 
-    public void setNomPrestataire(String nomPrestataire) {
-        this.nomPrestataire = nomPrestataire;
+    public double getQuantiteV() {
+        return quantiteV;
     }
 
-    public Vehicule getVehicule() {
-        return vehicule;
+    public void setQuantiteV(double quantiteV) {
+        this.quantiteV = quantiteV;
     }
 
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
+    public String getDescriptionV() {
+        return descriptionV;
     }
+
+    public void setDescriptionV(String descriptionV) {
+        this.descriptionV = descriptionV;
+    }
+
+    public String getTypehuileV() {
+        return typehuileV;
+    }
+
+    public void setTypehuileV(String typehuileV) {
+        this.typehuileV = typehuileV;
+    }
+
+    public Vehicule getVehiculeV() {
+        return vehiculeV;
+    }
+
+    public void setVehiculeV(Vehicule vehiculeV) {
+        this.vehiculeV = vehiculeV;
+    }
+
+    public Fournisseur getFournisseurV() {
+        return fournisseurV;
+    }
+
+    public void setFournisseurV(Fournisseur fournisseurV) {
+        this.fournisseurV = fournisseurV;
+    }
+    
     
 }

@@ -24,20 +24,20 @@ public class Fournisseur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nom;
-    private String email;
-    private String adresse;
-    private String telephone;
+    private String nomf;
+    private String emailf;
+    private String adressef;
+    private String telephonef;
 
     
 
-    @OneToMany(mappedBy = "fournisseur")
+    @OneToMany(mappedBy = "fournisseurC")
     private List<BonCarburant> bonsCarburant;
     
-    @OneToMany(mappedBy = "fournisseur")
+    @OneToMany(mappedBy = "fournisseurR")
     private List<BonReparation> bonsReparation;
     
-    @OneToMany(mappedBy = "fournisseur")
+    @OneToMany(mappedBy = "fournisseurV")
     private List<BonVidange> bonsVidange;
     
     
@@ -71,35 +71,35 @@ public class Fournisseur implements Serializable {
     
     
     public String getNom() {
-        return nom;
+        return nomf;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNom(String nomf) {
+        this.nomf = nomf;
     }
 
     public String getEmail() {
-        return email;
+        return emailf;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String emailf) {
+        this.emailf = emailf;
     }
 
     public String getAdresse() {
-        return adresse;
+        return adressef;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAdresse(String adressef) {
+        this.adressef = adressef;
     }
 
     public String getTelephone() {
-        return telephone;
+        return telephonef;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setTelephone(String telephonef) {
+        this.telephonef = telephonef;
     }
     
     

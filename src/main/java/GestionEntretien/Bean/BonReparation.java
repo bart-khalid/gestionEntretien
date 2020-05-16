@@ -24,43 +24,19 @@ public class BonReparation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private double numeroBon;
-    private Date dateBon;
-    private double montant;
-    private double numFacture;
-    private String nomPrestataire;
+   private double numbonR;
+    private Date datebonR;
+    private double montantvignetteR;
+    private double prixunitaireR;
+    private double totalbrutR;
+    private double quantiteR;
+    private String descriptionR;
     
     @ManyToOne
-    private Vehicule vehicule;
+    private Vehicule vehiculeR;
     
-    private String Description;
-
     @ManyToOne
-    private Fournisseur fournisseur;
-
-    
-    
-    
-    
-    
-    public Fournisseur getFournisseur() {
-        return fournisseur;
-    }
-
-    public void setFournisseur(Fournisseur fournisseur) {
-        this.fournisseur = fournisseur;
-    }
-    
-    
-    
-    
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String Description) {
-        this.Description = Description;
-    }
+    private Fournisseur fournisseurR;
 
     public Long getId() {
         return id;
@@ -70,77 +46,77 @@ public class BonReparation implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public double getNumbonR() {
+        return numbonR;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BonReparation)) {
-            return false;
-        }
-        BonReparation other = (BonReparation) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setNumbonR(double numbonR) {
+        this.numbonR = numbonR;
     }
 
-    @Override
-    public String toString() {
-        return "GestionEntretien.Bean.Reparation[ id=" + id + " ]";
+    public Date getDatebonR() {
+        return datebonR;
     }
 
-    public double getNumeroBon() {
-        return numeroBon;
+    public void setDatebonR(Date datebonR) {
+        this.datebonR = datebonR;
     }
 
-    public void setNumeroBon(double numeroBon) {
-        this.numeroBon = numeroBon;
+    public double getMontantvignetteR() {
+        return montantvignetteR;
     }
 
-    public Date getDateBon() {
-        return dateBon;
+    public void setMontantvignetteR(double montantvignetteR) {
+        this.montantvignetteR = montantvignetteR;
     }
 
-    public void setDateBon(Date dateBon) {
-        this.dateBon = dateBon;
+    public double getPrixunitaireR() {
+        return prixunitaireR;
     }
 
-    public double getMontant() {
-        return montant;
+    public void setPrixunitaireR(double prixunitaireR) {
+        this.prixunitaireR = prixunitaireR;
     }
 
-    public void setMontant(double montant) {
-        this.montant = montant;
+    public double getTotalbrutR() {
+        return totalbrutR;
     }
 
-    public double getNumFacture() {
-        return numFacture;
+    public void setTotalbrutR(double totalbrutR) {
+        this.totalbrutR = totalbrutR;
     }
 
-    public void setNumFacture(double numFacture) {
-        this.numFacture = numFacture;
+    public double getQuantiteR() {
+        return quantiteR;
     }
 
-    public String getNomPrestataire() {
-        return nomPrestataire;
+    public void setQuantiteR(double quantiteR) {
+        this.quantiteR = quantiteR;
     }
 
-    public void setNomPrestataire(String nomPrestataire) {
-        this.nomPrestataire = nomPrestataire;
+    public String getDescriptionR() {
+        return descriptionR;
     }
 
-    public Vehicule getVehicule() {
-        return vehicule;
+    public void setDescriptionR(String descriptionR) {
+        this.descriptionR = descriptionR;
     }
 
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
+    public Vehicule getVehiculeR() {
+        return vehiculeR;
     }
 
+    public void setVehiculeR(Vehicule vehiculeR) {
+        this.vehiculeR = vehiculeR;
+    }
+
+    public Fournisseur getFournisseurR() {
+        return fournisseurR;
+    }
+
+    public void setFournisseurR(Fournisseur fournisseurR) {
+        this.fournisseurR = fournisseurR;
+    }
+
+    
 }

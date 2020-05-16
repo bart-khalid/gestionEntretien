@@ -34,15 +34,15 @@ public class Vehicule implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateEntrerParc;
 
-    @OneToMany(mappedBy = "vehicule")
+    @OneToMany(mappedBy = "vehiculeC")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BonCarburant> bonsVehiculeC;
 
-    @OneToMany(mappedBy = "vehicule")
+    @OneToMany(mappedBy = "vehiculeR")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BonReparation> bonsVehiculeR;
     
-    @OneToMany(mappedBy = "vehicule")
+    @OneToMany(mappedBy = "vehiculeV")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BonVidange> bonsVehiculeV;
 

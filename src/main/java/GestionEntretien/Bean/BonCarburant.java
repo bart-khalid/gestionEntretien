@@ -25,53 +25,21 @@ public class BonCarburant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private double numeroBon;
-    private Date dateBon;
-    private double montant;
-    private double numFacture;
+    private double numbonC;
+    private Date datebonC;
+    private double montantvignetteC;
+    private double prixunitaireC;
+    private double totalbrutC;
     private String nomPrestataire;
+    private String descriptionC;
+    private String typeC;
     
     @ManyToOne
-    private Vehicule vehicule;
+    private Vehicule vehiculeC;
     
     @ManyToOne
-    private Fournisseur fournisseur;
-    
-    private double kilometrage;
-    private BigDecimal liter;
+    private Fournisseur fournisseurC;
 
-    public Fournisseur getFournisseur() {
-        return fournisseur;
-    }
-
-    public void setFournisseur(Fournisseur fournisseur) {
-        this.fournisseur = fournisseur;
-    }
-
-    
-    
-    
-    
-    
-    public BigDecimal getLiter() {
-        return liter;
-    }
-
-    public void setLiter(BigDecimal liter) {
-        this.liter = liter;
-    }
-
-    
-    
-    public double getKilometrage() {
-        return kilometrage;
-    }
-
-    public void setKilometrage(double kilometrage) {
-        this.kilometrage = kilometrage;
-    }
-    
-    
     public Long getId() {
         return id;
     }
@@ -80,61 +48,44 @@ public class BonCarburant implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public double getNumbonC() {
+        return numbonC;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BonCarburant)) {
-            return false;
-        }
-        BonCarburant other = (BonCarburant) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setNumbonC(double numbonC) {
+        this.numbonC = numbonC;
     }
 
-    @Override
-    public String toString() {
-        return "GestionEntretien.Bean.Carburant[ id=" + id + " ]";
+    public Date getDatebonC() {
+        return datebonC;
     }
 
-    public double getNumeroBon() {
-        return numeroBon;
+    public void setDatebonC(Date datebonC) {
+        this.datebonC = datebonC;
     }
 
-    public void setNumeroBon(double numeroBon) {
-        this.numeroBon = numeroBon;
+    public double getMontantvignetteC() {
+        return montantvignetteC;
     }
 
-    public Date getDateBon() {
-        return dateBon;
+    public void setMontantvignetteC(double montantvignetteC) {
+        this.montantvignetteC = montantvignetteC;
     }
 
-    public void setDateBon(Date dateBon) {
-        this.dateBon = dateBon;
+    public double getPrixunitaireC() {
+        return prixunitaireC;
     }
 
-    public double getMontant() {
-        return montant;
+    public void setPrixunitaireC(double prixunitaireC) {
+        this.prixunitaireC = prixunitaireC;
     }
 
-    public void setMontant(double montant) {
-        this.montant = montant;
+    public double getTotalbrutC() {
+        return totalbrutC;
     }
 
-    public double getNumFacture() {
-        return numFacture;
-    }
-
-    public void setNumFacture(double numFacture) {
-        this.numFacture = numFacture;
+    public void setTotalbrutC(double totalbrutC) {
+        this.totalbrutC = totalbrutC;
     }
 
     public String getNomPrestataire() {
@@ -145,12 +96,39 @@ public class BonCarburant implements Serializable {
         this.nomPrestataire = nomPrestataire;
     }
 
-    public Vehicule getVehicule() {
-        return vehicule;
+    public String getDescriptionC() {
+        return descriptionC;
     }
 
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
+    public void setDescriptionC(String descriptionC) {
+        this.descriptionC = descriptionC;
     }
+
+    public String getTypeC() {
+        return typeC;
+    }
+
+    public void setTypeC(String typeC) {
+        this.typeC = typeC;
+    }
+
+    public Vehicule getVehiculeC() {
+        return vehiculeC;
+    }
+
+    public void setVehiculeC(Vehicule vehiculeC) {
+        this.vehiculeC = vehiculeC;
+    }
+
+    public Fournisseur getFournisseurC() {
+        return fournisseurC;
+    }
+
+    public void setFournisseurC(Fournisseur fournisseurC) {
+        this.fournisseurC = fournisseurC;
+    }
+    
+   
+    
     
 }
