@@ -35,6 +35,9 @@ public class Materiel implements Serializable {
     private double nbrEntite;
     private String nom;
     private String type;
+    //description
+    private String descriptionDropDown;
+    
     private static Long nbrMateriel=0L;
     
 
@@ -55,6 +58,14 @@ public class Materiel implements Serializable {
 
     public static void setNbrMateriel(Long nbrMateriel) {
         Materiel.nbrMateriel = nbrMateriel;
+    }
+
+    public String getDescriptionDropDown() {
+        return descriptionDropDown;
+    }
+
+    public void setDescriptionDropDown(String descriptionDropDown) {
+        this.descriptionDropDown = descriptionDropDown;
     }
 
     

@@ -26,6 +26,7 @@ public class LocaleImpl implements LocaleService{
     
     @Override
     public int save(Locale locale) {
+        locale.setDescriptionDropDown(locale.getNomLocal() +" "+ locale.getTypeLocal()+" "+ locale.getDepartement());
         Locale.setNbrLocale(Locale.getNbrLocale() + 1);
         locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
         localeRepository.save(locale);
@@ -38,6 +39,7 @@ public class LocaleImpl implements LocaleService{
         foundedLocale.setNomLocal(locale.getNomLocal());
         foundedLocale.setDepartement(locale.getDepartement());
         foundedLocale.setTypeLocal(locale.getTypeLocal());
+        foundedLocale.setDescriptionDropDown(locale.getNomLocal() +" "+ locale.getTypeLocal()+" "+ locale.getDepartement());
         localeRepository.save(foundedLocale);
         return 1;
     }

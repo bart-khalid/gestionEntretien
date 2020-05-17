@@ -30,6 +30,8 @@ public class Locale implements Serializable {
     private String departement;
     private String typeLocal;
     private double nbrMateriel;
+    //desc
+    private String descriptionDropDown;
     private static Long nbrLocale=0L;
     
     @OneToMany(mappedBy = "locale")
@@ -50,6 +52,15 @@ public class Locale implements Serializable {
     public static Long getNbrLocale() {
         return nbrLocale;
     }
+
+    public String getDescriptionDropDown() {
+        return descriptionDropDown;
+    }
+
+    public void setDescriptionDropDown(String descriptionDropDown) {
+        this.descriptionDropDown = descriptionDropDown;
+    }
+    
 
     public static void setNbrLocale(Long nbrLocale) {
         Locale.nbrLocale = nbrLocale;

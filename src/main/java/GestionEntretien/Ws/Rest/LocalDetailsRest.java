@@ -42,7 +42,7 @@ public class LocalDetailsRest {
         return localDetailsService.update(localDetails);
     }
     
-    @DeleteMapping("/deleteMateriel/{reference}")
+    @DeleteMapping("/deleteMateriel/{referenceMaterielLocal}")
     public int delete(@PathVariable String referenceMaterielLocal){
         return localDetailsService.delete(referenceMaterielLocal);
     }
