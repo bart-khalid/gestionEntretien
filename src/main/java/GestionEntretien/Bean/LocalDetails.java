@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -26,10 +27,11 @@ public class LocalDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String reference;
+    private String referenceML;
     private String materielLocale;
     private String localeAssocie;
-    private Date dateAchat;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date dateAffectation;
 
     
     @ManyToOne 
@@ -64,13 +66,7 @@ public class LocalDetails implements Serializable {
     
     
     
-    public String getReference() {
-        return reference;
-    }
 
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
     
     
     public List<Reclamation> getReclamations() {
@@ -117,14 +113,23 @@ public class LocalDetails implements Serializable {
         this.localeAssocie = localeAssocie;
     }
 
-    public Date getDateAchat() {
-        return dateAchat;
+    public String getReferenceML() {
+        return referenceML;
     }
 
-    public void setDateAchat(Date dateAchat) {
-        this.dateAchat = dateAchat;
+    public void setReferenceML(String referenceML) {
+        this.referenceML = referenceML;
     }
-    
+
+    public Date getDateAffectation() {
+        return dateAffectation;
+    }
+
+    public void setDateAffectation(Date dateAffectation) {
+        this.dateAffectation = dateAffectation;
+    }
+
+  
 
     public Materiel getMateriel() {
         return materiel;

@@ -16,5 +16,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LocalDetailsRepository extends JpaRepository<LocalDetails, Long>{
     
-    public LocalDetails findByReference(String reference);
+    public LocalDetails findByReferenceML(String reference);
 }
