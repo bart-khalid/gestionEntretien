@@ -26,10 +26,11 @@ public class Locale implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String reference;
-    private String nom;
+    private String nomLocal;
     private String departement;
-    private String type;
+    private String typeLocal;
     private double nbrMateriel;
+    private static Long nbrLocale=0L;
     
     @OneToMany(mappedBy = "locale")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -45,6 +46,14 @@ public class Locale implements Serializable {
 
     
     
+    
+    public static Long getNbrLocale() {
+        return nbrLocale;
+    }
+
+    public static void setNbrLocale(Long nbrLocale) {
+        Locale.nbrLocale = nbrLocale;
+    }
     
     public double getNbrMateriel() {
         return nbrMateriel;
@@ -62,15 +71,6 @@ public class Locale implements Serializable {
     public void setDepartement(String departement) {
         this.departement = departement;
     }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-    
     
     public String getReference() {
         return reference;
@@ -79,14 +79,23 @@ public class Locale implements Serializable {
     public void setReference(String reference) {
         this.reference = reference;
     }
-    
-    public String getNom() {
-        return nom;
+
+    public String getNomLocal() {
+        return nomLocal;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomLocal(String nomLocal) {
+        this.nomLocal = nomLocal;
     }
+
+    public String getTypeLocal() {
+        return typeLocal;
+    }
+
+    public void setTypeLocal(String typeLocal) {
+        this.typeLocal = typeLocal;
+    }
+    
 
     public List<LocalDetails> getLocalDetails() {
         return localDetails;

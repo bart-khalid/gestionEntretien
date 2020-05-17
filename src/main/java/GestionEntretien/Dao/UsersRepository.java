@@ -5,17 +5,18 @@
  */
 package GestionEntretien.Dao;
 
-import GestionEntretien.Bean.Fournisseur;
+import GestionEntretien.Bean.Users;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author lenovo
+ * @author Zakaria
  */
 @Repository
-public interface FournisseurRepository extends JpaRepository<Fournisseur, Long>{
-//    @Query(value = "select fournisseur from fournisseur where nom=")
-//    public Fournisseur findByNomAndAdresse(String nom, String adresse);
+public interface UsersRepository extends JpaRepository<Users, Long> {
+    public Users findByUsername(String username);
+    public List<Users> findByType(String type);
 }

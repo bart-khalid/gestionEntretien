@@ -5,35 +5,32 @@
  */
 package GestionEntretien.ServiceImpl;
 
-import GestionEntretien.Bean.Fournisseur;
+import GestionEntretien.Bean.FournisseurSV;
 import GestionEntretien.Bean.Materiel;
 import GestionEntretien.Dao.MaterielRepository;
 import GestionEntretien.Service.MaterielService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+// this import for random String generating
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
  * @author lenovo
  */
 @Service
-public class MaterielImpl implements MaterielService{
+public class MaterielImpl implements MaterielService {
 
     @Autowired
     private MaterielRepository materielRepository;
-    
-    
+
     @Override
     public int save(Materiel materiel) {
-//        Fournisseur foundedFournisseur = materiel.getFournisseur();
-//        //maj liste materiel of fournisseur
-//        List<Materiel> materiels = foundedFournisseur.getMateriels();
-//        materiels.add(materiel);
-//        foundedFournisseur.setMateriels(materiels);
-        
-
-        materiel.setMarque(materiel.getFournisseur().getNom());
+        Materiel.setNbrMateriel(Materiel.getNbrMateriel() + 1);
+        FournisseurSV foundedFournisseur = materiel.getFournisseur();
+        materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
+        materiel.setMarque(materiel.getFournisseur().getNomf());
         materielRepository.save(materiel);
         return 1;
     }
@@ -41,12 +38,13 @@ public class MaterielImpl implements MaterielService{
     @Override
     public int update(Materiel materiel) {
         Materiel foundedMateriel = materielRepository.findByReference(materiel.getReference());
-        
+
         foundedMateriel.setFournisseur(materiel.getFournisseur());
-        foundedMateriel.setMarque(materiel.getMarque());
+        foundedMateriel.setMarque(materiel.getFournisseur().getNomf());
         foundedMateriel.setNom(materiel.getNom());
         foundedMateriel.setType(materiel.getType());
-        
+
+        materielRepository.save(foundedMateriel);
         return 1;
     }
 
@@ -61,5 +59,5 @@ public class MaterielImpl implements MaterielService{
     public List<Materiel> findAll() {
         return materielRepository.findAll();
     }
-    
+
 }

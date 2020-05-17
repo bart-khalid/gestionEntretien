@@ -33,7 +33,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
     @Override
     public int save(LocalDetails localDetails) {
         //save du materielLocale
-        localDetails.setLocaleAssocie(localDetails.getLocale().getNom() + ", " + localDetails.getLocale().getDepartement());
+        localDetails.setLocaleAssocie(localDetails.getLocale().getNomLocal()+ ", " + localDetails.getLocale().getDepartement());
         localDetails.setMaterielLocale(localDetails.getMateriel().getNom() + ", " + localDetails.getMateriel().getMarque());
         localDetailsRepository.save(localDetails);
 
@@ -61,7 +61,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
         foundedMaterielLocale.setReference(localDetails.getReference());
 
         // update du locale associe 
-        if (foundedMaterielLocale.getLocale().getReference() != localDetails.getLocale().getReference()) {
+        if (!foundedMaterielLocale.getLocale().getReference().equals(localDetails.getLocale().getReference())) {
 
             //modifier lancien locale associe 
             List<LocalDetails> materielslocaleToEdit = foundedMaterielLocale.getLocale().getLocalDetails();
@@ -99,7 +99,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
         }
 
         //update attributes of this MaterielLocale
-        localDetails.setLocaleAssocie(localDetails.getLocale().getNom() + ", " + localDetails.getLocale().getDepartement());
+        localDetails.setLocaleAssocie(localDetails.getLocale().getNomLocal()+ ", " + localDetails.getLocale().getDepartement());
         localDetails.setMaterielLocale(localDetails.getMateriel().getNom() + ", " + localDetails.getMateriel().getMarque());
         localDetailsRepository.save(localDetails);
 

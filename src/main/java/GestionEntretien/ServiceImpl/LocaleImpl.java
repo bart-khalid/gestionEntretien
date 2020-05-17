@@ -6,12 +6,14 @@
 package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.Locale;
+import GestionEntretien.Bean.Reclamation;
 import GestionEntretien.Dao.LocaleRepository;
 import GestionEntretien.Service.LocaleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+// this import for random String generating
+import org.apache.commons.lang3.RandomStringUtils;
 /**
  *
  * @author lenovo
@@ -24,6 +26,8 @@ public class LocaleImpl implements LocaleService{
     
     @Override
     public int save(Locale locale) {
+        Locale.setNbrLocale(Locale.getNbrLocale() + 1);
+        locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
         localeRepository.save(locale);
         return 1;
     }
@@ -31,9 +35,10 @@ public class LocaleImpl implements LocaleService{
     @Override
     public int update(Locale locale) {
         Locale foundedLocale = localeRepository.findByReference(locale.getReference());
-        foundedLocale.setNom(locale.getNom());
+        foundedLocale.setNomLocal(locale.getNomLocal());
         foundedLocale.setDepartement(locale.getDepartement());
-        foundedLocale.setType(locale.getType());
+        foundedLocale.setTypeLocal(locale.getTypeLocal());
+        localeRepository.save(foundedLocale);
         return 1;
     }
 

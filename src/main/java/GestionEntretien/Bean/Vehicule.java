@@ -31,7 +31,7 @@ public class Vehicule implements Serializable {
     private String matricule;
     private String utilite;
     private String marque;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateEntrerParc;
 
     @OneToMany(mappedBy = "vehiculeC")

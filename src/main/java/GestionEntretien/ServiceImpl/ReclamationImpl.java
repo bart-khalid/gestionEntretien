@@ -6,10 +6,9 @@
 package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.LocalDetails;
-import GestionEntretien.Bean.Login;
+import GestionEntretien.Bean.Users;
 import GestionEntretien.Bean.Reclamation;
 import GestionEntretien.Dao.LocalDetailsRepository;
-import GestionEntretien.Dao.LoginRepository;
 import GestionEntretien.Dao.ReclamationRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -18,6 +17,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 // this import for random String generating
 import org.apache.commons.lang3.RandomStringUtils;
+import GestionEntretien.Dao.UsersRepository;
 
 /**
  *
@@ -30,7 +30,7 @@ public class ReclamationImpl implements ReclamationService {
     private ReclamationRepository reclamationRepository;
 
     @Autowired
-    private LoginRepository loginRepository;
+    private UsersRepository loginRepository;
     
     @Autowired
     private LocalDetailsRepository localDetailsRepository;
@@ -43,7 +43,7 @@ public class ReclamationImpl implements ReclamationService {
     @Override
     public int save(Reclamation reclamation, String username) {      
 //        Reclamation foundedReclamation = reclamationRepository.findByReference(reclamation.getReference());
-        Login foundedReclamant = loginRepository.findByUsername(username);
+        Users foundedReclamant = loginRepository.findByUsername(username);
         
         
 //        LocalDetails foundedMateriel = localDetailsRepository.findByReference(reclamation.getMateriel().getReference());

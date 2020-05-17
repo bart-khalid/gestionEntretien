@@ -5,8 +5,7 @@
  */
 package GestionEntretien.Ws.Rest;
 
-import GestionEntretien.Bean.Login;
-import GestionEntretien.Service.LoginService;
+import GestionEntretien.Bean.Users;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import GestionEntretien.Service.UsersService;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  *
@@ -25,34 +27,48 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/Login")
-public class LoginRest {
+public class UsersRest {
     @Autowired
-    LoginService loginservice;
+    UsersService usersservice;
 
+    
+    @PutMapping("/update")
+    public int Update(@RequestBody Users login) {
+        return usersservice.Update(login);
+    }
+
+    
+    
     @PostMapping("/")
-    public int Save(@RequestBody Login login) {
-        return loginservice.Save(login);
+    public int Save(@RequestBody Users login) {
+        return usersservice.Save(login);
     }
 
     
     @GetMapping("/username/{username}")
-    public Login findByUsername(@PathVariable String username) {
-        return loginservice.findByUsername(username);
+    public Users findByUsername(@PathVariable String username) {
+        return usersservice.findByUsername(username);
     }
     @GetMapping("/type/{type}")
-    public List<Login> findByType(@PathVariable String type) {
-        return loginservice.findByType(type);
+    public List<Users> findByType(@PathVariable String type) {
+        return usersservice.findByType(type);
     }
     
     @GetMapping("/Connect/username/{username}/password/{password}")
     public int Connect(@PathVariable String username,@PathVariable String password) {
-        return loginservice.Connect(username, password);
+        return usersservice.Connect(username, password);
     }
 
     @GetMapping("/")
-    public List<Login> findAll() {
-        return loginservice.findAll();
+    public List<Users> findAll() {
+        return usersservice.findAll();
     }
+    
+    @DeleteMapping("/delete/{username}")
+    public int Delete(@PathVariable String username) {
+        return usersservice.Delete(username);
+    }
+    
     
     
 }

@@ -5,16 +5,16 @@
  */
 package GestionEntretien.Service;
 
-import GestionEntretien.Bean.Fournisseur;
+import GestionEntretien.Bean.FournisseurSV;
 import java.util.List;
 
 /**
  *
  * @author lenovo
  */
-public interface FournisseurService {
-    public int save(Fournisseur fournisseur);
-    public int update(Fournisseur fournisseur);
-    public int delete(Fournisseur fournisseur);
-    public List<Fournisseur> findAll();
+public interface FournisseurSVService {
+    public int save(FournisseurSV fournisseur);
+    public int update(FournisseurSV fournisseur);
+    public int delete(String nom, String adresse);
+    public List<FournisseurSV> findAll();
 }

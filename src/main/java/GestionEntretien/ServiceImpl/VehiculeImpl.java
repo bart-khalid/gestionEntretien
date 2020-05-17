@@ -24,18 +24,32 @@ public class VehiculeImpl implements VehiculeService{
     
     @Override
     public int save(Vehicule vehicule) {
+        Vehicule foundedv = vehiculeRepository.findByMatricule(vehicule.getMatricule());
+        if(foundedv!=null){
+        return -1;
+        }
         vehiculeRepository.save(vehicule);
         return 1;
     }
 
     @Override
     public int update(Vehicule vehicule) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Vehicule foundedv = vehiculeRepository.findByMatricule(vehicule.getMatricule());
+    foundedv.setMatricule(vehicule.getMatricule());
+    foundedv.setMarque(vehicule.getMarque());
+    foundedv.setType(vehicule.getType());
+    foundedv.setUtilite(vehicule.getUtilite());
+    vehiculeRepository.save(foundedv);
+    return 1;
     }
 
     @Override
-    public int delete(Vehicule vehicule) {
-        vehiculeRepository.delete(vehicule);
+    public int delete(String matricule) {
+    Vehicule foundedv = vehiculeRepository.findByMatricule(matricule);
+    if(foundedv == null){
+    return -1;
+    }
+        vehiculeRepository.delete(foundedv);
         return 1;
     }
 
