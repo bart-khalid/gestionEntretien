@@ -34,7 +34,9 @@ public class Reclamation implements Serializable {
     private String nomMateriel;
     private String reclamentName;
     private String etat;
-    static Long nbr=0000L;
+    private static Long nbr=0000L;
+    
+    private String descreptionDropDownReclamation;
     
     @ManyToOne 
     private LocalDetails materiel;
@@ -55,6 +57,14 @@ public class Reclamation implements Serializable {
 
     public void setMateriel(LocalDetails materiel) {
         this.materiel = materiel;
+    }
+
+    public String getDescreptionDropDownReclamation() {
+        return descreptionDropDownReclamation;
+    }
+
+    public void setDescreptionDropDownReclamation(String descreptionDropDownReclamation) {
+        this.descreptionDropDownReclamation = descreptionDropDownReclamation;
     }
     
     

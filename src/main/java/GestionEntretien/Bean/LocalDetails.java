@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -33,18 +34,23 @@ public class LocalDetails implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateAffectation;
 
+    //dec
+    private String descriptionMaterielLocale;
     
     @ManyToOne 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Locale locale;
     
     @ManyToOne
     private Materiel materiel;
     
     
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany (mappedBy = "materiel")
     private List<Entretien> entretiensMateriele;
     
     
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "materiel")
     private List<Reclamation> reclamations;
 
@@ -57,8 +63,17 @@ public class LocalDetails implements Serializable {
         return entretiensMateriele;
     }
 
+    
     public void setEntretiensMateriele(List<Entretien> entretiensMateriele) {
         this.entretiensMateriele = entretiensMateriele;
+    }
+
+    public String getDescriptionMaterielLocale() {
+        return descriptionMaterielLocale;
+    }
+
+    public void setDescriptionMaterielLocale(String descriptionMaterielLocale) {
+        this.descriptionMaterielLocale = descriptionMaterielLocale;
     }
 
     

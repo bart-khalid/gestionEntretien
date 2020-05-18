@@ -58,6 +58,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
             loadedMateriel.setNbrEntite(loadedMateriel.getNbrEntite() + 1);
             materielRepository.save(loadedMateriel);
 
+            localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML()+ ", " + localDetails.getMaterielLocale() );
             localDetailsRepository.save(localDetails);
             return 1;
         }
@@ -98,7 +99,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
         }
 
         //update du Materiel Associer
-        if (foundedMaterielLocale.getMateriel().getReference() != localDetails.getMateriel().getReference()) {
+        if (!foundedMaterielLocale.getMateriel().getReference().equals(localDetails.getMateriel().getReference())) {
 
             //modifier l' ancien Materiel associer
             List<LocalDetails> mats = foundedMaterielLocale.getMateriel().getLocalDetails();
@@ -129,6 +130,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
         foundedMaterielLocale.setMaterielLocale(localDetails.getMateriel().getNom() + ", " + localDetails.getMateriel().getMarque());
         foundedMaterielLocale.setDateAffectation(localDetails.getDateAffectation());
         
+        localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML()+ ", " + localDetails.getMaterielLocale() );
         localDetailsRepository.save(foundedMaterielLocale);
 
         return 1;

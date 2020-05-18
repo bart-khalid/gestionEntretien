@@ -32,7 +32,7 @@ public class MaterielImpl implements MaterielService {
         FournisseurSV foundedFournisseur = materiel.getFournisseur();
         materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
         materiel.setMarque(materiel.getFournisseur().getNomf());
-        materiel.setDescriptionDropDown(materiel.getNom() + " " + materiel.getMarque());
+        materiel.setDescriptionDropDown(materiel.getNom() + ", " + materiel.getMarque());
         materielRepository.save(materiel);
         return 1;
     }
@@ -45,7 +45,7 @@ public class MaterielImpl implements MaterielService {
         foundedMateriel.setMarque(materiel.getFournisseur().getNomf());
         foundedMateriel.setNom(materiel.getNom());
         foundedMateriel.setType(materiel.getType());
-        foundedMateriel.setDescriptionDropDown(materiel.getNom() + " " + materiel.getMarque());
+        foundedMateriel.setDescriptionDropDown(materiel.getNom() + ", " + materiel.getMarque());
 
         materielRepository.save(foundedMateriel);
         return 1;
