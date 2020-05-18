@@ -7,12 +7,12 @@ package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.LocalDetails;
 import GestionEntretien.Bean.Locale;
-import GestionEntretien.Bean.Login;
 import GestionEntretien.Bean.Reclamation;
+import GestionEntretien.Bean.Users;
 import GestionEntretien.Dao.LocalDetailsRepository;
 import GestionEntretien.Dao.LocaleRepository;
-import GestionEntretien.Dao.LoginRepository;
 import GestionEntretien.Dao.ReclamationRepository;
+import GestionEntretien.Dao.UsersRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import GestionEntretien.Service.ReclamationService;
@@ -32,7 +32,7 @@ public class ReclamationImpl implements ReclamationService {
     private ReclamationRepository reclamationRepository;
 
     @Autowired
-    private LoginRepository loginRepository;
+    private UsersRepository loginRepository;
 
     @Autowired
     private LocalDetailsRepository localDetailsRepository;
@@ -48,7 +48,7 @@ public class ReclamationImpl implements ReclamationService {
     @Override
     public int save(Reclamation reclamation, String username) {
         Reclamation foundedReclamation = reclamationRepository.findByReference(reclamation.getReference());
-        Login foundedReclamant = loginRepository.findByUsername(username);
+        Users foundedReclamant = loginRepository.findByUsername(username);
         LocalDetails foundedMateriel = localDetailsRepository.findByReferenceML(reclamation.getMateriel().getReferenceML());
 
         if (foundedReclamation != null) {

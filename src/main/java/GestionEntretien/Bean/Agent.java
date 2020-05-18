@@ -31,7 +31,7 @@ public class Agent implements Serializable {
     private Date dateEntree;
     private String entrepriseliee;
     private String adresseDomicile;
-    private String tele;
+    private String tel;
 
     @OneToMany(mappedBy = "agent")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -48,11 +48,11 @@ public class Agent implements Serializable {
     
     
     public String getTele() {
-        return tele;
+        return tel;
     }
 
-    public void setTele(String tele) {
-        this.tele = tele;
+    public void setTele(String tel) {
+        this.tel = tel;
     }
 
     public String getCodeAgent() {

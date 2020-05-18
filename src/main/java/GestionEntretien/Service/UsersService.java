@@ -6,18 +6,20 @@
 package GestionEntretien.Service;
 
 import GestionEntretien.Bean.Agent;
-import GestionEntretien.Bean.Login;
+import GestionEntretien.Bean.Users;
 import java.util.List;
 
 /**
  *
  * @author Zakaria
  */
-public interface LoginService {
+public interface UsersService {
     
-     public Login findByUsername(String username);
-     public List<Login> findByType(String type);
+     public Users findByUsername(String username);
+     public List<Users> findByType(String type);
      public int Connect(String username,String password);
-     public int Save(Login login );
-     public List<Login> findAll();
+     public int Save(Users login );
+     public int Update(Users login);
+     public int Delete(String username);
+     public List<Users> findAll();
 }

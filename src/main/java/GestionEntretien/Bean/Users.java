@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
  * @author Zakaria
  */
 @Entity
-public class Login implements Serializable {
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -112,10 +112,10 @@ public class Login implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Login)) {
+        if (!(object instanceof Users)) {
             return false;
         }
-        Login other = (Login) object;
+        Users other = (Users) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

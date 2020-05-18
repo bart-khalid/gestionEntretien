@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,8 +42,8 @@ public class VehiculeRest {
     }
     
     @DeleteMapping("/deleteVehicule")
-    public int delete(@RequestBody Vehicule vehicule){
-        return vehiculeService.delete(vehicule);
+    public int delete(@PathVariable String matricule){
+        return vehiculeService.delete(matricule);
     }
 
     @GetMapping("/")

@@ -5,7 +5,7 @@
  */
 package GestionEntretien.Dao;
 
-import GestionEntretien.Bean.Login;
+import GestionEntretien.Bean.Users;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @author Zakaria
  */
 @Repository
-public interface LoginRepository extends JpaRepository<Login, Long> {
-    public Login findByUsername(String username);
-    public List<Login> findByType(String type);
+public interface UsersRepository extends JpaRepository<Users, Long> {
+    public Users findByUsername(String username);
+    public List<Users> findByType(String type);
 }

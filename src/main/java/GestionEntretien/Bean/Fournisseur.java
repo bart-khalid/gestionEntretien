@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
  * @author lenovo
  */
 @Entity
-public class FournisseurSV implements Serializable {
+public class Fournisseur implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,48 +39,9 @@ public class FournisseurSV implements Serializable {
     
     @OneToMany(mappedBy = "fournisseurV")
     private List<BonVidange> bonsVidange;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNomf() {
-        return nomf;
-    }
-
-    public void setNomf(String nomf) {
-        this.nomf = nomf;
-    }
-
-    public String getEmailf() {
-        return emailf;
-    }
-
-    public void setEmailf(String emailf) {
-        this.emailf = emailf;
-    }
-
-  
-
-    public String getAdressef() {
-        return adressef;
-    }
-
-    public void setAdressef(String adressef) {
-        this.adressef = adressef;
-    }
-
-    public String getTelephonef() {
-        return telephonef;
-    }
-
-    public void setTelephonef(String telephonef) {
-        this.telephonef = telephonef;
-    }
+    
+    
+    
 
     public List<BonCarburant> getBonsCarburant() {
         return bonsCarburant;
@@ -108,8 +69,48 @@ public class FournisseurSV implements Serializable {
     
     
     
-
     
+    public String getNom() {
+        return nomf;
+    }
+
+    public void setNom(String nomf) {
+        this.nomf = nomf;
+    }
+
+    public String getEmail() {
+        return emailf;
+    }
+
+    public void setEmail(String emailf) {
+        this.emailf = emailf;
+    }
+
+    public String getAdresse() {
+        return adressef;
+    }
+
+    public void setAdresse(String adressef) {
+        this.adressef = adressef;
+    }
+
+    public String getTelephone() {
+        return telephonef;
+    }
+
+    public void setTelephone(String telephonef) {
+        this.telephonef = telephonef;
+    }
+    
+    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public int hashCode() {
@@ -121,10 +122,10 @@ public class FournisseurSV implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FournisseurSV)) {
+        if (!(object instanceof Fournisseur)) {
             return false;
         }
-        FournisseurSV other = (FournisseurSV) object;
+        Fournisseur other = (Fournisseur) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

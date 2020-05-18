@@ -45,7 +45,7 @@ public class Reclamation implements Serializable {
     private Locale locale;
     
     @ManyToOne
-    private Login reclament;
+    private Users reclament;
     
     
     
@@ -100,11 +100,11 @@ public class Reclamation implements Serializable {
     }
 
     
-    public Login getReclament() {
+    public Users getReclament() {
         return reclament;
     }
 
-    public void setReclament(Login reclament) {
+    public void setReclament(Users reclament) {
         this.reclament = reclament;
     }
 
