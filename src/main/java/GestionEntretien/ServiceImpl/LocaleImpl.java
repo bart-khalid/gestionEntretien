@@ -26,7 +26,7 @@ public class LocaleImpl implements LocaleService{
     
     @Override
     public int save(Locale locale) {
-        locale.setDescriptionDropDown(locale.getNomLocal() +" "+ locale.getTypeLocal()+", "+ locale.getDepartement());
+        locale.setDescriptionDropDown(locale.getNomLocal() +", "+ locale.getTypeLocal()+", "+ locale.getDepartement());
         Locale.setNbrLocale(Locale.getNbrLocale() + 1);
         locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
         localeRepository.save(locale);

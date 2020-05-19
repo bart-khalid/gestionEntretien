@@ -35,6 +35,7 @@ public class AgentImpl implements AgentService{
         } else if (foundeda != null){
             return -2;
         } else {
+            agent.setDescriptionDropDown(agent.getCodeAgent()+','+agent.getNomAgent());
         Agent.setNbr(agent.getNbr() + 1);
         agent.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(agent.getNbr()));
              agentRepository.save(agent);
@@ -46,7 +47,7 @@ public class AgentImpl implements AgentService{
     @Override
     public int update(Agent agent) {
         Agent foundedAgent = agentRepository.findByReference(agent.getReference());
-       
+            foundedAgent.setDescriptionDropDown(agent.getCodeAgent()+','+agent.getNomAgent());
             foundedAgent.setEntrepriseliee(agent.getEntrepriseliee());
             foundedAgent.setCodeAgent(agent.getCodeAgent());
             foundedAgent.setAdresseDomicile(agent.getAdresseDomicile());

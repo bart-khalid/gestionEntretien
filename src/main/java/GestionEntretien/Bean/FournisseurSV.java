@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -24,21 +25,52 @@ public class FournisseurSV implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
+    private static Long nbr=0000L;
     private String nomf;
     private String emailf;
     private String adressef;
     private String telephonef;
-
-    
-
+    private String descriptionDropDown;
+   
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurC")
     private List<BonCarburant> bonsCarburant;
     
+     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurR")
     private List<BonReparation> bonsReparation;
-    
+     
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurV")
     private List<BonVidange> bonsVidange;
+
+    public String getDescriptionDropDown() {
+        return descriptionDropDown;
+    }
+
+    public void setDescriptionDropDown(String descriptionDropDown) {
+        this.descriptionDropDown = descriptionDropDown;
+    }
+
+    
+    
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        FournisseurSV.nbr = nbr;
+    }
+
 
     public Long getId() {
         return id;

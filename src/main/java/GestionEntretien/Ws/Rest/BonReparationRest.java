@@ -5,8 +5,8 @@
  */
 package GestionEntretien.Ws.Rest;
 
-import GestionEntretien.Bean.Agent;
-import GestionEntretien.Bean.FournisseurSV;
+import GestionEntretien.Bean.BonReparation;
+import GestionEntretien.Service.BonReparationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,37 +18,45 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import GestionEntretien.Service.FournisseurSVService;
 
 /**
  *
- * @author lenovo
+ * @author Zakaria
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("GestionEntretien/fournisseur")
-public class FournisseurSVRset {
-    @Autowired
-    private FournisseurSVService fournisseurService;
+@RequestMapping("GestionEntretien/bonreparation")
+public class BonReparationRest {
+     @Autowired
+    BonReparationService bonrservice;
+
     
+    public BonReparation findByReference(@PathVariable String reference) {
+        return bonrservice.findByReference(reference);
+    }
+
+    public BonReparation findByNumbonR(@PathVariable String reference) {
+        return bonrservice.findByNumbonR(reference);
+    }
+
     @PostMapping("/")
-    public int save(@RequestBody FournisseurSV fournisseur){
-        return fournisseurService.save(fournisseur);
+    public int save(@RequestBody BonReparation boncarburant) {
+        return bonrservice.save(boncarburant);
     }
-    
     @PutMapping("/update")
-    public int update(@RequestBody FournisseurSV fournisseur){
-        return fournisseurService.update(fournisseur);
+    public int update(@RequestBody BonReparation boncarburant) {
+        return bonrservice.update(boncarburant);
     }
-    
-    @DeleteMapping("/deleteFournisseur/{reference}")
+    @DeleteMapping("/delete/{reference}")
     public int delete(@PathVariable String reference) {
-        return fournisseurService.delete(reference);
+        return bonrservice.delete(reference);
     }
 
     @GetMapping("/")
-    public List<FournisseurSV> findAll() {
-        return fournisseurService.findAll();
+    public List<BonReparation> findAll() {
+        return bonrservice.findAll();
     }
+    
+    
     
 }

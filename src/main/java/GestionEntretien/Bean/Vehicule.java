@@ -35,6 +35,8 @@ public class Vehicule implements Serializable {
     private static Long nbr=0000L;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateEntrerParc;
+    private String descriptionDropDown;
+
 
     @OneToMany(mappedBy = "vehiculeC")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -48,6 +50,15 @@ public class Vehicule implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BonVidange> bonsVehiculeV;
 
+    public String getDescriptionDropDown() {
+        return descriptionDropDown;
+    }
+
+    public void setDescriptionDropDown(String descriptionDropDown) {
+        this.descriptionDropDown = descriptionDropDown;
+    }
+
+    
     public String getReference() {
         return reference;
     }

@@ -15,5 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BonVidangeRepository extends JpaRepository<BonVidange, Long> {
-    
+     public BonVidange findByReference(String reference);
+    public BonVidange findByNumbonV(String reference);
 }

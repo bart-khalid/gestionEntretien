@@ -35,12 +35,23 @@ public class Agent implements Serializable {
     private String entrepriseliee;
     private String adresseDomicile;
     private String tel;
+    private String descriptionDropDown;
     private static Long nbr=0000L;
 
     @OneToMany(mappedBy = "agent")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PrestationInterne> prestations;
 
+    public String getDescriptionDropDown() {
+        return descriptionDropDown;
+    }
+
+    public void setDescriptionDropDown(String descriptionDropDown) {
+        this.descriptionDropDown = descriptionDropDown;
+    }
+
+    
+    
     public String getReference() {
         return reference;
     }

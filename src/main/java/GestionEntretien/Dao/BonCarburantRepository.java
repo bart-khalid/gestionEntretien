@@ -15,5 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BonCarburantRepository extends JpaRepository<BonCarburant, Long>{
+    public BonCarburant findByReference(String reference);
+    public BonCarburant findByNumbonC(String reference);
     
 }
