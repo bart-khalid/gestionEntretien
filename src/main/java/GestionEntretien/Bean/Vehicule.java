@@ -27,10 +27,12 @@ public class Vehicule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private String type;
     private String matricule;
     private String utilite;
     private String marque;
+    private static Long nbr=0000L;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateEntrerParc;
 
@@ -46,6 +48,24 @@ public class Vehicule implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BonVidange> bonsVehiculeV;
 
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        Vehicule.nbr = nbr;
+    }
+
+    
+    
     public List<BonCarburant> getBonsVehiculeC() {
         return bonsVehiculeC;
     }

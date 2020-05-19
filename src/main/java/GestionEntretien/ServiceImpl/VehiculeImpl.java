@@ -9,6 +9,7 @@ import GestionEntretien.Bean.Vehicule;
 import GestionEntretien.Dao.VehiculeRepository;
 import GestionEntretien.Service.VehiculeService;
 import java.util.List;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,27 +29,27 @@ public class VehiculeImpl implements VehiculeService{
         if(foundedv!=null){
         return -1;
         }
+        Vehicule.setNbr(vehicule.getNbr() + 1);
+        vehicule.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(vehicule.getNbr()));
         vehiculeRepository.save(vehicule);
         return 1;
     }
 
     @Override
     public int update(Vehicule vehicule) {
-    Vehicule foundedv = vehiculeRepository.findByMatricule(vehicule.getMatricule());
+    Vehicule foundedv = vehiculeRepository.findByReference(vehicule.getReference());
     foundedv.setMatricule(vehicule.getMatricule());
     foundedv.setMarque(vehicule.getMarque());
     foundedv.setType(vehicule.getType());
     foundedv.setUtilite(vehicule.getUtilite());
+    foundedv.setDateEntrerParc(vehicule.getDateEntrerParc());
     vehiculeRepository.save(foundedv);
     return 1;
     }
 
     @Override
-    public int delete(String matricule) {
-    Vehicule foundedv = vehiculeRepository.findByMatricule(matricule);
-    if(foundedv == null){
-    return -1;
-    }
+    public int delete(String reference) {
+    Vehicule foundedv = vehiculeRepository.findByReference(reference);
         vehiculeRepository.delete(foundedv);
         return 1;
     }
@@ -56,6 +57,16 @@ public class VehiculeImpl implements VehiculeService{
     @Override
     public List<Vehicule> findAll() {
         return vehiculeRepository.findAll();
+    }
+
+    @Override
+    public Vehicule findByReference(String reference) {
+        return vehiculeRepository.findByReference(reference);  
+    }
+
+    @Override
+    public Vehicule findByMatricule(String Matricule) {
+        return vehiculeRepository.findByMatricule(Matricule); 
     }
     
 }

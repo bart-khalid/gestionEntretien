@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import GestionEntretien.Dao.UsersRepository;
 import GestionEntretien.Service.UsersService;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
@@ -48,9 +49,12 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public int Save(Users users) {
         Users foundedlogin = findByUsername(users.getUsername());
+        Users u = findByTelephone(users.getTelephone());
         if (foundedlogin != null) {
             return -1;
         }
+        if(u != null)
+        return -5;
         
         if (users.getUsername() == null || users.getUsername().equals("") ) {
             return -2;
@@ -59,6 +63,8 @@ public class UsersServiceImpl implements UsersService {
         } else if (users.getType() == null || users.getType().equals("")) {
             return -4;
         } else {
+            Users.setNbr(users.getNbr() + 1);
+            users.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(users.getNbr()));
             usersdao.save(users);
         }
         return 1;
@@ -71,7 +77,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int Update(Users users) {
-    Users user = usersdao.findByUsername(users.getUsername());
+    Users user = usersdao.findByReference(users.getReference());
     user.setUsername(users.getUsername());
     user.setNom(users.getNom());
     user.setPassword(users.getPassword());
@@ -83,10 +89,20 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public int Delete(String username) {
-     Users user = usersdao.findByUsername(username);
+    public int Delete(String reference) {
+     Users user = usersdao.findByReference(reference);
      usersdao.delete(user);
      return 1;
+    }
+
+    @Override
+    public Users findByReference(String reference) {
+    return usersdao.findByReference(reference);
+    }
+
+    @Override
+    public Users findByTelephone(String tele) {
+    return usersdao.findByTelephone(tele);
     }
 
 }

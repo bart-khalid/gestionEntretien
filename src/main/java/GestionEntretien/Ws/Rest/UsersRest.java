@@ -64,9 +64,9 @@ public class UsersRest {
         return usersservice.findAll();
     }
     
-    @DeleteMapping("/delete/{username}")
-    public int Delete(@PathVariable String username) {
-        return usersservice.Delete(username);
+    @DeleteMapping("/delete/{reference}")
+    public int Delete(@PathVariable String reference) {
+        return usersservice.Delete(reference);
     }
     
     

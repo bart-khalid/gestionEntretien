@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
@@ -26,16 +27,44 @@ public class Agent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private String codeAgent;
     private String nomAgent;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateEntree;
     private String entrepriseliee;
     private String adresseDomicile;
     private String tel;
+    private static Long nbr=0000L;
 
     @OneToMany(mappedBy = "agent")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PrestationInterne> prestations;
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        Agent.nbr = nbr;
+    }
+
 
     
     public List<PrestationInterne> getPrestations() {
@@ -46,14 +75,6 @@ public class Agent implements Serializable {
         this.prestations = prestations;
     }
     
-    
-    public String getTele() {
-        return tel;
-    }
-
-    public void setTele(String tel) {
-        this.tel = tel;
-    }
 
     public String getCodeAgent() {
         return codeAgent;

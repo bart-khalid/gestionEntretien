@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -25,7 +26,10 @@ public class BonCarburant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
+    private static Long nbr=0000L;
     private double numbonC;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date datebonC;
     private double montantvignetteC;
     private double prixunitaireC;
@@ -39,6 +43,24 @@ public class BonCarburant implements Serializable {
     
     @ManyToOne
     private Fournisseur fournisseurC;
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        BonCarburant.nbr = nbr;
+    }
+    
+    
 
     public Long getId() {
         return id;
