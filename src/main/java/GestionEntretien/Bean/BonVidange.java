@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -25,6 +26,7 @@ public class BonVidange implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private double numbonV;
+    @JsonFormat(pattern = "yyyy-MM-dd")    
     private Date datebonV;
     private double montantvignetteV;
     private double prixunitaireV;
@@ -33,12 +35,32 @@ public class BonVidange implements Serializable {
     private double quantiteV;
     private String descriptionV;
     private String typehuileV;
+    private String reference;
+    private static Long nbr=0000L;
     
     @ManyToOne
     private Vehicule vehiculeV;
     
     @ManyToOne
     private Fournisseur fournisseurV;
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        BonVidange.nbr = nbr;
+    }
+    
+    
 
     public Long getId() {
         return id;

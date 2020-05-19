@@ -9,6 +9,7 @@ import GestionEntretien.Bean.Agent;
 import GestionEntretien.Dao.AgentRepository;
 import GestionEntretien.Service.AgentService;
 import java.util.List;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +29,15 @@ public class AgentImpl implements AgentService{
     @Override
     public int save(Agent agent) {
         Agent foundedAgent = agentRepository.findByCodeAgent(agent.getCodeAgent());
-        
+        Agent foundeda = agentRepository.findByTel(agent.getTel());
         if (foundedAgent != null){
             return -1;
+        } else if (foundeda != null){
+            return -2;
         } else {
-            agentRepository.save(agent);
+        Agent.setNbr(agent.getNbr() + 1);
+        agent.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(agent.getNbr()));
+             agentRepository.save(agent);
              return 1;
         }
    
@@ -40,23 +45,23 @@ public class AgentImpl implements AgentService{
 
     @Override
     public int update(Agent agent) {
-        Agent foundedAgent = agentRepository.findByCodeAgent(agent.getCodeAgent());
-        if (foundedAgent == null ){
-            return -1;
-        } else {
+        Agent foundedAgent = agentRepository.findByReference(agent.getReference());
+       
+            foundedAgent.setEntrepriseliee(agent.getEntrepriseliee());
+            foundedAgent.setCodeAgent(agent.getCodeAgent());
             foundedAgent.setAdresseDomicile(agent.getAdresseDomicile());
             foundedAgent.setDateEntree(agent.getDateEntree());
             foundedAgent.setNomAgent(agent.getNomAgent());
-            foundedAgent.setTele(agent.getTele());
+            foundedAgent.setTel(agent.getTel());
             
             agentRepository.save(foundedAgent);
             return 1;
-        }
+        
     }
 
     @Override
-    public int deleteByCodeAgent(String codeAgent) {
-        Agent foundedAgent = agentRepository.findByCodeAgent(codeAgent);
+    public int deleteByCodeAgent(String reference) {
+        Agent foundedAgent = agentRepository.findByReference(reference);
         agentRepository.delete(foundedAgent);
         return 1;
     }
@@ -65,5 +70,19 @@ public class AgentImpl implements AgentService{
     public List<Agent> findAll() {
        return agentRepository.findAll();
     }
+
+    @Override
+    public Agent findByCodeAgent(String codeAgent) {
+    return agentRepository.findByCodeAgent(codeAgent);
+    }
+
+    @Override
+    public Agent findByReference(String reference) {
+    return agentRepository.findByReference(reference);
+    }
+
+    @Override
+    public Agent findByTel(String tel) {
+    return agentRepository.findByTel(tel);    }
     
 }

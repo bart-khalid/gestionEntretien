@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -23,9 +24,12 @@ public class BonReparation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-   private double numbonR;
+    private Long id;    
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private double numbonR;
     private Date datebonR;
+    private String reference;
+    private static Long nbr=0000L;
     private double montantvignetteR;
     private double prixunitaireR;
     private double totalbrutR;
@@ -38,6 +42,23 @@ public class BonReparation implements Serializable {
     @ManyToOne
     private Fournisseur fournisseurR;
 
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        BonReparation.nbr = nbr;
+    }
+
+    
     public Long getId() {
         return id;
     }

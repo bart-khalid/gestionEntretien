@@ -25,17 +25,40 @@ public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private String username;
     private String password;
     private String type;
     private String prenom;
     private String nom;
     private String telephone;
-
+    private static Long nbr=0000L;
     
-    @OneToMany (mappedBy = "reclament")
+      @OneToMany (mappedBy = "reclament")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Reclamation> reclamations; 
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        Users.nbr = nbr;
+    }
+
+  
+
+
+    
+  
 
     public List<Reclamation> getReclamations() {
         return reclamations;

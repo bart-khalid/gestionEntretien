@@ -41,9 +41,9 @@ public class AgentRest {
         return agentService.update(agent);
     }
     
-    @DeleteMapping("/deleteAgent/{codeAgent}")
-    public int deleteByCodeAgent(@PathVariable String codeAgent){
-        return agentService.deleteByCodeAgent(codeAgent);
+    @DeleteMapping("/deleteAgent/{reference}")
+    public int deleteByCodeAgent(@PathVariable String reference){
+        return agentService.deleteByCodeAgent(reference);
     }
 
     @GetMapping("/")

@@ -41,9 +41,9 @@ public class VehiculeRest {
         return vehiculeService.update(vehicule);
     }
     
-    @DeleteMapping("/deleteVehicule")
-    public int delete(@PathVariable String matricule){
-        return vehiculeService.delete(matricule);
+    @DeleteMapping("/deleteVehicule/{reference}")
+    public int delete(@PathVariable String reference){
+        return vehiculeService.delete(reference);
     }
 
     @GetMapping("/")

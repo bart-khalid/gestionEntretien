@@ -14,12 +14,13 @@ import java.util.List;
  * @author Zakaria
  */
 public interface UsersService {
-    
+     public Users findByTelephone(String tele);
      public Users findByUsername(String username);
      public List<Users> findByType(String type);
      public int Connect(String username,String password);
      public int Save(Users login );
      public int Update(Users login);
      public int Delete(String username);
+     public Users findByReference(String reference);
      public List<Users> findAll();
 }
