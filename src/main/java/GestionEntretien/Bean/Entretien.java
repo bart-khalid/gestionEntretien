@@ -26,6 +26,7 @@ public class Entretien implements Serializable {
     private Long id;
     private Date dateEntretien;
     private String nomMateriel;
+    private String nomLocale;
     private String prestataire;
     private double montant;
     private String numFacture;
@@ -56,6 +57,14 @@ public class Entretien implements Serializable {
     }
 
     public Entretien() {
+    }
+
+    public String getNomLocale() {
+        return nomLocale;
+    }
+
+    public void setNomLocale(String nomLocale) {
+        this.nomLocale = nomLocale;
     }
     
     public LocalDetails getMateriel() {

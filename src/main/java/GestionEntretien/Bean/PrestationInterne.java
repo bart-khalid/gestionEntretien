@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -25,13 +27,17 @@ public class PrestationInterne implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
    
-    private String reference;
-    private String typeEntretien;
-    private Date date;
-    private boolean Reclamed;
-    private String refrenceReclamation;
-    private String nomAgent;
-    private String nomLocale;
+    private String referenceI;
+    private String typeEntretienI;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date dateI;
+    private boolean ReclamedI;
+    private String refrenceReclamationI;
+    private String nomAgentI;
+    private String nomLocaleI;
+    private String nomMaterielI;
+    
+    private static Long nbrPresInterne=0L;
 
     @ManyToOne
     private Locale locale;
@@ -41,29 +47,62 @@ public class PrestationInterne implements Serializable {
     
     
     @ManyToOne
-    private LocalDetails materielLoclae;
-
+    private LocalDetails materielLocale;
     
-    
-    public LocalDetails getMaterielLoclae() {
-        return materielLoclae;
-    }
+    @OneToOne
+    private Reclamation reclamationI;
 
-    public void setMaterielLoclae(LocalDetails materielLoclae) {
-        this.materielLoclae = materielLoclae;
+    public PrestationInterne() {
+        this.ReclamedI = false;
     }
 
     
     
+    public LocalDetails getMaterielLocale() {
+        return materielLocale;
+    }
+
+    public void setMaterielLocale(LocalDetails materielLocale) {
+        this.materielLocale = materielLocale;
+    }
+
     
-    public String getNomLocale() {
-        return nomLocale;
+
+
+    public Reclamation getReclamationI() {
+        return reclamationI;
     }
 
-    public void setNomLocale(String nomLocale) {
-        this.nomLocale = nomLocale;
+    public void setReclamationI(Reclamation reclamationI) {
+        this.reclamationI = reclamationI;
     }
 
+
+
+    
+    public String getNomMaterielI() {
+        return nomMaterielI;
+    }
+
+    public void setNomMaterielI(String nomMaterielI) {
+        this.nomMaterielI = nomMaterielI;
+    }
+
+    public static Long getNbrPresInterne() {
+        return nbrPresInterne;
+    }
+
+    public static void setNbrPresInterne(Long nbrPresInterne) {
+        PrestationInterne.nbrPresInterne = nbrPresInterne;
+    }
+
+    
+   
+    
+    
+    
+    
+   
     
     
     
@@ -76,24 +115,10 @@ public class PrestationInterne implements Serializable {
     }
     
     
-    
-    public boolean isReclamed() {
-        return Reclamed;
-    }
-
-    public void setReclamed(boolean Reclamed) {
-        this.Reclamed = Reclamed;
-    }
+   
     
     
-    
-    public String getNomAgent() {
-        return nomAgent;
-    }
-
-    public void setNomAgent(String nomAgent) {
-        this.nomAgent = nomAgent;
-    }
+   
 
     public Long getId() {
         return id;
@@ -128,39 +153,65 @@ public class PrestationInterne implements Serializable {
         return "GestionEntretien.Bean.PrestationInterne[ id=" + id + " ]";
     }
 
-    public String getReference() {
-        return reference;
+    public String getReferenceI() {
+        return referenceI;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setReferenceI(String referenceI) {
+        this.referenceI = referenceI;
     }
 
-    public String getTypeEntretien() {
-        return typeEntretien;
+    public String getTypeEntretienI() {
+        return typeEntretienI;
     }
 
-    public void setTypeEntretien(String typeEntretien) {
-        this.typeEntretien = typeEntretien;
+    public void setTypeEntretienI(String typeEntretienI) {
+        this.typeEntretienI = typeEntretienI;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateI() {
+        return dateI;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateI(Date dateI) {
+        this.dateI = dateI;
     }
+
+    public boolean isReclamedI() {
+        return ReclamedI;
+    }
+
+    public void setReclamedI(boolean ReclamedI) {
+        this.ReclamedI = ReclamedI;
+    }
+
+    public String getRefrenceReclamationI() {
+        return refrenceReclamationI;
+    }
+
+    public void setRefrenceReclamationI(String refrenceReclamationI) {
+        this.refrenceReclamationI = refrenceReclamationI;
+    }
+
+    public String getNomAgentI() {
+        return nomAgentI;
+    }
+
+    public void setNomAgentI(String nomAgentI) {
+        this.nomAgentI = nomAgentI;
+    }
+
+    public String getNomLocaleI() {
+        return nomLocaleI;
+    }
+
+    public void setNomLocaleI(String nomLocaleI) {
+        this.nomLocaleI = nomLocaleI;
+    }
+
+
 
     
-    public String getRefrenceReclamation() {
-        return refrenceReclamation;
-    }
-
-    public void setRefrenceReclamation(String refrenceReclamation) {
-        this.refrenceReclamation = refrenceReclamation;
-    }
-
     public Locale getLocale() {
         return locale;
     }

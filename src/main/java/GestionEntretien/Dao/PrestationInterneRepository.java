@@ -16,6 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PrestationInterneRepository extends JpaRepository<PrestationInterne, Long>{
 
-    public PrestationInterne findByReference(String reference);
+    public PrestationInterne findByReferenceI(String reference);
     
 }
