@@ -25,7 +25,7 @@ public class BonVidange implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private double numbonV;
+    private String numbonV;
     @JsonFormat(pattern = "yyyy-MM-dd")    
     private Date datebonV;
     private double montantvignetteV;
@@ -37,13 +37,33 @@ public class BonVidange implements Serializable {
     private String typehuileV;
     private String reference;
     private static Long nbr=0000L;
+    private String fourniassooci;
+    private String vehiculeassooci;
     
     @ManyToOne
     private Vehicule vehiculeV;
     
     @ManyToOne
-    private Fournisseur fournisseurV;
+    private FournisseurSV fournisseurV;
 
+    public String getFourniassooci() {
+        return fourniassooci;
+    }
+
+    public void setFourniassooci(String fourniassooci) {
+        this.fourniassooci = fourniassooci;
+    }
+
+    public String getVehiculeassooci() {
+        return vehiculeassooci;
+    }
+
+    public void setVehiculeassooci(String vehiculeassooci) {
+        this.vehiculeassooci = vehiculeassooci;
+    }
+
+    
+    
     public String getReference() {
         return reference;
     }
@@ -70,11 +90,11 @@ public class BonVidange implements Serializable {
         this.id = id;
     }
 
-    public double getNumbonV() {
+    public String getNumbonV() {
         return numbonV;
     }
 
-    public void setNumbonV(double numbonV) {
+    public void setNumbonV(String numbonV) {
         this.numbonV = numbonV;
     }
 
@@ -150,11 +170,11 @@ public class BonVidange implements Serializable {
         this.vehiculeV = vehiculeV;
     }
 
-    public Fournisseur getFournisseurV() {
+    public FournisseurSV getFournisseurV() {
         return fournisseurV;
     }
 
-    public void setFournisseurV(Fournisseur fournisseurV) {
+    public void setFournisseurV(FournisseurSV fournisseurV) {
         this.fournisseurV = fournisseurV;
     }
     

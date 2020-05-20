@@ -15,6 +15,8 @@ import java.util.List;
 public interface FournisseurSVService {
     public int save(FournisseurSV fournisseur);
     public int update(FournisseurSV fournisseur);
-    public int delete(String nom, String adresse);
+    public int delete(String reference);
     public List<FournisseurSV> findAll();
+    public FournisseurSV findByReference(String reference);
+
 }

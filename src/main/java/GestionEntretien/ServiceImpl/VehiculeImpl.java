@@ -29,6 +29,7 @@ public class VehiculeImpl implements VehiculeService{
         if(foundedv!=null){
         return -1;
         }
+        vehicule.setDescriptionDropDown(vehicule.getMatricule()+','+vehicule.getMarque());
         Vehicule.setNbr(vehicule.getNbr() + 1);
         vehicule.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(vehicule.getNbr()));
         vehiculeRepository.save(vehicule);
@@ -38,6 +39,7 @@ public class VehiculeImpl implements VehiculeService{
     @Override
     public int update(Vehicule vehicule) {
     Vehicule foundedv = vehiculeRepository.findByReference(vehicule.getReference());
+    foundedv.setDescriptionDropDown(vehicule.getMatricule()+','+vehicule.getMarque());
     foundedv.setMatricule(vehicule.getMatricule());
     foundedv.setMarque(vehicule.getMarque());
     foundedv.setType(vehicule.getType());

@@ -28,21 +28,52 @@ public class BonCarburant implements Serializable {
     private Long id;
     private String reference;
     private static Long nbr=0000L;
-    private double numbonC;
+    private String numbonC;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date datebonC;
     private double montantvignetteC;
     private double prixunitaireC;
     private double totalbrutC;
+    private double quantiteC;
     private String nomPrestataire;
     private String descriptionC;
     private String typeC;
+    private String fourniassooci;
+    private String vehiculeassooci;
     
     @ManyToOne
     private Vehicule vehiculeC;
     
     @ManyToOne
-    private Fournisseur fournisseurC;
+    private FournisseurSV fournisseurC;
+
+    public String getFourniassooci() {
+        return fourniassooci;
+    }
+
+    public void setFourniassooci(String fourniassooci) {
+        this.fourniassooci = fourniassooci;
+    }
+
+    public String getVehiculeassooci() {
+        return vehiculeassooci;
+    }
+
+    public void setVehiculeassooci(String vehiculeassooci) {
+        this.vehiculeassooci = vehiculeassooci;
+    }
+
+    
+    
+    public double getQuantiteC() {
+        return quantiteC;
+    }
+
+    public void setQuantiteC(double quantiteC) {
+        this.quantiteC = quantiteC;
+    }
+    
+    
 
     public String getReference() {
         return reference;
@@ -70,11 +101,11 @@ public class BonCarburant implements Serializable {
         this.id = id;
     }
 
-    public double getNumbonC() {
+    public String getNumbonC() {
         return numbonC;
     }
 
-    public void setNumbonC(double numbonC) {
+    public void setNumbonC(String numbonC) {
         this.numbonC = numbonC;
     }
 
@@ -142,11 +173,11 @@ public class BonCarburant implements Serializable {
         this.vehiculeC = vehiculeC;
     }
 
-    public Fournisseur getFournisseurC() {
+    public FournisseurSV getFournisseurC() {
         return fournisseurC;
     }
 
-    public void setFournisseurC(Fournisseur fournisseurC) {
+    public void setFournisseurC(FournisseurSV fournisseurC) {
         this.fournisseurC = fournisseurC;
     }
     

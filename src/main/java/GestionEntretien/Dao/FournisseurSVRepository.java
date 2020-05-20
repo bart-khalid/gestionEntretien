@@ -23,4 +23,5 @@ public interface FournisseurSVRepository extends JpaRepository<FournisseurSV, Lo
 //    public Fournisseur findByNomAndAdresse(@Param String nom,@Param String adresse);
 
     public FournisseurSV findByNomfAndAdressef(String nomf, String adressef);
+    public FournisseurSV findByReference(String reference);
 }
