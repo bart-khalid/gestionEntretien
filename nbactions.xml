@@ -43,7 +43,6 @@
             <exec.executable>java</exec.executable>
         </properties>
     </action>
-</actions>
         <action>
             <actionName>run</actionName>
             <packagings>
