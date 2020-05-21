@@ -38,9 +38,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
         if (foundedMaterielLocal != null) {
             return -1;
         } else {
-            //save du materielLocale
-            localDetails.setLocaleAssocie(localDetails.getLocale().getNomLocal() + ", " + localDetails.getLocale().getDepartement());
-            localDetails.setMaterielLocale(localDetails.getMateriel().getNom() + ", " + localDetails.getMateriel().getMarque());
+           
 
             //update locale associe a ce materielLocale
             Locale loadedLocale = localeRepository.findByReference(localDetails.getLocale().getReference());
@@ -58,6 +56,10 @@ public class LocalDetailsImpl implements LocalDetailsService {
             loadedMateriel.setNbrEntite(loadedMateriel.getNbrEntite() + 1);
             materielRepository.save(loadedMateriel);
 
+            
+             //save du Nom LOcale et Nom materiel
+            localDetails.setLocaleAssocie(localDetails.getLocale().getDescriptionDropDown());
+            localDetails.setMaterielLocale(localDetails.getMateriel().getDescriptionDropDown());
             localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML()+ ", " + localDetails.getMaterielLocale() );
             localDetailsRepository.save(localDetails);
             return 1;
@@ -126,8 +128,8 @@ public class LocalDetailsImpl implements LocalDetailsService {
         }
 
         //update attributes of this MaterielLocale
-        foundedMaterielLocale.setLocaleAssocie(localDetails.getLocale().getNomLocal() + ", " + localDetails.getLocale().getDepartement());
-        foundedMaterielLocale.setMaterielLocale(localDetails.getMateriel().getNom() + ", " + localDetails.getMateriel().getMarque());
+        foundedMaterielLocale.setLocaleAssocie(localDetails.getLocale().getDescriptionDropDown());
+        foundedMaterielLocale.setMaterielLocale(localDetails.getMateriel().getDescriptionDropDown());
         foundedMaterielLocale.setDateAffectation(localDetails.getDateAffectation());
         
         localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML()+ ", " + localDetails.getMaterielLocale() );
@@ -162,7 +164,12 @@ public class LocalDetailsImpl implements LocalDetailsService {
 
     @Override
     public List<LocalDetails> findAll() {
-        return localDetailsRepository.findAll();
+        List<LocalDetails> materielsLocales=  localDetailsRepository.findAll();
+        for (LocalDetails materielsLocale : materielsLocales) {
+            materielsLocale.setLocaleAssocie(materielsLocale.getLocale().getDescriptionDropDown());
+            materielsLocale.setMaterielLocale(materielsLocale.getMateriel().getDescriptionDropDown());
+        }
+        return materielsLocales;
     }
 
 }
