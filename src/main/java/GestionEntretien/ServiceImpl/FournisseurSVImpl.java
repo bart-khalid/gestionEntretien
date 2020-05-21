@@ -62,19 +62,19 @@ public class FournisseurSVImpl implements FournisseurSVService {
         List<BonReparation> listBonsrepa = bonreparepo.findAll();
         List<BonVidange> listBonsvid = bonvidrepo.findAll();
         for (BonCarburant bon : listBons) {
-            if(bon.getFournisseurC().getReference() == foundedFournisseur.getReference()){
+            if(bon.getFournisseurC().getReference().equals(foundedFournisseur.getReference())){
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
             }
             boncarrepo.save(bon);
         }
         for (BonReparation bon : listBonsrepa) {
-            if(bon.getFournisseurR().getReference() == foundedFournisseur.getReference()){
+            if(bon.getFournisseurR().getReference().equals(foundedFournisseur.getReference())){
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
             }
             bonreparepo.save(bon);
         }
         for (BonVidange bon : listBonsvid) {
-            if(bon.getFournisseurV().getReference() == foundedFournisseur.getReference()){
+            if(bon.getFournisseurV().getReference().equals(foundedFournisseur.getReference())){
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
             }
             bonvidrepo.save(bon);
