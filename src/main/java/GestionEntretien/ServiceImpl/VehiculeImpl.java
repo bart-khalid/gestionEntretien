@@ -61,19 +61,19 @@ public class VehiculeImpl implements VehiculeService {
         List<BonReparation> listBonsrepa = bonreparepo.findAll();
         List<BonVidange> listBonsvid = bonvidrepo.findAll();
         for (BonCarburant bon : listBons) {
-            if (bon.getVehiculeC().getReference() == foundedv.getReference()) {
+            if (bon.getVehiculeC().getReference().equals(foundedv.getReference())) {
                 bon.setVehiculeassooci(foundedv.getDescriptionDropDown());
             }
             boncarrepo.save(bon);
         }
         for (BonReparation bon : listBonsrepa) {
-            if (bon.getVehiculeR().getReference() == foundedv.getReference()) {
+            if (bon.getVehiculeR().getReference().equals(foundedv.getReference())) {
                 bon.setVehiculeassooci(foundedv.getDescriptionDropDown());
             }
             bonreparepo.save(bon);
         }
         for (BonVidange bon : listBonsvid) {
-            if (bon.getVehiculeV().getReference() == foundedv.getReference()) {
+            if (bon.getVehiculeV().getReference().equals(foundedv.getReference())) {
                 bon.setVehiculeassooci(foundedv.getDescriptionDropDown());
             }
             bonvidrepo.save(bon);
