@@ -5,7 +5,13 @@
  */
 package GestionEntretien.ServiceImpl;
 
+import GestionEntretien.Bean.BonCarburant;
+import GestionEntretien.Bean.BonReparation;
+import GestionEntretien.Bean.BonVidange;
 import GestionEntretien.Bean.FournisseurSV;
+import GestionEntretien.Dao.BonCarburantRepository;
+import GestionEntretien.Dao.BonReparationRepository;
+import GestionEntretien.Dao.BonVidangeRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +28,12 @@ public class FournisseurSVImpl implements FournisseurSVService {
 
     @Autowired
     private FournisseurSVRepository fournisseurRepository;
+    @Autowired
+    private BonCarburantRepository boncarrepo;
+    @Autowired
+    private BonReparationRepository bonreparepo;
+    @Autowired
+    private BonVidangeRepository bonvidrepo;
 
     @Override
     public int save(FournisseurSV fournisseur) {
@@ -46,6 +58,28 @@ public class FournisseurSVImpl implements FournisseurSVService {
         foundedFournisseur.setAdressef(fournisseur.getAdressef());
         foundedFournisseur.setEmailf(fournisseur.getEmailf());
         foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
+        List<BonCarburant> listBons = boncarrepo.findAll();
+        List<BonReparation> listBonsrepa = bonreparepo.findAll();
+        List<BonVidange> listBonsvid = bonvidrepo.findAll();
+        for (BonCarburant bon : listBons) {
+            if(bon.getFournisseurC().getReference().equals(foundedFournisseur.getReference())){
+                bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
+            }
+            boncarrepo.save(bon);
+        }
+        for (BonReparation bon : listBonsrepa) {
+            if(bon.getFournisseurR().getReference().equals(foundedFournisseur.getReference())){
+                bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
+            }
+            bonreparepo.save(bon);
+        }
+        for (BonVidange bon : listBonsvid) {
+            if(bon.getFournisseurV().getReference().equals(foundedFournisseur.getReference())){
+                bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
+            }
+            bonvidrepo.save(bon);
+        }
+       
 
         fournisseurRepository.save(foundedFournisseur);
         return 1;

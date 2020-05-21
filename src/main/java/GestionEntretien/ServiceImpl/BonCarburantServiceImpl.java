@@ -39,8 +39,8 @@ public class BonCarburantServiceImpl implements BonCarburantService {
             return -1;
         }
         BonCarburant.setNbr(boncarburant.getNbr() + 1);
-        boncarburant.setFourniassooci(boncarburant.getFournisseurC().getNomf()+" ,"+boncarburant.getFournisseurC().getAdressef());
-        boncarburant.setVehiculeassooci(boncarburant.getVehiculeC().getMatricule()+" ,"+boncarburant.getVehiculeC().getMarque());
+        boncarburant.setFourniassooci(boncarburant.getFournisseurC().getDescriptionDropDown());
+        boncarburant.setVehiculeassooci(boncarburant.getVehiculeC().getDescriptionDropDown());
         boncarburant.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(boncarburant.getNbr()));
         bonrepo.save(boncarburant);
         return 1;
@@ -49,8 +49,6 @@ public class BonCarburantServiceImpl implements BonCarburantService {
     @Override
     public int update(BonCarburant boncarburant) {
       BonCarburant founded = bonrepo.findByReference(boncarburant.getReference());
-      founded.setFourniassooci(boncarburant.getFournisseurC().getNomf()+" ,"+boncarburant.getFournisseurC().getAdressef());
-      founded.setVehiculeassooci(boncarburant.getVehiculeC().getMatricule()+" ,"+boncarburant.getVehiculeC().getMarque());
       founded.setNumbonC(boncarburant.getNumbonC());
       founded.setDatebonC(boncarburant.getDatebonC());
       founded.setDescriptionC(boncarburant.getDescriptionC());
@@ -61,6 +59,8 @@ public class BonCarburantServiceImpl implements BonCarburantService {
       founded.setMontantvignetteC(boncarburant.getMontantvignetteC());
       founded.setTypeC(boncarburant.getTypeC());
       founded.setQuantiteC(boncarburant.getQuantiteC());
+      founded.setFourniassooci(boncarburant.getFournisseurC().getDescriptionDropDown());
+      founded.setVehiculeassooci(boncarburant.getVehiculeC().getDescriptionDropDown());
       bonrepo.save(founded);
       return 1;
       

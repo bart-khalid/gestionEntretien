@@ -5,7 +5,6 @@
  */
 package GestionEntretien.Ws.Rest;
 
-import GestionEntretien.Bean.Agent;
 import GestionEntretien.Bean.Materiel;
 import GestionEntretien.Service.MaterielService;
 import java.util.List;
