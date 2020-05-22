@@ -7,10 +7,13 @@ package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.LocalDetails;
 import GestionEntretien.Bean.Locale;
+import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Bean.Reclamation;
 import GestionEntretien.Bean.Users;
 import GestionEntretien.Dao.LocalDetailsRepository;
 import GestionEntretien.Dao.LocaleRepository;
+import GestionEntretien.Dao.PrestationExterneRepository;
+import GestionEntretien.Dao.PrestationInterneRepository;
 import GestionEntretien.Dao.ReclamationRepository;
 import GestionEntretien.Dao.UsersRepository;
 import java.util.List;
@@ -39,6 +42,12 @@ public class ReclamationImpl implements ReclamationService {
 
     @Autowired
     private LocaleRepository localeRepository;
+    
+    @Autowired
+    private PrestationInterneRepository pintenreRepository;
+    
+    @Autowired
+    private PrestationExterneRepository pexterneRepository;
 
     @Override
     public List<Reclamation> findAll() {
@@ -157,7 +166,7 @@ public class ReclamationImpl implements ReclamationService {
         Reclamation founReclamation = reclamationRepository.findByReference(refernce);
         if (founReclamation == null) {
             return -1;
-        } else {
+        } else {            
             reclamationRepository.delete(founReclamation);
             return 1;
         }
