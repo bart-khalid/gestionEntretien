@@ -164,12 +164,6 @@ public class LocalDetailsImpl implements LocalDetailsService {
 
     @Override
     public List<LocalDetails> findAll() {
-        List<LocalDetails> materielsLocales=  localDetailsRepository.findAll();
-        for (LocalDetails materielsLocale : materielsLocales) {
-            materielsLocale.setLocaleAssocie(materielsLocale.getLocale().getDescriptionDropDown());
-            materielsLocale.setMaterielLocale(materielsLocale.getMateriel().getDescriptionDropDown());
-        }
-        return materielsLocales;
+        return localDetailsRepository.findAll();
     }
-
 }
