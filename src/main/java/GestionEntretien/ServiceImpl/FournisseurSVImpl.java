@@ -58,6 +58,8 @@ public class FournisseurSVImpl implements FournisseurSVService {
         foundedFournisseur.setAdressef(fournisseur.getAdressef());
         foundedFournisseur.setEmailf(fournisseur.getEmailf());
         foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
+        foundedFournisseur.setTypef(fournisseur.getTypef());
+        
         List<BonCarburant> listBons = boncarrepo.findAll();
         List<BonReparation> listBonsrepa = bonreparepo.findAll();
         List<BonVidange> listBonsvid = bonvidrepo.findAll();

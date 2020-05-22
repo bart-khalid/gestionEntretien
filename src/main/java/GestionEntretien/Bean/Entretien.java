@@ -5,6 +5,7 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ public class Entretien implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @JsonFormat(pattern = "yyyy-MM-dd")    
     private Date dateEntretien;
     private String nomMateriel;
     private String nomLocale;

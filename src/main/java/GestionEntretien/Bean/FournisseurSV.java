@@ -32,18 +32,29 @@ public class FournisseurSV implements Serializable {
     private String adressef;
     private String telephonef;
     private String descriptionDropDown;
+    private String typef;
    
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurC")
     private List<BonCarburant> bonsCarburant;
     
-     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurR")
     private List<BonReparation> bonsReparation;
      
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurV")
     private List<BonVidange> bonsVidange;
+
+    public String getTypef() {
+        return typef;
+    }
+
+    public void setTypef(String typef) {
+        this.typef = typef;
+    }
+    
+    
 
     public String getDescriptionDropDown() {
         return descriptionDropDown;
