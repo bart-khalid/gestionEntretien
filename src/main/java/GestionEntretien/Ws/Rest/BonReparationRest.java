@@ -27,10 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/bonreparation")
 public class BonReparationRest {
-     @Autowired
+
+    @Autowired
     BonReparationService bonrservice;
 
-    
     public BonReparation findByReference(@PathVariable String reference) {
         return bonrservice.findByReference(reference);
     }
@@ -43,10 +43,12 @@ public class BonReparationRest {
     public int save(@RequestBody BonReparation boncarburant) {
         return bonrservice.save(boncarburant);
     }
+
     @PutMapping("/update")
     public int update(@RequestBody BonReparation boncarburant) {
         return bonrservice.update(boncarburant);
     }
+
     @DeleteMapping("/delete/{reference}")
     public int delete(@PathVariable String reference) {
         return bonrservice.delete(reference);
@@ -56,7 +58,5 @@ public class BonReparationRest {
     public List<BonReparation> findAll() {
         return bonrservice.findAll();
     }
-    
-    
-    
+
 }

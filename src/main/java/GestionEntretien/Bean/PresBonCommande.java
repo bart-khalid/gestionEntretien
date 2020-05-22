@@ -28,7 +28,7 @@ public class PresBonCommande implements Serializable {
     private Date dateBonCommande;
     private double montant;
     private String nomPrestataire;
-    
+
     @OneToOne
     private PrestationExterne prestationExterne;
 
@@ -63,9 +63,6 @@ public class PresBonCommande implements Serializable {
     public void setNomPrestataire(String nomPrestataire) {
         this.nomPrestataire = nomPrestataire;
     }
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -107,5 +104,5 @@ public class PresBonCommande implements Serializable {
     public void setPrestationExterne(PrestationExterne prestationExterne) {
         this.prestationExterne = prestationExterne;
     }
-    
+
 }

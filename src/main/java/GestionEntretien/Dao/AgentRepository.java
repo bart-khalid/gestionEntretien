@@ -14,10 +14,12 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface AgentRepository extends JpaRepository<Agent, Long>{
+public interface AgentRepository extends JpaRepository<Agent, Long> {
 
     public Agent findByCodeAgent(String codeAgent);
+
     public Agent findByReference(String reference);
+
     public Agent findByTel(String tel);
-    
+
 }

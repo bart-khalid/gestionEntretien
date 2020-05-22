@@ -13,9 +13,14 @@ import java.util.List;
  * @author lenovo
  */
 public interface ReclamationService {
+
     public List<Reclamation> findAll();
+
     public int save(Reclamation reclamation, String username);
+
     public int reclamationSeen(String reference);
+
     public int update(Reclamation reclamation);
-    public int delete (String refernce);
+
+    public int delete(String refernce);
 }

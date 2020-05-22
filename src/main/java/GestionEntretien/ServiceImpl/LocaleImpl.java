@@ -14,19 +14,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 // this import for random String generating
 import org.apache.commons.lang3.RandomStringUtils;
+
 /**
  *
  * @author lenovo
  */
 @Service
-public class LocaleImpl implements LocaleService{
+public class LocaleImpl implements LocaleService {
 
     @Autowired
     private LocaleRepository localeRepository;
-    
+
     @Override
     public int save(Locale locale) {
-        locale.setDescriptionDropDown(locale.getNomLocal() +", "+ locale.getTypeLocal()+", "+ locale.getDepartement());
+        locale.setDescriptionDropDown(locale.getNomLocal() + ", " + locale.getTypeLocal() + ", " + locale.getDepartement());
         Locale.setNbrLocale(Locale.getNbrLocale() + 1);
         locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
         localeRepository.save(locale);
@@ -39,7 +40,7 @@ public class LocaleImpl implements LocaleService{
         foundedLocale.setNomLocal(locale.getNomLocal());
         foundedLocale.setDepartement(locale.getDepartement());
         foundedLocale.setTypeLocal(locale.getTypeLocal());
-        foundedLocale.setDescriptionDropDown(locale.getNomLocal() +" "+ locale.getTypeLocal()+", "+ locale.getDepartement());
+        foundedLocale.setDescriptionDropDown(locale.getNomLocal() + " " + locale.getTypeLocal() + ", " + locale.getDepartement());
         localeRepository.save(foundedLocale);
         return 1;
     }
@@ -55,5 +56,5 @@ public class LocaleImpl implements LocaleService{
     public List<Locale> findAll() {
         return localeRepository.findAll();
     }
-    
+
 }

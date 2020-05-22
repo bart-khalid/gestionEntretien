@@ -27,22 +27,22 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/agent")
 public class AgentRest {
-    
+
     @Autowired
     private AgentService agentService;
-    
+
     @PostMapping("/")
-    public int save(@RequestBody Agent agent){
+    public int save(@RequestBody Agent agent) {
         return agentService.save(agent);
     }
-    
+
     @PutMapping("/update")
-    public int update(@RequestBody Agent agent){
+    public int update(@RequestBody Agent agent) {
         return agentService.update(agent);
     }
-    
+
     @DeleteMapping("/deleteAgent/{reference}")
-    public int deleteByCodeAgent(@PathVariable String reference){
+    public int deleteByCodeAgent(@PathVariable String reference) {
         return agentService.deleteByCodeAgent(reference);
     }
 
@@ -50,5 +50,5 @@ public class AgentRest {
     public List<Agent> findAll() {
         return agentService.findAll();
     }
-    
+
 }

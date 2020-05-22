@@ -27,7 +27,7 @@ public class MaterielImpl implements MaterielService {
 
     @Override
     public int save(Materiel materiel) {
-        
+
         Materiel.setNbrMateriel(Materiel.getNbrMateriel() + 1);
         FournisseurSV foundedFournisseur = materiel.getFournisseur();
         materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));

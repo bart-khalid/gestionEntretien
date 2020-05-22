@@ -26,7 +26,7 @@ public class PrestationInterne implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-   
+
     private String referenceI;
     private String typeEntretienI;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -36,19 +36,18 @@ public class PrestationInterne implements Serializable {
     private String nomAgentI;
     private String nomLocaleI;
     private String nomMaterielI;
-    
-    private static Long nbrPresInterne=0L;
+
+    private static Long nbrPresInterne = 0L;
 
     @ManyToOne
     private Locale locale;
 
-    @ManyToOne 
+    @ManyToOne
     private Agent agent;
-    
-    
+
     @ManyToOne
     private LocalDetails materielLocale;
-    
+
     @OneToOne
     private Reclamation reclamationI;
 
@@ -56,8 +55,6 @@ public class PrestationInterne implements Serializable {
         this.ReclamedI = false;
     }
 
-    
-    
     public LocalDetails getMaterielLocale() {
         return materielLocale;
     }
@@ -65,9 +62,6 @@ public class PrestationInterne implements Serializable {
     public void setMaterielLocale(LocalDetails materielLocale) {
         this.materielLocale = materielLocale;
     }
-
-    
-
 
     public Reclamation getReclamationI() {
         return reclamationI;
@@ -77,9 +71,6 @@ public class PrestationInterne implements Serializable {
         this.reclamationI = reclamationI;
     }
 
-
-
-    
     public String getNomMaterielI() {
         return nomMaterielI;
     }
@@ -96,16 +87,6 @@ public class PrestationInterne implements Serializable {
         PrestationInterne.nbrPresInterne = nbrPresInterne;
     }
 
-    
-   
-    
-    
-    
-    
-   
-    
-    
-    
     public Agent getAgent() {
         return agent;
     }
@@ -113,12 +94,6 @@ public class PrestationInterne implements Serializable {
     public void setAgent(Agent agent) {
         this.agent = agent;
     }
-    
-    
-   
-    
-    
-   
 
     public Long getId() {
         return id;
@@ -209,9 +184,6 @@ public class PrestationInterne implements Serializable {
         this.nomLocaleI = nomLocaleI;
     }
 
-
-
-    
     public Locale getLocale() {
         return locale;
     }

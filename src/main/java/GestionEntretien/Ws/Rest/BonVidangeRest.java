@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Zakaria
  */
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/bonvidange")
 public class BonVidangeRest {
-       @Autowired
-       BonVidangeService bonvservice;
+
+    @Autowired
+    BonVidangeService bonvservice;
 
     @GetMapping("/find/ref/{reference}")
     public BonVidange findByReference(@PathVariable String reference) {
@@ -45,10 +45,12 @@ public class BonVidangeRest {
     public int save(@RequestBody BonVidange boncarburant) {
         return bonvservice.save(boncarburant);
     }
+
     @PutMapping("/update")
     public int update(@RequestBody BonVidange boncarburant) {
         return bonvservice.update(boncarburant);
     }
+
     @DeleteMapping("/delete/{reference}")
     public int delete(@PathVariable String reference) {
         return bonvservice.delete(reference);

@@ -36,7 +36,7 @@ public class Agent implements Serializable {
     private String adresseDomicile;
     private String tel;
     private String descriptionDropDown;
-    private static Long nbr=0000L;
+    private static Long nbr = 0000L;
 
     @OneToMany(mappedBy = "agent")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -50,8 +50,6 @@ public class Agent implements Serializable {
         this.descriptionDropDown = descriptionDropDown;
     }
 
-    
-    
     public String getReference() {
         return reference;
     }
@@ -76,8 +74,6 @@ public class Agent implements Serializable {
         Agent.nbr = nbr;
     }
 
-
-    
     public List<PrestationInterne> getPrestations() {
         return prestations;
     }
@@ -85,7 +81,6 @@ public class Agent implements Serializable {
     public void setPrestations(List<PrestationInterne> prestations) {
         this.prestations = prestations;
     }
-    
 
     public String getCodeAgent() {
         return codeAgent;
@@ -126,10 +121,6 @@ public class Agent implements Serializable {
     public void setAdresseDomicile(String adresseDomicile) {
         this.adresseDomicile = adresseDomicile;
     }
-    
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -163,5 +154,5 @@ public class Agent implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.Agent[ id=" + id + " ]";
     }
-    
+
 }

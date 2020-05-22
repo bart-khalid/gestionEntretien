@@ -42,10 +42,10 @@ public class ReclamationImpl implements ReclamationService {
 
     @Autowired
     private LocaleRepository localeRepository;
-    
+
     @Autowired
     private PrestationInterneRepository pintenreRepository;
-    
+
     @Autowired
     private PrestationExterneRepository pexterneRepository;
 
@@ -143,7 +143,7 @@ public class ReclamationImpl implements ReclamationService {
                 reclms.remove(foundedReclamation);
                 LoadedMaterielOld.setReclamations(reclms);
                 localDetailsRepository.save(LoadedMaterielOld);
-                
+
                 //update liste reclamation du nv Materiel
                 LocalDetails LoadedMaterielNv = localDetailsRepository.findByReferenceML(reclamation.getMateriel().getReferenceML());
                 foundedReclamation.setMateriel(LoadedMaterielNv);
@@ -166,7 +166,7 @@ public class ReclamationImpl implements ReclamationService {
         Reclamation founReclamation = reclamationRepository.findByReference(refernce);
         if (founReclamation == null) {
             return -1;
-        } else {            
+        } else {
             reclamationRepository.delete(founReclamation);
             return 1;
         }

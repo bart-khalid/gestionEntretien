@@ -27,22 +27,22 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/vehicule")
 public class VehiculeRest {
-    
+
     @Autowired
     private VehiculeService vehiculeService;
-    
+
     @PostMapping("/")
-    public int save(@RequestBody Vehicule vehicule){
+    public int save(@RequestBody Vehicule vehicule) {
         return vehiculeService.save(vehicule);
     }
-    
+
     @PutMapping("/update")
-    public int update(@RequestBody Vehicule vehicule){
+    public int update(@RequestBody Vehicule vehicule) {
         return vehiculeService.update(vehicule);
     }
-    
+
     @DeleteMapping("/deleteVehicule/{reference}")
-    public int delete(@PathVariable String reference){
+    public int delete(@PathVariable String reference) {
         return vehiculeService.delete(reference);
     }
 
@@ -50,5 +50,5 @@ public class VehiculeRest {
     public List<Vehicule> findAll() {
         return vehiculeService.findAll();
     }
-    
+
 }

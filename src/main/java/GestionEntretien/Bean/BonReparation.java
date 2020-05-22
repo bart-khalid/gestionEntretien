@@ -24,12 +24,12 @@ public class BonReparation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;    
+    private Long id;
     private String numbonR;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date datebonR;
     private String reference;
-    private static Long nbr=0000L;
+    private static Long nbr = 0000L;
     private double montantvignetteR;
     private double prixunitaireR;
     private double totalbrutR;
@@ -37,10 +37,10 @@ public class BonReparation implements Serializable {
     private String descriptionR;
     private String fourniassooci;
     private String vehiculeassooci;
-    
+
     @ManyToOne
     private Vehicule vehiculeR;
-    
+
     @ManyToOne
     private FournisseurSV fournisseurR;
 
@@ -59,7 +59,7 @@ public class BonReparation implements Serializable {
     public void setVehiculeassooci(String vehiculeassooci) {
         this.vehiculeassooci = vehiculeassooci;
     }
-    
+
     public String getReference() {
         return reference;
     }
@@ -76,7 +76,6 @@ public class BonReparation implements Serializable {
         BonReparation.nbr = nbr;
     }
 
-    
     public Long getId() {
         return id;
     }
@@ -157,5 +156,4 @@ public class BonReparation implements Serializable {
         this.fournisseurR = fournisseurR;
     }
 
-    
 }

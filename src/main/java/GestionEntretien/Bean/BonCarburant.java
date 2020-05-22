@@ -27,7 +27,7 @@ public class BonCarburant implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String reference;
-    private static Long nbr=0000L;
+    private static Long nbr = 0000L;
     private String numbonC;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date datebonC;
@@ -40,10 +40,10 @@ public class BonCarburant implements Serializable {
     private String typeC;
     private String fourniassooci;
     private String vehiculeassooci;
-    
+
     @ManyToOne
     private Vehicule vehiculeC;
-    
+
     @ManyToOne
     private FournisseurSV fournisseurC;
 
@@ -63,8 +63,6 @@ public class BonCarburant implements Serializable {
         this.vehiculeassooci = vehiculeassooci;
     }
 
-    
-    
     public double getQuantiteC() {
         return quantiteC;
     }
@@ -72,8 +70,6 @@ public class BonCarburant implements Serializable {
     public void setQuantiteC(double quantiteC) {
         this.quantiteC = quantiteC;
     }
-    
-    
 
     public String getReference() {
         return reference;
@@ -90,8 +86,6 @@ public class BonCarburant implements Serializable {
     public static void setNbr(Long nbr) {
         BonCarburant.nbr = nbr;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -180,8 +174,5 @@ public class BonCarburant implements Serializable {
     public void setFournisseurC(FournisseurSV fournisseurC) {
         this.fournisseurC = fournisseurC;
     }
-    
-   
-    
-    
+
 }

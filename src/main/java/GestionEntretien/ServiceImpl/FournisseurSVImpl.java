@@ -41,7 +41,7 @@ public class FournisseurSVImpl implements FournisseurSVService {
         if (foundedFournisseur != null) {
             return -1;
         } else {
-            fournisseur.setDescriptionDropDown(fournisseur.getNomf()+','+fournisseur.getAdressef());
+            fournisseur.setDescriptionDropDown(fournisseur.getNomf() + ',' + fournisseur.getAdressef());
             FournisseurSV.setNbr(fournisseur.getNbr() + 1);
             fournisseur.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(fournisseur.getNbr()));
             fournisseurRepository.save(fournisseur);
@@ -53,41 +53,38 @@ public class FournisseurSVImpl implements FournisseurSVService {
     @Override
     public int update(FournisseurSV fournisseur) {
         FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(fournisseur.getReference());
-        foundedFournisseur.setDescriptionDropDown(fournisseur.getNomf()+','+fournisseur.getAdressef());
+        foundedFournisseur.setDescriptionDropDown(fournisseur.getNomf() + ',' + fournisseur.getAdressef());
         foundedFournisseur.setNomf(fournisseur.getNomf());
         foundedFournisseur.setAdressef(fournisseur.getAdressef());
         foundedFournisseur.setEmailf(fournisseur.getEmailf());
         foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
         foundedFournisseur.setTypef(fournisseur.getTypef());
-        
+
         List<BonCarburant> listBons = boncarrepo.findAll();
         List<BonReparation> listBonsrepa = bonreparepo.findAll();
         List<BonVidange> listBonsvid = bonvidrepo.findAll();
         for (BonCarburant bon : listBons) {
-            if(bon.getFournisseurC().getReference().equals(foundedFournisseur.getReference())){
+            if (bon.getFournisseurC().getReference().equals(foundedFournisseur.getReference())) {
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
             }
             boncarrepo.save(bon);
         }
         for (BonReparation bon : listBonsrepa) {
-            if(bon.getFournisseurR().getReference().equals(foundedFournisseur.getReference())){
+            if (bon.getFournisseurR().getReference().equals(foundedFournisseur.getReference())) {
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
             }
             bonreparepo.save(bon);
         }
         for (BonVidange bon : listBonsvid) {
-            if(bon.getFournisseurV().getReference().equals(foundedFournisseur.getReference())){
+            if (bon.getFournisseurV().getReference().equals(foundedFournisseur.getReference())) {
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
             }
             bonvidrepo.save(bon);
         }
-       
 
         fournisseurRepository.save(foundedFournisseur);
         return 1;
     }
-
-  
 
     @Override
     public List<FournisseurSV> findAll() {
@@ -96,13 +93,14 @@ public class FournisseurSVImpl implements FournisseurSVService {
 
     @Override
     public int delete(String reference) {
- FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(reference);
+        FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(reference);
         fournisseurRepository.delete(foundedFournisseur);
-        return 1;    }
+        return 1;
+    }
 
     @Override
     public FournisseurSV findByReference(String reference) {
-    return fournisseurRepository.findByReference(reference);
+        return fournisseurRepository.findByReference(reference);
     }
 
 }

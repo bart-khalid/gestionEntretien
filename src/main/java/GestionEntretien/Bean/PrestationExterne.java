@@ -25,23 +25,22 @@ public class PrestationExterne implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String reference;
     private String typeEntretien;
     private Date date;
     private boolean Reclamed;
     private String refrenceReclamation;
-    
+
     private String nomPrestataire;
     private double montantFac;
     private String numeroFac;
     private boolean bonCommande;
     private boolean bonLivraison;
 
-    
     @ManyToOne
     protected Locale locale;
-    
+
     @OneToOne
     private PresBonCommande presBonCommande;
 
@@ -71,8 +70,6 @@ public class PrestationExterne implements Serializable {
     public void setBonLivraison(boolean BonLivraison) {
         this.bonLivraison = BonLivraison;
     }
-    
-    
 
     public String getNomPrestataire() {
         return nomPrestataire;
@@ -170,8 +167,6 @@ public class PrestationExterne implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-
-    
 
     public String getRefrenceReclamation() {
         return refrenceReclamation;

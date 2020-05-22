@@ -28,34 +28,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/Login")
 public class UsersRest {
+
     @Autowired
     UsersService usersservice;
 
-    
     @PutMapping("/update")
     public int Update(@RequestBody Users login) {
         return usersservice.Update(login);
     }
 
-    
-    
     @PostMapping("/")
     public int Save(@RequestBody Users login) {
         return usersservice.Save(login);
     }
 
-    
     @GetMapping("/username/{username}")
     public Users findByUsername(@PathVariable String username) {
         return usersservice.findByUsername(username);
     }
+
     @GetMapping("/type/{type}")
     public List<Users> findByType(@PathVariable String type) {
         return usersservice.findByType(type);
     }
-    
+
     @GetMapping("/Connect/username/{username}/password/{password}")
-    public int Connect(@PathVariable String username,@PathVariable String password) {
+    public int Connect(@PathVariable String username, @PathVariable String password) {
         return usersservice.Connect(username, password);
     }
 
@@ -63,12 +61,10 @@ public class UsersRest {
     public List<Users> findAll() {
         return usersservice.findAll();
     }
-    
+
     @DeleteMapping("/delete/{reference}")
     public int Delete(@PathVariable String reference) {
         return usersservice.Delete(reference);
     }
-    
-    
-    
+
 }

@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface PresBonCommandeRepository extends JpaRepository<PresBonCommande, Long>{
-    
+public interface PresBonCommandeRepository extends JpaRepository<PresBonCommande, Long> {
+
 }

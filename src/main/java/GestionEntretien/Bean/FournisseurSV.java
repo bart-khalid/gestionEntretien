@@ -26,22 +26,22 @@ public class FournisseurSV implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String reference;
-    private static Long nbr=0000L;
+    private static Long nbr = 0000L;
     private String nomf;
     private String emailf;
     private String adressef;
     private String telephonef;
     private String descriptionDropDown;
     private String typef;
-   
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurC")
     private List<BonCarburant> bonsCarburant;
-    
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurR")
     private List<BonReparation> bonsReparation;
-     
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "fournisseurV")
     private List<BonVidange> bonsVidange;
@@ -53,8 +53,6 @@ public class FournisseurSV implements Serializable {
     public void setTypef(String typef) {
         this.typef = typef;
     }
-    
-    
 
     public String getDescriptionDropDown() {
         return descriptionDropDown;
@@ -64,8 +62,6 @@ public class FournisseurSV implements Serializable {
         this.descriptionDropDown = descriptionDropDown;
     }
 
-    
-    
     public String getReference() {
         return reference;
     }
@@ -81,7 +77,6 @@ public class FournisseurSV implements Serializable {
     public static void setNbr(Long nbr) {
         FournisseurSV.nbr = nbr;
     }
-
 
     public Long getId() {
         return id;
@@ -106,8 +101,6 @@ public class FournisseurSV implements Serializable {
     public void setEmailf(String emailf) {
         this.emailf = emailf;
     }
-
-  
 
     public String getAdressef() {
         return adressef;
@@ -148,11 +141,6 @@ public class FournisseurSV implements Serializable {
     public void setBonsVidange(List<BonVidange> bonsVidange) {
         this.bonsVidange = bonsVidange;
     }
-    
-    
-    
-
-    
 
     @Override
     public int hashCode() {
@@ -178,5 +166,5 @@ public class FournisseurSV implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.Fournisseur[ id=" + id + " ]";
     }
-    
+
 }

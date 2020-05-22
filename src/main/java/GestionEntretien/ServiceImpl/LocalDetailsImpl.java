@@ -58,7 +58,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
             loadedMateriel.setNbrEntite(loadedMateriel.getNbrEntite() + 1);
             materielRepository.save(loadedMateriel);
 
-            localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML()+ ", " + localDetails.getMaterielLocale() );
+            localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
             localDetailsRepository.save(localDetails);
             return 1;
         }
@@ -89,7 +89,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
 //            localDetails.getLocale().setLocalDetails(materielsLocle);
 //            localDetails.getLocale().setNbrMateriel(localDetails.getLocale().getNbrMateriel() + 1);
 //            localeRepository.save(localDetails.getLocale());
-            
+
             Locale loadedLocale = localeRepository.findByReference(localDetails.getLocale().getReference());
             List<LocalDetails> materielsLocle = loadedLocale.getLocalDetails();
             materielsLocle.add(localDetails);
@@ -116,7 +116,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
 //            localDetails.getMateriel().setLocalDetails(materiels);
 //            localDetails.getMateriel().setNbrEntite(localDetails.getMateriel().getNbrEntite() + 1);
 //            materielRepository.save(localDetails.getMateriel());
-            
+
             Materiel loadedMateriel = materielRepository.findByReference(localDetails.getMateriel().getReference());
             List<LocalDetails> materiels = loadedMateriel.getLocalDetails();
             materiels.add(localDetails);
@@ -129,8 +129,8 @@ public class LocalDetailsImpl implements LocalDetailsService {
         foundedMaterielLocale.setLocaleAssocie(localDetails.getLocale().getNomLocal() + ", " + localDetails.getLocale().getDepartement());
         foundedMaterielLocale.setMaterielLocale(localDetails.getMateriel().getNom() + ", " + localDetails.getMateriel().getMarque());
         foundedMaterielLocale.setDateAffectation(localDetails.getDateAffectation());
-        
-        localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML()+ ", " + localDetails.getMaterielLocale() );
+
+        localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
         localDetailsRepository.save(foundedMaterielLocale);
 
         return 1;

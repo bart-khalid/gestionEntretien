@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface MaterielRepository extends JpaRepository<Materiel, Long>{
+public interface MaterielRepository extends JpaRepository<Materiel, Long> {
+
     public Materiel findByReference(String reference);
 }

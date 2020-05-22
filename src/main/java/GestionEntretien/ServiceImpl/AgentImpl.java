@@ -18,46 +18,43 @@ import org.springframework.stereotype.Service;
  * @author lenovo
  */
 @Service
-public class AgentImpl implements AgentService{ 
+public class AgentImpl implements AgentService {
 
     @Autowired
     private AgentRepository agentRepository;
-    
-    
-    
-    
+
     @Override
     public int save(Agent agent) {
         Agent foundedAgent = agentRepository.findByCodeAgent(agent.getCodeAgent());
         Agent foundeda = agentRepository.findByTel(agent.getTel());
-        if (foundedAgent != null){
+        if (foundedAgent != null) {
             return -1;
-        } else if (foundeda != null){
+        } else if (foundeda != null) {
             return -2;
         } else {
-            agent.setDescriptionDropDown(agent.getCodeAgent()+','+agent.getNomAgent());
-        Agent.setNbr(agent.getNbr() + 1);
-        agent.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(agent.getNbr()));
-             agentRepository.save(agent);
-             return 1;
+            agent.setDescriptionDropDown(agent.getCodeAgent() + ',' + agent.getNomAgent());
+            Agent.setNbr(agent.getNbr() + 1);
+            agent.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(agent.getNbr()));
+            agentRepository.save(agent);
+            return 1;
         }
-   
+
     }
 
     @Override
     public int update(Agent agent) {
         Agent foundedAgent = agentRepository.findByReference(agent.getReference());
-            foundedAgent.setDescriptionDropDown(agent.getCodeAgent()+','+agent.getNomAgent());
-            foundedAgent.setEntrepriseliee(agent.getEntrepriseliee());
-            foundedAgent.setCodeAgent(agent.getCodeAgent());
-            foundedAgent.setAdresseDomicile(agent.getAdresseDomicile());
-            foundedAgent.setDateEntree(agent.getDateEntree());
-            foundedAgent.setNomAgent(agent.getNomAgent());
-            foundedAgent.setTel(agent.getTel());
-            
-            agentRepository.save(foundedAgent);
-            return 1;
-        
+        foundedAgent.setDescriptionDropDown(agent.getCodeAgent() + ',' + agent.getNomAgent());
+        foundedAgent.setEntrepriseliee(agent.getEntrepriseliee());
+        foundedAgent.setCodeAgent(agent.getCodeAgent());
+        foundedAgent.setAdresseDomicile(agent.getAdresseDomicile());
+        foundedAgent.setDateEntree(agent.getDateEntree());
+        foundedAgent.setNomAgent(agent.getNomAgent());
+        foundedAgent.setTel(agent.getTel());
+
+        agentRepository.save(foundedAgent);
+        return 1;
+
     }
 
     @Override
@@ -69,21 +66,22 @@ public class AgentImpl implements AgentService{
 
     @Override
     public List<Agent> findAll() {
-       return agentRepository.findAll();
+        return agentRepository.findAll();
     }
 
     @Override
     public Agent findByCodeAgent(String codeAgent) {
-    return agentRepository.findByCodeAgent(codeAgent);
+        return agentRepository.findByCodeAgent(codeAgent);
     }
 
     @Override
     public Agent findByReference(String reference) {
-    return agentRepository.findByReference(reference);
+        return agentRepository.findByReference(reference);
     }
 
     @Override
     public Agent findByTel(String tel) {
-    return agentRepository.findByTel(tel);    }
-    
+        return agentRepository.findByTel(tel);
+    }
+
 }

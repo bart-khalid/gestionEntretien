@@ -37,21 +37,16 @@ public class Materiel implements Serializable {
     private String type;
     //description
     private String descriptionDropDown;
-    
-    private static Long nbrMateriel=0L;
-    
+
+    private static Long nbrMateriel = 0L;
 
     @OneToMany(mappedBy = "materiel")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected List<LocalDetails> localDetails;
 
-
-    @ManyToOne 
+    @ManyToOne
     private FournisseurSV fournisseur;
 
-    
-    
-    
     public static Long getNbrMateriel() {
         return nbrMateriel;
     }
@@ -68,7 +63,6 @@ public class Materiel implements Serializable {
         this.descriptionDropDown = descriptionDropDown;
     }
 
-    
     public String getReference() {
         return reference;
     }
@@ -92,8 +86,7 @@ public class Materiel implements Serializable {
     public void setFournisseur(FournisseurSV fournisseur) {
         this.fournisseur = fournisseur;
     }
-    
-    
+
     public List<LocalDetails> getLocalDetails() {
         return localDetails;
     }
@@ -101,7 +94,6 @@ public class Materiel implements Serializable {
     public void setLocalDetails(List<LocalDetails> localDetails) {
         this.localDetails = localDetails;
     }
-
 
     public String getMarque() {
         return marque;
@@ -126,7 +118,6 @@ public class Materiel implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
 
     public Long getId() {
         return id;

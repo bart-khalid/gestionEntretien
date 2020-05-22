@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface LocaleRepository extends JpaRepository<Locale, Long>{
+public interface LocaleRepository extends JpaRepository<Locale, Long> {
 
     public Locale findByReference(String reference);
-    
+
 }

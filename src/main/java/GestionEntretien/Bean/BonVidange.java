@@ -26,7 +26,7 @@ public class BonVidange implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String numbonV;
-    @JsonFormat(pattern = "yyyy-MM-dd")    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date datebonV;
     private double montantvignetteV;
     private double prixunitaireV;
@@ -36,13 +36,13 @@ public class BonVidange implements Serializable {
     private String descriptionV;
     private String typehuileV;
     private String reference;
-    private static Long nbr=0000L;
+    private static Long nbr = 0000L;
     private String fourniassooci;
     private String vehiculeassooci;
-    
+
     @ManyToOne
     private Vehicule vehiculeV;
-    
+
     @ManyToOne
     private FournisseurSV fournisseurV;
 
@@ -62,8 +62,6 @@ public class BonVidange implements Serializable {
         this.vehiculeassooci = vehiculeassooci;
     }
 
-    
-    
     public String getReference() {
         return reference;
     }
@@ -79,8 +77,6 @@ public class BonVidange implements Serializable {
     public static void setNbr(Long nbr) {
         BonVidange.nbr = nbr;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -177,6 +173,5 @@ public class BonVidange implements Serializable {
     public void setFournisseurV(FournisseurSV fournisseurV) {
         this.fournisseurV = fournisseurV;
     }
-    
-    
+
 }

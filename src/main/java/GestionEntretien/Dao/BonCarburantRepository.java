@@ -14,8 +14,10 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface BonCarburantRepository extends JpaRepository<BonCarburant, Long>{
+public interface BonCarburantRepository extends JpaRepository<BonCarburant, Long> {
+
     public BonCarburant findByReference(String reference);
+
     public BonCarburant findByNumbonC(String reference);
-    
+
 }

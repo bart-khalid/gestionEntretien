@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/prestationInterne")
 public class PrestationInterneRest {
+
     @Autowired
     private PrestationInterneService prestationInterneService;
 
@@ -49,6 +50,5 @@ public class PrestationInterneRest {
     public List<PrestationInterne> findAll() {
         return prestationInterneService.findAll();
     }
-    
-    
+
 }

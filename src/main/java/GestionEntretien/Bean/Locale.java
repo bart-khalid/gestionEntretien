@@ -32,15 +32,15 @@ public class Locale implements Serializable {
     private double nbrMateriel;
     //desc
     private String descriptionDropDown;
-    private static Long nbrLocale=0L;
-    
+    private static Long nbrLocale = 0L;
+
     @OneToMany(mappedBy = "locale")
     private List<LocalDetails> localDetails;
 
     @OneToMany(mappedBy = "locale")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PrestationInterne> prestationsI;
-    
+
     @OneToMany(mappedBy = "locale")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PrestationExterne> prestationsE;
@@ -48,8 +48,7 @@ public class Locale implements Serializable {
     @OneToMany(mappedBy = "locale")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Reclamation> reclamations;
-    
-    
+
     public static Long getNbrLocale() {
         return nbrLocale;
     }
@@ -69,13 +68,11 @@ public class Locale implements Serializable {
     public void setReclamations(List<Reclamation> reclamations) {
         this.reclamations = reclamations;
     }
-    
 
-    
     public static void setNbrLocale(Long nbrLocale) {
         Locale.nbrLocale = nbrLocale;
     }
-    
+
     public double getNbrMateriel() {
         return nbrMateriel;
     }
@@ -84,7 +81,6 @@ public class Locale implements Serializable {
         this.nbrMateriel = nbrMateriel;
     }
 
-    
     public String getDepartement() {
         return departement;
     }
@@ -92,7 +88,7 @@ public class Locale implements Serializable {
     public void setDepartement(String departement) {
         this.departement = departement;
     }
-    
+
     public String getReference() {
         return reference;
     }
@@ -116,7 +112,6 @@ public class Locale implements Serializable {
     public void setTypeLocal(String typeLocal) {
         this.typeLocal = typeLocal;
     }
-    
 
     public List<LocalDetails> getLocalDetails() {
         return localDetails;
@@ -125,8 +120,6 @@ public class Locale implements Serializable {
     public void setLocalDetails(List<LocalDetails> LocalDetails) {
         this.localDetails = LocalDetails;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -177,6 +170,4 @@ public class Locale implements Serializable {
         this.prestationsE = prestationsE;
     }
 
- 
-    
 }

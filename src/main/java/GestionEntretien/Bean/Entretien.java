@@ -25,23 +25,21 @@ public class Entretien implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @JsonFormat(pattern = "yyyy-MM-dd")    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateEntretien;
     private String nomMateriel;
     private String nomLocale;
     private String prestataire;
     private double montant;
     private String numFacture;
-    
+
     // locle detail c le materiel qui est specifier par un ref et un locale
     @ManyToOne
     private LocalDetails materiel;
-    
+
     @ManyToOne
     private Locale loclale;
 
-    
-    
     public String getNomMateriel() {
         return nomMateriel;
     }
@@ -68,7 +66,7 @@ public class Entretien implements Serializable {
     public void setNomLocale(String nomLocale) {
         this.nomLocale = nomLocale;
     }
-    
+
     public LocalDetails getMateriel() {
         return materiel;
     }
@@ -85,8 +83,6 @@ public class Entretien implements Serializable {
         this.loclale = loclale;
     }
 
-    
-    
     public Date getDateEntretien() {
         return dateEntretien;
     }
@@ -151,5 +147,5 @@ public class Entretien implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.Entretien[ id=" + id + " ]";
     }
-    
+
 }

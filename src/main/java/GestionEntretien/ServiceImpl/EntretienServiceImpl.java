@@ -17,26 +17,26 @@ import org.springframework.stereotype.Service;
  * @author Zakaria
  */
 @Service
-public class EntretienServiceImpl implements EntretienService{
+public class EntretienServiceImpl implements EntretienService {
 
     @Autowired
     EntretienRepository entretienrepo;
-    
+
     @Override
     public List<Entretien> findAll() {
-    return entretienrepo.findAll();
+        return entretienrepo.findAll();
     }
 
     @Override
     public int delete(String numfacture) {
-    Entretien founded = entretienrepo.findByNumFacture(numfacture);
-    entretienrepo.delete(founded);
+        Entretien founded = entretienrepo.findByNumFacture(numfacture);
+        entretienrepo.delete(founded);
         return 1;
     }
 
     @Override
     public Entretien findByNumFacture(String numfacture) {
-    return entretienrepo.findByNumFacture(numfacture);
-       }
-    
+        return entretienrepo.findByNumFacture(numfacture);
+    }
+
 }

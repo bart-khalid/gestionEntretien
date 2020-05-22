@@ -27,21 +27,22 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/locale")
 public class LocaleRest {
+
     @Autowired
     private LocaleService localeService;
-    
+
     @PostMapping("/")
-    public int save(@RequestBody Locale locale){
+    public int save(@RequestBody Locale locale) {
         return localeService.save(locale);
     }
-    
+
     @PutMapping("/update")
-    public int update(@RequestBody Locale locale){
+    public int update(@RequestBody Locale locale) {
         return localeService.update(locale);
     }
-    
+
     @DeleteMapping("/deleteLocale/{reference}")
-    public int delete(@PathVariable String reference){
+    public int delete(@PathVariable String reference) {
         return localeService.delete(reference);
     }
 
@@ -49,5 +50,5 @@ public class LocaleRest {
     public List<Locale> findAll() {
         return localeService.findAll();
     }
-    
+
 }

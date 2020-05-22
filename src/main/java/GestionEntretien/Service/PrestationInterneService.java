@@ -13,9 +13,13 @@ import java.util.List;
  * @author lenovo
  */
 public interface PrestationInterneService {
+
     public int save(PrestationInterne preInterne);
+
     public int update(PrestationInterne preInterne);
+
     public int delete(String reference);
+
     public List<PrestationInterne> findAll();
-    
+
 }

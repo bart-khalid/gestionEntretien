@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface PrestationInterneRepository extends JpaRepository<PrestationInterne, Long>{
+public interface PrestationInterneRepository extends JpaRepository<PrestationInterne, Long> {
 
     public PrestationInterne findByReferenceI(String reference);
-    
+
 }

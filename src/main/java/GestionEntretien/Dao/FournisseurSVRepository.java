@@ -16,12 +16,12 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface FournisseurSVRepository extends JpaRepository<FournisseurSV, Long>{
+public interface FournisseurSVRepository extends JpaRepository<FournisseurSV, Long> {
 
 //    public FournisseurSV findByNomf(String nom);
 //    @Query(value = "select fournisseur from fournisseur where nom=")
 //    public Fournisseur findByNomAndAdresse(@Param String nom,@Param String adresse);
-
     public FournisseurSV findByNomfAndAdressef(String nomf, String adressef);
+
     public FournisseurSV findByReference(String reference);
 }

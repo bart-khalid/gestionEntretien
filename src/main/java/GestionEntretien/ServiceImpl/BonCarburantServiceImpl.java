@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BonCarburantServiceImpl implements BonCarburantService {
+
     @Autowired
     private BonCarburantRepository bonrepo;
 
@@ -48,33 +49,33 @@ public class BonCarburantServiceImpl implements BonCarburantService {
 
     @Override
     public int update(BonCarburant boncarburant) {
-      BonCarburant founded = bonrepo.findByReference(boncarburant.getReference());
-      founded.setNumbonC(boncarburant.getNumbonC());
-      founded.setDatebonC(boncarburant.getDatebonC());
-      founded.setDescriptionC(boncarburant.getDescriptionC());
-      founded.setFournisseurC(boncarburant.getFournisseurC());
-      founded.setVehiculeC(boncarburant.getVehiculeC());
-      founded.setPrixunitaireC(boncarburant.getPrixunitaireC());
-      founded.setTotalbrutC(boncarburant.getTotalbrutC());
-      founded.setMontantvignetteC(boncarburant.getMontantvignetteC());
-      founded.setTypeC(boncarburant.getTypeC());
-      founded.setQuantiteC(boncarburant.getQuantiteC());
-      founded.setFourniassooci(boncarburant.getFournisseurC().getDescriptionDropDown());
-      founded.setVehiculeassooci(boncarburant.getVehiculeC().getDescriptionDropDown());
-      bonrepo.save(founded);
-      return 1;
-      
+        BonCarburant founded = bonrepo.findByReference(boncarburant.getReference());
+        founded.setNumbonC(boncarburant.getNumbonC());
+        founded.setDatebonC(boncarburant.getDatebonC());
+        founded.setDescriptionC(boncarburant.getDescriptionC());
+        founded.setFournisseurC(boncarburant.getFournisseurC());
+        founded.setVehiculeC(boncarburant.getVehiculeC());
+        founded.setPrixunitaireC(boncarburant.getPrixunitaireC());
+        founded.setTotalbrutC(boncarburant.getTotalbrutC());
+        founded.setMontantvignetteC(boncarburant.getMontantvignetteC());
+        founded.setTypeC(boncarburant.getTypeC());
+        founded.setQuantiteC(boncarburant.getQuantiteC());
+        founded.setFourniassooci(boncarburant.getFournisseurC().getDescriptionDropDown());
+        founded.setVehiculeassooci(boncarburant.getVehiculeC().getDescriptionDropDown());
+        bonrepo.save(founded);
+        return 1;
+
     }
 
     @Override
     public int delete(String reference) {
-    BonCarburant founded = bonrepo.findByReference(reference);
-    bonrepo.delete(founded);
-    return 1;
+        BonCarburant founded = bonrepo.findByReference(reference);
+        bonrepo.delete(founded);
+        return 1;
     }
 
     @Override
     public List<BonCarburant> findAll() {
-    return bonrepo.findAll();
+        return bonrepo.findAll();
     }
 }

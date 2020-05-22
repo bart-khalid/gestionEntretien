@@ -13,10 +13,16 @@ import java.util.List;
  * @author lenovo
  */
 public interface VehiculeService {
+
     public int save(Vehicule vehicule);
+
     public int update(Vehicule vehicule);
+
     public int delete(String matricule);
+
     public List<Vehicule> findAll();
+
     public Vehicule findByReference(String reference);
+
     public Vehicule findByMatricule(String Matricule);
 }
