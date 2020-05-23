@@ -33,12 +33,12 @@ public class Entretien implements Serializable {
     private double montant;
     private String numFacture;
     
-    // locle detail c le materiel qui est specifier par un ref et un locale
+    
     @ManyToOne
     private LocalDetails materiel;
     
     @ManyToOne
-    private Locale loclale;
+    private Locale locale;
 
     
     
@@ -77,13 +77,14 @@ public class Entretien implements Serializable {
         this.materiel = materiel;
     }
 
-    public Locale getLoclale() {
-        return loclale;
+    public Locale getLocale() {
+        return locale;
     }
 
-    public void setLoclale(Locale loclale) {
-        this.loclale = loclale;
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
+
 
     
     

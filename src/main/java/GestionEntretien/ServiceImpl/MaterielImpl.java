@@ -6,6 +6,7 @@
 package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.FournisseurSV;
+import GestionEntretien.Bean.LocalDetails;
 import GestionEntretien.Bean.Materiel;
 import GestionEntretien.Dao.MaterielRepository;
 import GestionEntretien.Service.MaterielService;
@@ -27,10 +28,14 @@ public class MaterielImpl implements MaterielService {
 
     @Override
     public int save(Materiel materiel) {
-        
+        // generate a random reference 
         Materiel.setNbrMateriel(Materiel.getNbrMateriel() + 1);
-        FournisseurSV foundedFournisseur = materiel.getFournisseur();
         materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
+        Materiel foundedMateriel = materielRepository.findByReference(materiel.getReference());
+        while(foundedMateriel != null) {
+            materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
+            foundedMateriel = materielRepository.findByReference(materiel.getReference());
+        }
         materiel.setMarque(materiel.getFournisseur().getNomf());
         materiel.setDescriptionDropDown(materiel.getNom() + ", " + materiel.getMarque());
         materielRepository.save(materiel);
@@ -54,6 +59,10 @@ public class MaterielImpl implements MaterielService {
     @Override
     public int deleteByReference(String reference) {
         Materiel foundedMateriel = materielRepository.findByReference(reference);
+        List<LocalDetails> materielLocales = foundedMateriel.getLocalDetails();
+        materielLocales.forEach((m) -> {
+            m.setMateriel(null);
+        });
         materielRepository.delete(foundedMateriel);
         return 1;
     }

@@ -56,8 +56,6 @@ public class PrestationInterne implements Serializable {
         this.ReclamedI = false;
     }
 
-    
-    
     public LocalDetails getMaterielLocale() {
         return materielLocale;
     }

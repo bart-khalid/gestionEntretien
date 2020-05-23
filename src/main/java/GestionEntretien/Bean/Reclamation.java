@@ -6,6 +6,7 @@
 package GestionEntretien.Bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -47,6 +49,14 @@ public class Reclamation implements Serializable {
     @ManyToOne
     private Users reclament;
     
+    @OneToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private PrestationInterne prestationInterne;
+    
+    @OneToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private PrestationExterne prestationExterne;
+    
     
     
     
@@ -59,6 +69,23 @@ public class Reclamation implements Serializable {
         this.materiel = materiel;
     }
 
+    public PrestationInterne getPrestationInterne() {
+        return prestationInterne;
+    }
+
+    public void setPrestationInterne(PrestationInterne prestationInterne) {
+        this.prestationInterne = prestationInterne;
+    }
+
+    public PrestationExterne getPrestationExterne() {
+        return prestationExterne;
+    }
+
+    public void setPrestationExterne(PrestationExterne prestationExterne) {
+        this.prestationExterne = prestationExterne;
+    }
+
+    
     public String getDescreptionDropDownReclamation() {
         return descreptionDropDownReclamation;
     }

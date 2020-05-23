@@ -55,5 +55,10 @@ public class ReclamtionRest {
     public int delete(@PathVariable String reference) {
         return reclamtionService.delete(reference);
     }
+    
+    @GetMapping("/reclamations")
+    public List<Reclamation> findReclamationsNonTraiter(){
+        return reclamtionService.findReclamationsNonTraiter();
+    }
    
 }

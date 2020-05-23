@@ -54,8 +54,13 @@ public class LocalDetails implements Serializable {
     @OneToMany(mappedBy = "materiel")
     private List<Reclamation> reclamations;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "materielLocale")
+    private List<PrestationInterne> prestationInternes;
     
-    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "materielLocale")
+    private List<PrestationExterne> prestationExternes;
     
     
     
@@ -68,6 +73,23 @@ public class LocalDetails implements Serializable {
         this.entretiensMateriele = entretiensMateriele;
     }
 
+    public List<PrestationInterne> getPrestationInternes() {
+        return prestationInternes;
+    }
+
+    public void setPrestationInternes(List<PrestationInterne> prestationInternes) {
+        this.prestationInternes = prestationInternes;
+    }
+
+    public List<PrestationExterne> getPrestationExternes() {
+        return prestationExternes;
+    }
+
+    public void setPrestationExternes(List<PrestationExterne> prestationExternes) {
+        this.prestationExternes = prestationExternes;
+    }
+
+    
     public String getDescriptionMaterielLocale() {
         return descriptionMaterielLocale;
     }
