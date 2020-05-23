@@ -7,6 +7,7 @@ package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.LocalDetails;
 import GestionEntretien.Bean.Locale;
+import GestionEntretien.Bean.PrestationExterne;
 import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Bean.Reclamation;
 import GestionEntretien.Bean.Users;
@@ -19,6 +20,7 @@ import GestionEntretien.Dao.UsersRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import GestionEntretien.Service.ReclamationService;
+import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 // this import for random String generating
@@ -167,6 +169,16 @@ public class ReclamationImpl implements ReclamationService {
         if (founReclamation == null) {
             return -1;
         } else {
+            // set reclamation to null in prestations associate
+            PrestationInterne prestationInterne = founReclamation.getPrestationInterne();
+            PrestationExterne prestationExterne = founReclamation.getPrestationExterne();
+            if(prestationExterne != null) {
+                prestationExterne.setReclamationE(null);
+            }
+            if(prestationInterne != null) {
+                prestationInterne.setReclamationI(null);
+            }
+            
             reclamationRepository.delete(founReclamation);
             return 1;
         }
@@ -183,6 +195,20 @@ public class ReclamationImpl implements ReclamationService {
             reclamationRepository.save(foundedReclamation);
             return 1;
         }
+    }
+
+    @Override
+    public List<Reclamation> findReclamationsNonTraiter() {
+        List<Reclamation> reclamations = new ArrayList<>();
+        List<Reclamation> recs = reclamationRepository.findAll();
+        recs.forEach((rec) -> {
+            if (rec.getEtat().equals("Sous Traitement"));
+            {
+                reclamations.add(rec);
+            }
+
+        });
+        return reclamations;
     }
 
 }

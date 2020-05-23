@@ -5,15 +5,24 @@
  */
 package GestionEntretien.ServiceImpl;
 
+import GestionEntretien.Bean.Entretien;
+import GestionEntretien.Bean.LocalDetails;
 import GestionEntretien.Bean.Locale;
+import GestionEntretien.Bean.Materiel;
+import GestionEntretien.Bean.PrestationExterne;
+import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Bean.Reclamation;
+import GestionEntretien.Dao.LocalDetailsRepository;
 import GestionEntretien.Dao.LocaleRepository;
+import GestionEntretien.Dao.MaterielRepository;
+import GestionEntretien.Service.LocalDetailsService;
 import GestionEntretien.Service.LocaleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 // this import for random String generating
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,12 +33,25 @@ public class LocaleImpl implements LocaleService {
 
     @Autowired
     private LocaleRepository localeRepository;
+    @Autowired
+    private LocalDetailsRepository localDetailsRepository;
+    @Autowired
+    private MaterielRepository materielRepository;
 
     @Override
     public int save(Locale locale) {
-        locale.setDescriptionDropDown(locale.getNomLocal() + ", " + locale.getTypeLocal() + ", " + locale.getDepartement());
+        // generate random reference
         Locale.setNbrLocale(Locale.getNbrLocale() + 1);
         locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
+        Locale foundedLocale = localeRepository.findByReference(locale.getReference());
+        while (foundedLocale != null) {
+            locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
+            foundedLocale = localeRepository.findByReference(locale.getReference());
+        }
+        
+        // 
+        locale.setDescriptionDropDown(locale.getTypeLocal() + " " + locale.getNomLocal() + ", " + locale.getDepartement());
+
         localeRepository.save(locale);
         return 1;
     }
@@ -40,14 +62,48 @@ public class LocaleImpl implements LocaleService {
         foundedLocale.setNomLocal(locale.getNomLocal());
         foundedLocale.setDepartement(locale.getDepartement());
         foundedLocale.setTypeLocal(locale.getTypeLocal());
-        foundedLocale.setDescriptionDropDown(locale.getNomLocal() + " " + locale.getTypeLocal() + ", " + locale.getDepartement());
+        foundedLocale.setDescriptionDropDown(locale.getTypeLocal() + " " + locale.getNomLocal() + ", " + locale.getDepartement());
         localeRepository.save(foundedLocale);
         return 1;
     }
 
     @Override
+    @Transactional
     public int delete(String reference) {
         Locale foundedLocale = localeRepository.findByReference(reference);
+        // set locale in reclamations to null
+        List<Reclamation> reclamations = foundedLocale.getReclamations();
+        reclamations.forEach((reclamation) -> {
+            reclamation.setLocale(null);
+        });
+        reclamations.forEach((reclamation) -> {
+            reclamation.setMateriel(null);
+        });
+
+        // set locale in prestations interne to null
+        List<PrestationInterne> prestationsI = foundedLocale.getPrestationsI();
+        prestationsI.forEach((prestation) -> {
+            prestation.setLocale(null);
+        });
+
+        // set locale in prestations externe to null
+        List<PrestationExterne> prestationsE = foundedLocale.getPrestationsE();
+        prestationsE.forEach((prestationExterne) -> {
+            prestationExterne.setLocale(null);
+        });
+
+        // set locale and materiel in enretiens to null
+        List<Entretien> ents = foundedLocale.getEntretiens();
+        ents.forEach((ent) -> {
+            ent.setLocale(null);
+        });
+
+        List<LocalDetails> materiels = foundedLocale.getLocalDetails();
+        for (LocalDetails materiel : materiels) {
+            deleteMateriel(materiel.getReferenceML());
+        }
+
+        // delete the locale
         localeRepository.delete(foundedLocale);
         return 1;
     }
@@ -57,4 +113,43 @@ public class LocaleImpl implements LocaleService {
         return localeRepository.findAll();
     }
 
+    public void deleteMateriel(String reference) {
+        LocalDetails foundedMaterielLocale = localDetailsRepository.findByReferenceML(reference);
+
+        //Edit materiel asoocier
+        if (foundedMaterielLocale.getMateriel() != null) {
+            Materiel loadedMateriel = materielRepository.findByReference(foundedMaterielLocale.getMateriel().getReference());
+            List<LocalDetails> mats = loadedMateriel.getLocalDetails();
+            mats.remove(foundedMaterielLocale);
+            loadedMateriel.setLocalDetails(mats);
+            loadedMateriel.setNbrEntite(foundedMaterielLocale.getMateriel().getNbrEntite() - 1);
+            materielRepository.save(loadedMateriel);
+        }
+
+        // list of prestations associate
+        List<PrestationInterne> preIs = foundedMaterielLocale.getPrestationInternes();
+        List<PrestationExterne> preEs = foundedMaterielLocale.getPrestationExternes();
+        // set materiel to null
+        preIs.forEach((pre) -> {
+            pre.setMaterielLocale(null);
+        });
+        preEs.forEach((pre) -> {
+            pre.setMaterielLocale(null);
+        });
+
+        // entretiens 
+        List<Entretien> ents = foundedMaterielLocale.getEntretiensMateriele();
+        ents.forEach((ent) -> {
+            ent.setMateriel(null);
+        });
+
+        // reclamations   
+        List<Reclamation> recs = foundedMaterielLocale.getReclamations();
+        recs.forEach((rec) -> {
+            rec.setLocale(null);
+        });
+
+        //delete this localeMateriels
+        localDetailsRepository.delete(foundedMaterielLocale);
+    }
 }

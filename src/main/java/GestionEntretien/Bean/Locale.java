@@ -48,7 +48,12 @@ public class Locale implements Serializable {
     @OneToMany(mappedBy = "locale")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Reclamation> reclamations;
-
+    
+    @OneToMany(mappedBy = "locale")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Entretien> entretiens;
+    
+    
     public static Long getNbrLocale() {
         return nbrLocale;
     }
@@ -57,6 +62,15 @@ public class Locale implements Serializable {
         return descriptionDropDown;
     }
 
+    public List<Entretien> getEntretiens() {
+        return entretiens;
+    }
+
+    public void setEntretiens(List<Entretien> entretiens) {
+        this.entretiens = entretiens;
+    }
+
+    
     public void setDescriptionDropDown(String descriptionDropDown) {
         this.descriptionDropDown = descriptionDropDown;
     }

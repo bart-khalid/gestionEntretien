@@ -6,7 +6,11 @@
 package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.Agent;
+import GestionEntretien.Bean.PrestationExterne;
+import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Dao.AgentRepository;
+import GestionEntretien.Dao.PrestationExterneRepository;
+import GestionEntretien.Dao.PrestationInterneRepository;
 import GestionEntretien.Service.AgentService;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -22,7 +26,14 @@ public class AgentImpl implements AgentService {
 
     @Autowired
     private AgentRepository agentRepository;
-
+    @Autowired
+    private PrestationInterneRepository prestationInterneRepository;
+    @Autowired
+    private PrestationExterneRepository prestationExterneRepository;
+    
+    
+    
+    
     @Override
     public int save(Agent agent) {
         Agent foundedAgent = agentRepository.findByCodeAgent(agent.getCodeAgent());
@@ -60,6 +71,12 @@ public class AgentImpl implements AgentService {
     @Override
     public int deleteByCodeAgent(String reference) {
         Agent foundedAgent = agentRepository.findByReference(reference);
+        // set agent to null
+        List<PrestationInterne> foundedPresInternes = prestationInterneRepository.findAll();
+        foundedPresInternes.stream().filter((foundedPresInterne) -> (foundedPresInterne.getAgent().getReference().equals(foundedAgent.getReference()))).forEachOrdered((foundedPresInterne) -> {
+            foundedPresInterne.setAgent(null);
+        });
+        // delete
         agentRepository.delete(foundedAgent);
         return 1;
     }

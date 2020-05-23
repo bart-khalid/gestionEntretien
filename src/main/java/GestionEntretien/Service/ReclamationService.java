@@ -21,6 +21,6 @@ public interface ReclamationService {
     public int reclamationSeen(String reference);
 
     public int update(Reclamation reclamation);
-
-    public int delete(String refernce);
+    public int delete (String refernce);
+    public List<Reclamation> findReclamationsNonTraiter();
 }

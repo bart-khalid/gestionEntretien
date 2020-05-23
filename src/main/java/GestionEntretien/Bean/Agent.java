@@ -38,9 +38,6 @@ public class Agent implements Serializable {
     private String descriptionDropDown;
     private static Long nbr = 0000L;
 
-    @OneToMany(mappedBy = "agent")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<PrestationInterne> prestations;
 
     public String getDescriptionDropDown() {
         return descriptionDropDown;
@@ -72,14 +69,6 @@ public class Agent implements Serializable {
 
     public static void setNbr(Long nbr) {
         Agent.nbr = nbr;
-    }
-
-    public List<PrestationInterne> getPrestations() {
-        return prestations;
-    }
-
-    public void setPrestations(List<PrestationInterne> prestations) {
-        this.prestations = prestations;
     }
 
     public String getCodeAgent() {

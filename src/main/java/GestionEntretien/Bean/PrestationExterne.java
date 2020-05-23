@@ -25,75 +25,44 @@ public class PrestationExterne implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String reference;
-    private String typeEntretien;
-    private Date date;
-    private boolean Reclamed;
-    private String refrenceReclamation;
-
-    private String nomPrestataire;
-    private double montantFac;
-    private String numeroFac;
-    private boolean bonCommande;
-    private boolean bonLivraison;
+    
+    private String referenceE;
+    private String typeEntretienE;
+    private Date dateE;
+    private boolean ReclamedE;
+    private String refrenceReclamationE;
+    
+    private String nomPrestataireE;
+    private double montantFacE;
+    private String numeroFacE;
+    private boolean bonCommandeE;
+    private boolean bonLivraisonE;
 
     @ManyToOne
-    protected Locale locale;
-
+    private Locale locale;
+    
+    @ManyToOne
+    private LocalDetails materielLocale;
+    
     @OneToOne
     private PresBonCommande presBonCommande;
+    
+    @OneToOne
+    private Reclamation reclamationE;
 
     @OneToOne
     private PresBonLivraison presBonLivraison;
 
-    public boolean isReclamed() {
-        return Reclamed;
+  
+
+    public Reclamation getReclamationE() {
+        return reclamationE;
     }
 
-    public void setReclamed(boolean Reclamed) {
-        this.Reclamed = Reclamed;
+    public void setReclamationE(Reclamation reclamationE) {
+        this.reclamationE = reclamationE;
     }
 
-    public boolean isBonCommande() {
-        return bonCommande;
-    }
-
-    public void setBonCommande(boolean BonCommande) {
-        this.bonCommande = BonCommande;
-    }
-
-    public boolean isBonLivraison() {
-        return bonLivraison;
-    }
-
-    public void setBonLivraison(boolean BonLivraison) {
-        this.bonLivraison = BonLivraison;
-    }
-
-    public String getNomPrestataire() {
-        return nomPrestataire;
-    }
-
-    public void setNomPrestataire(String nomPrestataire) {
-        this.nomPrestataire = nomPrestataire;
-    }
-
-    public double getMontantFac() {
-        return montantFac;
-    }
-
-    public void setMontantFac(double montantFac) {
-        this.montantFac = montantFac;
-    }
-
-    public String getNumeroFac() {
-        return numeroFac;
-    }
-
-    public void setNumeroFac(String numeroFac) {
-        this.numeroFac = numeroFac;
-    }
 
     public Long getId() {
         return id;
@@ -144,37 +113,94 @@ public class PrestationExterne implements Serializable {
         this.presBonLivraison = presBonLivraison;
     }
 
-    public String getReference() {
-        return reference;
+    public String getReferenceE() {
+        return referenceE;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setReferenceE(String referenceE) {
+        this.referenceE = referenceE;
     }
 
-    public String getTypeEntretien() {
-        return typeEntretien;
+    public String getTypeEntretienE() {
+        return typeEntretienE;
     }
 
-    public void setTypeEntretien(String typeEntretien) {
-        this.typeEntretien = typeEntretien;
+    public void setTypeEntretienE(String typeEntretienE) {
+        this.typeEntretienE = typeEntretienE;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateE() {
+        return dateE;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateE(Date dateE) {
+        this.dateE = dateE;
     }
 
-    public String getRefrenceReclamation() {
-        return refrenceReclamation;
+   
+    
+    public LocalDetails getMaterielLocale() {
+        return materielLocale;
     }
 
-    public void setRefrenceReclamation(String refrenceReclamation) {
-        this.refrenceReclamation = refrenceReclamation;
+    public void setMaterielLocale(LocalDetails materielLocale) {
+        this.materielLocale = materielLocale;
     }
+
+
+    public void setReclamedE(boolean ReclamedE) {
+        this.ReclamedE = ReclamedE;
+    }
+
+    public String getRefrenceReclamationE() {
+        return refrenceReclamationE;
+    }
+
+    public void setRefrenceReclamationE(String refrenceReclamationE) {
+        this.refrenceReclamationE = refrenceReclamationE;
+    }
+
+    public String getNomPrestataireE() {
+        return nomPrestataireE;
+    }
+
+    public void setNomPrestataireE(String nomPrestataireE) {
+        this.nomPrestataireE = nomPrestataireE;
+    }
+
+    public double getMontantFacE() {
+        return montantFacE;
+    }
+
+    public void setMontantFacE(double montantFacE) {
+        this.montantFacE = montantFacE;
+    }
+
+    public String getNumeroFacE() {
+        return numeroFacE;
+    }
+
+    public void setNumeroFacE(String numeroFacE) {
+        this.numeroFacE = numeroFacE;
+    }
+
+    public boolean isBonCommandeE() {
+        return bonCommandeE;
+    }
+
+    public void setBonCommandeE(boolean bonCommandeE) {
+        this.bonCommandeE = bonCommandeE;
+    }
+
+    public boolean isBonLivraisonE() {
+        return bonLivraisonE;
+    }
+
+    public void setBonLivraisonE(boolean bonLivraisonE) {
+        this.bonLivraisonE = bonLivraisonE;
+    }
+
+  
 
     public Locale getLocale() {
         return locale;
