@@ -9,6 +9,7 @@ import GestionEntretien.Bean.BonCarburant;
 import GestionEntretien.Bean.BonReparation;
 import GestionEntretien.Bean.BonVidange;
 import GestionEntretien.Bean.FournisseurSV;
+import GestionEntretien.Bean.Materiel;
 import GestionEntretien.Dao.BonCarburantRepository;
 import GestionEntretien.Dao.BonReparationRepository;
 import GestionEntretien.Dao.BonVidangeRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import GestionEntretien.Dao.FournisseurSVRepository;
+import GestionEntretien.Dao.MaterielRepository;
 import GestionEntretien.Service.FournisseurSVService;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -34,6 +36,14 @@ public class FournisseurSVImpl implements FournisseurSVService {
     private BonReparationRepository bonreparepo;
     @Autowired
     private BonVidangeRepository bonvidrepo;
+    @Autowired
+    private MaterielRepository materielRepository;
+    
+    List<BonCarburant> listBons = boncarrepo.findAll();
+    List<BonReparation> listBonsrepa = bonreparepo.findAll();
+    List<BonVidange> listBonsvid = bonvidrepo.findAll();
+    List<Materiel> listmat = materielRepository.findAll();
+    
 
     @Override
     public int save(FournisseurSV fournisseur) {
@@ -60,9 +70,6 @@ public class FournisseurSVImpl implements FournisseurSVService {
         foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
         foundedFournisseur.setTypef(fournisseur.getTypef());
 
-        List<BonCarburant> listBons = boncarrepo.findAll();
-        List<BonReparation> listBonsrepa = bonreparepo.findAll();
-        List<BonVidange> listBonsvid = bonvidrepo.findAll();
         for (BonCarburant bon : listBons) {
             if (bon.getFournisseurC().getReference().equals(foundedFournisseur.getReference())) {
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
@@ -81,6 +88,13 @@ public class FournisseurSVImpl implements FournisseurSVService {
             }
             bonvidrepo.save(bon);
         }
+        
+        for (Materiel mat : listmat) {
+            if (mat.getFournisseur().getReference().equals(foundedFournisseur.getReference())) {
+                mat.setDescriptionDropDown(foundedFournisseur.getDescriptionDropDown());
+            }
+            materielRepository.save(mat);
+        }
 
         fournisseurRepository.save(foundedFournisseur);
         return 1;
@@ -94,6 +108,31 @@ public class FournisseurSVImpl implements FournisseurSVService {
     @Override
     public int delete(String reference) {
         FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(reference);
+        for (BonCarburant bon : listBons) {
+            if (bon.getFournisseurC() == foundedFournisseur) {
+                bon.setFournisseurC(null);
+            }
+            boncarrepo.save(bon);
+        }
+        for (BonReparation bon : listBonsrepa) {
+            if (bon.getFournisseurR() == foundedFournisseur) {
+                bon.setFournisseurR(null);
+            }
+            bonreparepo.save(bon);
+        }
+        for (BonVidange bon : listBonsvid) {
+            if (bon.getFournisseurV() == foundedFournisseur) {
+                bon.setFournisseurV(null);
+            }
+            bonvidrepo.save(bon);
+        }
+        for (Materiel mat : listmat) {
+            if (mat.getFournisseur() == foundedFournisseur) {
+                mat.setFournisseur(null);
+            }
+            materielRepository.save(mat);
+        }
+
         fournisseurRepository.delete(foundedFournisseur);
         return 1;
     }
