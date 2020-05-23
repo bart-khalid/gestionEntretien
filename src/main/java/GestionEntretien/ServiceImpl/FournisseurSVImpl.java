@@ -38,12 +38,6 @@ public class FournisseurSVImpl implements FournisseurSVService {
     private BonVidangeRepository bonvidrepo;
     @Autowired
     private MaterielRepository materielRepository;
-    
-    List<BonCarburant> listBons = boncarrepo.findAll();
-    List<BonReparation> listBonsrepa = bonreparepo.findAll();
-    List<BonVidange> listBonsvid = bonvidrepo.findAll();
-    List<Materiel> listmat = materielRepository.findAll();
-    
 
     @Override
     public int save(FournisseurSV fournisseur) {
@@ -70,6 +64,10 @@ public class FournisseurSVImpl implements FournisseurSVService {
         foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
         foundedFournisseur.setTypef(fournisseur.getTypef());
 
+        List<BonCarburant> listBons = boncarrepo.findAll();
+        List<BonReparation> listBonsrepa = bonreparepo.findAll();
+        List<BonVidange> listBonsvid = bonvidrepo.findAll();
+        List<Materiel> listmat = materielRepository.findAll();
         for (BonCarburant bon : listBons) {
             if (bon.getFournisseurC().getReference().equals(foundedFournisseur.getReference())) {
                 bon.setFourniassooci(foundedFournisseur.getDescriptionDropDown());
@@ -88,7 +86,7 @@ public class FournisseurSVImpl implements FournisseurSVService {
             }
             bonvidrepo.save(bon);
         }
-        
+
         for (Materiel mat : listmat) {
             if (mat.getFournisseur().getReference().equals(foundedFournisseur.getReference())) {
                 mat.setDescriptionDropDown(foundedFournisseur.getDescriptionDropDown());
@@ -108,6 +106,10 @@ public class FournisseurSVImpl implements FournisseurSVService {
     @Override
     public int delete(String reference) {
         FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(reference);
+        List<BonCarburant> listBons = boncarrepo.findAll();
+        List<BonReparation> listBonsrepa = bonreparepo.findAll();
+        List<BonVidange> listBonsvid = bonvidrepo.findAll();
+        List<Materiel> listmat = materielRepository.findAll();
         for (BonCarburant bon : listBons) {
             if (bon.getFournisseurC() == foundedFournisseur) {
                 bon.setFournisseurC(null);

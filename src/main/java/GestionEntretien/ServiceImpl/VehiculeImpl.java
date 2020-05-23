@@ -35,10 +35,6 @@ public class VehiculeImpl implements VehiculeService {
     @Autowired
     private BonVidangeRepository bonvidrepo;
 
-    List<BonCarburant> listBons = boncarrepo.findAll();
-    List<BonReparation> listBonsrepa = bonreparepo.findAll();
-    List<BonVidange> listBonsvid = bonvidrepo.findAll();
-
     @Override
     public int save(Vehicule vehicule) {
         Vehicule foundedv = vehiculeRepository.findByMatricule(vehicule.getMatricule());
@@ -61,7 +57,9 @@ public class VehiculeImpl implements VehiculeService {
         foundedv.setType(vehicule.getType());
         foundedv.setUtilite(vehicule.getUtilite());
         foundedv.setDateEntrerParc(vehicule.getDateEntrerParc());
-
+        List<BonCarburant> listBons = boncarrepo.findAll();
+        List<BonReparation> listBonsrepa = bonreparepo.findAll();
+        List<BonVidange> listBonsvid = bonvidrepo.findAll();
         for (BonCarburant bon : listBons) {
             if (bon.getVehiculeC().getReference().equals(foundedv.getReference())) {
                 bon.setVehiculeassooci(foundedv.getDescriptionDropDown());
@@ -87,19 +85,22 @@ public class VehiculeImpl implements VehiculeService {
     @Override
     public int delete(String reference) {
         Vehicule foundedv = vehiculeRepository.findByReference(reference);
-         for (BonCarburant bon : listBons) {
+        List<BonCarburant> listBons = boncarrepo.findAll();
+        List<BonReparation> listBonsrepa = bonreparepo.findAll();
+        List<BonVidange> listBonsvid = bonvidrepo.findAll();
+        for (BonCarburant bon : listBons) {
             if (bon.getVehiculeC() == foundedv) {
                 bon.setVehiculeC(null);
             }
             boncarrepo.save(bon);
         }
-         for (BonReparation bon : listBonsrepa) {
+        for (BonReparation bon : listBonsrepa) {
             if (bon.getVehiculeR() == foundedv) {
                 bon.setVehiculeR(null);
             }
             bonreparepo.save(bon);
         }
-         for (BonVidange bon : listBonsvid) {
+        for (BonVidange bon : listBonsvid) {
             if (bon.getVehiculeV() == foundedv) {
                 bon.setVehiculeV(null);
             }
