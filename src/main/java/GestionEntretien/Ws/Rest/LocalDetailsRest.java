@@ -27,23 +27,22 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/materielsLocale")
 public class LocalDetailsRest {
+
     @Autowired
-   LocalDetailsService localDetailsService;
-    
-    
+    LocalDetailsService localDetailsService;
+
     @PostMapping("/")
-    public int save(@RequestBody LocalDetails localDetails){
+    public int save(@RequestBody LocalDetails localDetails) {
         return localDetailsService.save(localDetails);
     }
-    
-    
+
     @PutMapping("/update")
-    public int update(@RequestBody LocalDetails localDetails){
+    public int update(@RequestBody LocalDetails localDetails) {
         return localDetailsService.update(localDetails);
     }
-    
+
     @DeleteMapping("/deleteMateriel/{referenceMaterielLocal}")
-    public int delete(@PathVariable String referenceMaterielLocal){
+    public int delete(@PathVariable String referenceMaterielLocal) {
         return localDetailsService.delete(referenceMaterielLocal);
     }
 
@@ -51,6 +50,5 @@ public class LocalDetailsRest {
     public List<LocalDetails> findAll() {
         return localDetailsService.findAll();
     }
-    
-    
+
 }

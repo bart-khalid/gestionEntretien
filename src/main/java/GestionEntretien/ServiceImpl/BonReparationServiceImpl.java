@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BonReparationServiceImpl implements BonReparationService {
+
     @Autowired
     private BonReparationRepository bonrepo;
 
@@ -39,10 +40,10 @@ public class BonReparationServiceImpl implements BonReparationService {
             return -1;
         }
         BonReparation.setNbr(bonreparation.getNbr() + 1);
-        bonreparation.setFourniassooci(bonreparation.getFournisseurR().getNomf()+" ,"+bonreparation.getFournisseurR().getAdressef());
-        bonreparation.setVehiculeassooci(bonreparation.getVehiculeR().getMatricule()+" ,"+bonreparation.getVehiculeR().getMarque());
+        bonreparation.setFourniassooci(bonreparation.getFournisseurR().getNomf() + " ," + bonreparation.getFournisseurR().getAdressef());
+        bonreparation.setVehiculeassooci(bonreparation.getVehiculeR().getMatricule() + " ," + bonreparation.getVehiculeR().getMarque());
         bonreparation.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(bonreparation.getNbr()));
-        
+
         bonrepo.save(bonreparation);
 
         return 1;
@@ -50,34 +51,33 @@ public class BonReparationServiceImpl implements BonReparationService {
 
     @Override
     public int update(BonReparation bonreparation) {
-      BonReparation founded = bonrepo.findByReference(bonreparation.getReference());
-      founded.setFourniassooci(bonreparation.getFournisseurR().getNomf()+" ,"+bonreparation.getFournisseurR().getAdressef());
-      founded.setVehiculeassooci(bonreparation.getVehiculeR().getMatricule()+" ,"+bonreparation.getVehiculeR().getMarque());
-      founded.setNumbonR(bonreparation.getNumbonR());
-      founded.setDatebonR(bonreparation.getDatebonR());
-      founded.setDescriptionR(bonreparation.getDescriptionR());
-      founded.setFournisseurR(bonreparation.getFournisseurR());
-      founded.setVehiculeR(bonreparation.getVehiculeR());
-      founded.setPrixunitaireR(bonreparation.getPrixunitaireR());
-      founded.setTotalbrutR(bonreparation.getTotalbrutR());
-      founded.setMontantvignetteR(bonreparation.getMontantvignetteR());
-      founded.setQuantiteR(bonreparation.getQuantiteR());
-      bonrepo.save(founded);
-      return 1;
-      
+        BonReparation founded = bonrepo.findByReference(bonreparation.getReference());
+        founded.setFourniassooci(bonreparation.getFournisseurR().getNomf() + " ," + bonreparation.getFournisseurR().getAdressef());
+        founded.setVehiculeassooci(bonreparation.getVehiculeR().getMatricule() + " ," + bonreparation.getVehiculeR().getMarque());
+        founded.setNumbonR(bonreparation.getNumbonR());
+        founded.setDatebonR(bonreparation.getDatebonR());
+        founded.setDescriptionR(bonreparation.getDescriptionR());
+        founded.setFournisseurR(bonreparation.getFournisseurR());
+        founded.setVehiculeR(bonreparation.getVehiculeR());
+        founded.setPrixunitaireR(bonreparation.getPrixunitaireR());
+        founded.setTotalbrutR(bonreparation.getTotalbrutR());
+        founded.setMontantvignetteR(bonreparation.getMontantvignetteR());
+        founded.setQuantiteR(bonreparation.getQuantiteR());
+        bonrepo.save(founded);
+        return 1;
+
     }
 
     @Override
     public int delete(String reference) {
-    BonReparation founded = bonrepo.findByReference(reference);
-    bonrepo.delete(founded);
-    return 1;
+        BonReparation founded = bonrepo.findByReference(reference);
+        bonrepo.delete(founded);
+        return 1;
     }
 
     @Override
     public List<BonReparation> findAll() {
-    return bonrepo.findAll();
+        return bonrepo.findAll();
     }
-   
 
 }

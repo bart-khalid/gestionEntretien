@@ -13,8 +13,12 @@ import java.util.List;
  * @author lenovo
  */
 public interface MaterielService {
+
     public int save(Materiel materiel);
+
     public int update(Materiel materiel);
+
     public int deleteByReference(String reference);
+
     public List<Materiel> findAll();
 }

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface ReclamationRepository extends JpaRepository<Reclamation, Long>{
+public interface ReclamationRepository extends JpaRepository<Reclamation, Long> {
 
     public Reclamation findByReference(String reference);
-    
+
 }

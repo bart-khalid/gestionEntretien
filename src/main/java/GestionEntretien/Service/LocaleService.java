@@ -13,8 +13,12 @@ import java.util.List;
  * @author lenovo
  */
 public interface LocaleService {
+
     public int save(Locale locale);
+
     public int update(Locale locale);
+
     public int delete(String reference);
+
     public List<Locale> findAll();
 }

@@ -28,19 +28,20 @@ import GestionEntretien.Service.FournisseurSVService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/fournisseur")
 public class FournisseurSVRset {
+
     @Autowired
     private FournisseurSVService fournisseurService;
-    
+
     @PostMapping("/")
-    public int save(@RequestBody FournisseurSV fournisseur){
+    public int save(@RequestBody FournisseurSV fournisseur) {
         return fournisseurService.save(fournisseur);
     }
-    
+
     @PutMapping("/update")
-    public int update(@RequestBody FournisseurSV fournisseur){
+    public int update(@RequestBody FournisseurSV fournisseur) {
         return fournisseurService.update(fournisseur);
     }
-    
+
     @DeleteMapping("/deleteFournisseur/{reference}")
     public int delete(@PathVariable String reference) {
         return fournisseurService.delete(reference);
@@ -50,5 +51,5 @@ public class FournisseurSVRset {
     public List<FournisseurSV> findAll() {
         return fournisseurService.findAll();
     }
-    
+
 }

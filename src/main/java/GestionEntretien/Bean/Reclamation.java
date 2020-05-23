@@ -36,16 +36,16 @@ public class Reclamation implements Serializable {
     private String nomMateriel;
     private String reclamentName;
     private String etat;
-    private static Long nbr=0000L;
-    
+    private static Long nbr = 0000L;
+
     private String descreptionDropDownReclamation;
-    
-    @ManyToOne 
+
+    @ManyToOne
     private LocalDetails materiel;
-    
+
     @ManyToOne
     private Locale locale;
-    
+
     @ManyToOne
     private Users reclament;
     
@@ -93,10 +93,6 @@ public class Reclamation implements Serializable {
     public void setDescreptionDropDownReclamation(String descreptionDropDownReclamation) {
         this.descreptionDropDownReclamation = descreptionDropDownReclamation;
     }
-    
-    
-    
-    
 
     public static Long getNbr() {
         return nbr;
@@ -106,9 +102,6 @@ public class Reclamation implements Serializable {
         Reclamation.nbr = nbr;
     }
 
-  
-    
-    
     public String getEtat() {
         return etat;
     }
@@ -117,7 +110,6 @@ public class Reclamation implements Serializable {
         this.etat = etat;
     }
 
-    
     public String getReclamentName() {
         return reclamentName;
     }
@@ -126,7 +118,6 @@ public class Reclamation implements Serializable {
         this.reclamentName = reclamentName;
     }
 
-    
     public Users getReclament() {
         return reclament;
     }
@@ -135,8 +126,6 @@ public class Reclamation implements Serializable {
         this.reclament = reclament;
     }
 
-    
-    
     public String getNomMateriel() {
         return nomMateriel;
     }
@@ -144,7 +133,6 @@ public class Reclamation implements Serializable {
     public void setNomMateriel(String nomMateriel) {
         this.nomMateriel = nomMateriel;
     }
- 
 
     public String getNomLocale() {
         return nomLocale;
@@ -193,10 +181,7 @@ public class Reclamation implements Serializable {
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
-    
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -229,5 +214,5 @@ public class Reclamation implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.Reclamation[ id=" + id + " ]";
     }
-    
+
 }

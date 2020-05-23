@@ -31,7 +31,7 @@ public class PresBonLivraison implements Serializable {
 
     @OneToOne
     private PrestationExterne prestationExterne;
-    
+
     public double getNumeroBonLivraison() {
         return numeroBonLivraison;
     }
@@ -64,7 +64,6 @@ public class PresBonLivraison implements Serializable {
         this.nomPrestataire = nomPrestataire;
     }
 
-    
     public Long getId() {
         return id;
     }

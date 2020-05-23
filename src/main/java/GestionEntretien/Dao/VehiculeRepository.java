@@ -14,8 +14,10 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface VehiculeRepository extends JpaRepository<Vehicule, Long>{
+public interface VehiculeRepository extends JpaRepository<Vehicule, Long> {
+
     public Vehicule findByMatricule(String Matricule);
+
     public Vehicule findByReference(String reference);
-     
+
 }

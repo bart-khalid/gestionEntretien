@@ -13,10 +13,16 @@ import java.util.List;
  * @author Zakaria
  */
 public interface BonCarburantService {
+
     public BonCarburant findByReference(String reference);
+
     public BonCarburant findByNumbonC(String numbonc);
+
     public int save(BonCarburant boncarburant);
+
     public int update(BonCarburant boncarburant);
+
     public int delete(String reference);
+
     public List<BonCarburant> findAll();
 }

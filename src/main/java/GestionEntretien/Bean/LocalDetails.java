@@ -36,20 +36,18 @@ public class LocalDetails implements Serializable {
 
     //dec
     private String descriptionMaterielLocale;
-    
-    @ManyToOne 
+
+    @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Locale locale;
-    
+
     @ManyToOne
     private Materiel materiel;
-    
-    
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany (mappedBy = "materiel")
+    @OneToMany(mappedBy = "materiel")
     private List<Entretien> entretiensMateriele;
-    
-    
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "materiel")
     private List<Reclamation> reclamations;
@@ -68,7 +66,6 @@ public class LocalDetails implements Serializable {
         return entretiensMateriele;
     }
 
-    
     public void setEntretiensMateriele(List<Entretien> entretiensMateriele) {
         this.entretiensMateriele = entretiensMateriele;
     }
@@ -98,14 +95,6 @@ public class LocalDetails implements Serializable {
         this.descriptionMaterielLocale = descriptionMaterielLocale;
     }
 
-    
-    
-    
-    
-    
-
-    
-    
     public List<Reclamation> getReclamations() {
         return reclamations;
     }
@@ -113,7 +102,6 @@ public class LocalDetails implements Serializable {
     public void setReclamations(List<Reclamation> reclamations) {
         this.reclamations = reclamations;
     }
-    
 
     public Locale getLocale() {
         return locale;
@@ -131,9 +119,6 @@ public class LocalDetails implements Serializable {
 //        this.entretiensMateriel = entretiensMateriel;
 //    }
 //    
-    
-    
-    
     public String getMaterielLocale() {
         return materielLocale;
     }
@@ -166,8 +151,6 @@ public class LocalDetails implements Serializable {
         this.dateAffectation = dateAffectation;
     }
 
-  
-
     public Materiel getMateriel() {
         return materiel;
     }
@@ -176,8 +159,6 @@ public class LocalDetails implements Serializable {
         this.materiel = materiel;
     }
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -214,5 +195,5 @@ public class LocalDetails implements Serializable {
     public LocalDetails findByReeference(String reference) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

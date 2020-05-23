@@ -13,8 +13,11 @@ import java.util.List;
  * @author Zakaria
  */
 public interface EntretienService {
-  public  List<Entretien> findAll();
-  public int delete(String reference);
-  public Entretien findByNumFacture(String reference);
+
+    public List<Entretien> findAll();
+
+    public int delete(String reference);
+
+    public Entretien findByNumFacture(String reference);
 
 }

@@ -38,7 +38,6 @@ public class PrestationExterne implements Serializable {
     private boolean bonCommandeE;
     private boolean bonLivraisonE;
 
-    
     @ManyToOne
     private Locale locale;
     
@@ -64,18 +63,6 @@ public class PrestationExterne implements Serializable {
         this.reclamationE = reclamationE;
     }
 
-   
-    
-    public LocalDetails getMaterielLocale() {
-        return materielLocale;
-    }
-
-    public void setMaterielLocale(LocalDetails materielLocale) {
-        this.materielLocale = materielLocale;
-    }
-
-    
-  
 
     public Long getId() {
         return id;
@@ -150,9 +137,16 @@ public class PrestationExterne implements Serializable {
         this.dateE = dateE;
     }
 
-    public boolean isReclamedE() {
-        return ReclamedE;
+   
+    
+    public LocalDetails getMaterielLocale() {
+        return materielLocale;
     }
+
+    public void setMaterielLocale(LocalDetails materielLocale) {
+        this.materielLocale = materielLocale;
+    }
+
 
     public void setReclamedE(boolean ReclamedE) {
         this.ReclamedE = ReclamedE;

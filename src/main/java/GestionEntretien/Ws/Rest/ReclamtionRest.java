@@ -27,26 +27,26 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/reclamation")
 public class ReclamtionRest {
+
     @Autowired
     private ReclamationService reclamtionService;
 
-   @GetMapping("/")
-   public List<Reclamation> findAll(){
-       return reclamtionService.findAll();
-   }
-   
-   
-   @PostMapping("/{username}")
-   public int save(@RequestBody Reclamation reclamation,@PathVariable String username) {
-       return reclamtionService.save(reclamation, username);
-   }
-   
-   @GetMapping("/{reference}")
-   public int reclamationSeen(@PathVariable String reference) {
-       return reclamtionService.reclamationSeen(reference);
-   }
+    @GetMapping("/")
+    public List<Reclamation> findAll() {
+        return reclamtionService.findAll();
+    }
 
-   @PutMapping("/update")
+    @PostMapping("/{username}")
+    public int save(@RequestBody Reclamation reclamation, @PathVariable String username) {
+        return reclamtionService.save(reclamation, username);
+    }
+
+    @GetMapping("/{reference}")
+    public int reclamationSeen(@PathVariable String reference) {
+        return reclamtionService.reclamationSeen(reference);
+    }
+
+    @PutMapping("/update")
     public int update(@RequestBody Reclamation reclamation) {
         return reclamtionService.update(reclamation);
     }

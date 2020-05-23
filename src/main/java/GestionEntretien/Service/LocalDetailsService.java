@@ -13,8 +13,12 @@ import java.util.List;
  * @author lenovo
  */
 public interface LocalDetailsService {
+
     public int save(LocalDetails localDetails);
+
     public int update(LocalDetails localDetails);
+
     public int delete(String referenceMaterielLocal);
+
     public List<LocalDetails> findAll();
 }

@@ -39,7 +39,7 @@ public class UsersServiceImpl implements UsersService {
         if (foundedlogin == null) {
             return -1;
         }
-        if (foundedlogin.getPassword().equals(password) == false ) {
+        if (foundedlogin.getPassword().equals(password) == false) {
             return -2;
         } else {
             return 1;
@@ -53,10 +53,11 @@ public class UsersServiceImpl implements UsersService {
         if (foundedlogin != null) {
             return -1;
         }
-        if(u != null)
-        return -5;
-        
-        if (users.getUsername() == null || users.getUsername().equals("") ) {
+        if (u != null) {
+            return -5;
+        }
+
+        if (users.getUsername() == null || users.getUsername().equals("")) {
             return -2;
         } else if (users.getPassword() == null || users.getPassword().equals("")) {
             return -3;
@@ -77,32 +78,32 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int Update(Users users) {
-    Users user = usersdao.findByReference(users.getReference());
-    user.setUsername(users.getUsername());
-    user.setNom(users.getNom());
-    user.setPassword(users.getPassword());
-    user.setType(users.getType());
-    user.setPrenom(users.getPrenom());
-    user.setTelephone(users.getTelephone());
-    usersdao.save(user);
-    return 1;
+        Users user = usersdao.findByReference(users.getReference());
+        user.setUsername(users.getUsername());
+        user.setNom(users.getNom());
+        user.setPassword(users.getPassword());
+        user.setType(users.getType());
+        user.setPrenom(users.getPrenom());
+        user.setTelephone(users.getTelephone());
+        usersdao.save(user);
+        return 1;
     }
 
     @Override
     public int Delete(String reference) {
-     Users user = usersdao.findByReference(reference);
-     usersdao.delete(user);
-     return 1;
+        Users user = usersdao.findByReference(reference);
+        usersdao.delete(user);
+        return 1;
     }
 
     @Override
     public Users findByReference(String reference) {
-    return usersdao.findByReference(reference);
+        return usersdao.findByReference(reference);
     }
 
     @Override
     public Users findByTelephone(String tele) {
-    return usersdao.findByTelephone(tele);
+        return usersdao.findByTelephone(tele);
     }
 
 }

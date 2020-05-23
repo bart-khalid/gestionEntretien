@@ -17,9 +17,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long> {
+
     public Users findByReference(String reference);
+
     public Users findByTelephone(String tele);
+
     public Users findByUsername(String username);
+
     public List<Users> findByType(String type);
-    
+
 }

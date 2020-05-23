@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BonVidangeServiceImpl implements BonVidangeService {
+
     @Autowired
     private BonVidangeRepository bonrepo;
 
@@ -39,8 +40,8 @@ public class BonVidangeServiceImpl implements BonVidangeService {
             return -1;
         }
         BonVidange.setNbr(bonvidange.getNbr() + 1);
-        bonvidange.setFourniassooci(bonvidange.getFournisseurV().getNomf()+" ,"+bonvidange.getFournisseurV().getAdressef());
-        bonvidange.setVehiculeassooci(bonvidange.getVehiculeV().getMatricule()+" ,"+bonvidange.getVehiculeV().getMarque());
+        bonvidange.setFourniassooci(bonvidange.getFournisseurV().getNomf() + " ," + bonvidange.getFournisseurV().getAdressef());
+        bonvidange.setVehiculeassooci(bonvidange.getVehiculeV().getMatricule() + " ," + bonvidange.getVehiculeV().getMarque());
         bonvidange.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(bonvidange.getNbr()));
         bonrepo.save(bonvidange);
         return 1;
@@ -48,34 +49,34 @@ public class BonVidangeServiceImpl implements BonVidangeService {
 
     @Override
     public int update(BonVidange bonvidange) {
-      BonVidange founded = bonrepo.findByReference(bonvidange.getReference());
-      founded.setFourniassooci(bonvidange.getFournisseurV().getNomf()+" ,"+bonvidange.getFournisseurV().getAdressef());
-      founded.setVehiculeassooci(bonvidange.getVehiculeV().getMatricule()+" ,"+bonvidange.getVehiculeV().getMarque());
-      founded.setNumbonV(bonvidange.getNumbonV());
-      founded.setDatebonV(bonvidange.getDatebonV());
-      founded.setDescriptionV(bonvidange.getDescriptionV());
-      founded.setFournisseurV(bonvidange.getFournisseurV());
-      founded.setVehiculeV(bonvidange.getVehiculeV());
-      founded.setPrixunitaireV(bonvidange.getPrixunitaireV());
-      founded.setTotalbrutV(bonvidange.getTotalbrutV());
-      founded.setMontantvignetteV(bonvidange.getMontantvignetteV());
-      founded.setKilometrageV(bonvidange.getKilometrageV());
-      founded.setTypehuileV(bonvidange.getTypehuileV());
-      founded.setQuantiteV(bonvidange.getQuantiteV());
-      bonrepo.save(founded);
-      return 1;
-      
+        BonVidange founded = bonrepo.findByReference(bonvidange.getReference());
+        founded.setFourniassooci(bonvidange.getFournisseurV().getNomf() + " ," + bonvidange.getFournisseurV().getAdressef());
+        founded.setVehiculeassooci(bonvidange.getVehiculeV().getMatricule() + " ," + bonvidange.getVehiculeV().getMarque());
+        founded.setNumbonV(bonvidange.getNumbonV());
+        founded.setDatebonV(bonvidange.getDatebonV());
+        founded.setDescriptionV(bonvidange.getDescriptionV());
+        founded.setFournisseurV(bonvidange.getFournisseurV());
+        founded.setVehiculeV(bonvidange.getVehiculeV());
+        founded.setPrixunitaireV(bonvidange.getPrixunitaireV());
+        founded.setTotalbrutV(bonvidange.getTotalbrutV());
+        founded.setMontantvignetteV(bonvidange.getMontantvignetteV());
+        founded.setKilometrageV(bonvidange.getKilometrageV());
+        founded.setTypehuileV(bonvidange.getTypehuileV());
+        founded.setQuantiteV(bonvidange.getQuantiteV());
+        bonrepo.save(founded);
+        return 1;
+
     }
 
     @Override
     public int delete(String reference) {
-    BonVidange founded = bonrepo.findByReference(reference);
-    bonrepo.delete(founded);
-    return 1;
+        BonVidange founded = bonrepo.findByReference(reference);
+        bonrepo.delete(founded);
+        return 1;
     }
 
     @Override
     public List<BonVidange> findAll() {
-    return bonrepo.findAll();
+        return bonrepo.findAll();
     }
 }

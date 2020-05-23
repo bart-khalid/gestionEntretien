@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Zakaria
  */
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("GestionEntretien/entretien")
 public class EntretienRest {
+
     @Autowired
     EntretienService entretienservice;
 
@@ -38,7 +38,4 @@ public class EntretienRest {
         return entretienservice.delete(reference);
     }
 
-   
-    
-    
 }

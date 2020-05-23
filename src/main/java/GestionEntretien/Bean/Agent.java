@@ -36,7 +36,7 @@ public class Agent implements Serializable {
     private String adresseDomicile;
     private String tel;
     private String descriptionDropDown;
-    private static Long nbr=0000L;
+    private static Long nbr = 0000L;
 
 
     public String getDescriptionDropDown() {
@@ -47,8 +47,6 @@ public class Agent implements Serializable {
         this.descriptionDropDown = descriptionDropDown;
     }
 
-    
-    
     public String getReference() {
         return reference;
     }
@@ -112,10 +110,6 @@ public class Agent implements Serializable {
     public void setAdresseDomicile(String adresseDomicile) {
         this.adresseDomicile = adresseDomicile;
     }
-    
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -149,5 +143,5 @@ public class Agent implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.Agent[ id=" + id + " ]";
     }
-    
+
 }

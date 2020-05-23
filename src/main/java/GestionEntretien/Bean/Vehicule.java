@@ -32,11 +32,10 @@ public class Vehicule implements Serializable {
     private String matricule;
     private String utilite;
     private String marque;
-    private static Long nbr=0000L;
+    private static Long nbr = 0000L;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateEntrerParc;
     private String descriptionDropDown;
-
 
     @OneToMany(mappedBy = "vehiculeC")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -45,7 +44,7 @@ public class Vehicule implements Serializable {
     @OneToMany(mappedBy = "vehiculeR")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BonReparation> bonsVehiculeR;
-    
+
     @OneToMany(mappedBy = "vehiculeV")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BonVidange> bonsVehiculeV;
@@ -58,7 +57,6 @@ public class Vehicule implements Serializable {
         this.descriptionDropDown = descriptionDropDown;
     }
 
-    
     public String getReference() {
         return reference;
     }
@@ -75,8 +73,6 @@ public class Vehicule implements Serializable {
         Vehicule.nbr = nbr;
     }
 
-    
-    
     public List<BonCarburant> getBonsVehiculeC() {
         return bonsVehiculeC;
     }
@@ -100,10 +96,7 @@ public class Vehicule implements Serializable {
     public void setBonsVehiculeV(List<BonVidange> bonsVehiculeV) {
         this.bonsVehiculeV = bonsVehiculeV;
     }
-    
-    
-    
-    
+
     public Date getDateEntrerParc() {
         return dateEntrerParc;
     }
@@ -111,8 +104,6 @@ public class Vehicule implements Serializable {
     public void setDateEntrerParc(Date dateEntrerParc) {
         this.dateEntrerParc = dateEntrerParc;
     }
-
-  
 
     public String getType() {
         return type;

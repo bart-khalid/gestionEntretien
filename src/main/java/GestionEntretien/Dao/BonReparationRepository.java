@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface BonReparationRepository extends JpaRepository<BonReparation, Long>{
+public interface BonReparationRepository extends JpaRepository<BonReparation, Long> {
+
     public BonReparation findByReference(String reference);
+
     public BonReparation findByNumbonR(String reference);
 }

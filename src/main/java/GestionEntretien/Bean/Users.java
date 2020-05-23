@@ -32,11 +32,11 @@ public class Users implements Serializable {
     private String prenom;
     private String nom;
     private String telephone;
-    private static Long nbr=0000L;
-    
-      @OneToMany (mappedBy = "reclament")
+    private static Long nbr = 0000L;
+
+    @OneToMany(mappedBy = "reclament")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<Reclamation> reclamations; 
+    private List<Reclamation> reclamations;
 
     public String getReference() {
         return reference;
@@ -53,12 +53,6 @@ public class Users implements Serializable {
     public static void setNbr(Long nbr) {
         Users.nbr = nbr;
     }
-
-  
-
-
-    
-  
 
     public List<Reclamation> getReclamations() {
         return reclamations;
@@ -91,8 +85,7 @@ public class Users implements Serializable {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    
-    
+
     public String getUsername() {
         return username;
     }
@@ -149,5 +142,5 @@ public class Users implements Serializable {
     public String toString() {
         return "GestionEntretien.Bean.Login[ id=" + id + " ]";
     }
-    
+
 }

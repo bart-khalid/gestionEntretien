@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface LocalDetailsRepository extends JpaRepository<LocalDetails, Long>{
-    
+public interface LocalDetailsRepository extends JpaRepository<LocalDetails, Long> {
+
     public LocalDetails findByReferenceML(String reference);
 }

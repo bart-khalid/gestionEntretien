@@ -14,9 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author lenovo
  */
 @Repository
-public interface EntretienRepository extends JpaRepository<Entretien, Long>{
+public interface EntretienRepository extends JpaRepository<Entretien, Long> {
 
     public Entretien findByNumFacture(String reference);
-    
-    
+
 }

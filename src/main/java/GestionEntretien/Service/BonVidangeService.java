@@ -13,10 +13,16 @@ import java.util.List;
  * @author Zakaria
  */
 public interface BonVidangeService {
+
     public BonVidange findByReference(String reference);
+
     public BonVidange findByNumbonV(String numbonv);
+
     public int save(BonVidange boncarburant);
+
     public int update(BonVidange boncarburant);
+
     public int delete(String reference);
+
     public List<BonVidange> findAll();
 }

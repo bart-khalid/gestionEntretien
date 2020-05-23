@@ -13,10 +13,15 @@ import java.util.List;
  * @author lenovo
  */
 public interface FournisseurSVService {
+
     public int save(FournisseurSV fournisseur);
+
     public int update(FournisseurSV fournisseur);
+
     public int delete(String reference);
+
     public List<FournisseurSV> findAll();
+
     public FournisseurSV findByReference(String reference);
 
 }
