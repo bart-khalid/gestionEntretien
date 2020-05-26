@@ -12,11 +12,16 @@ import GestionEntretien.Bean.Materiel;
 import GestionEntretien.Bean.PrestationExterne;
 import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Bean.Reclamation;
+import GestionEntretien.Dao.EntretienRepository;
 import GestionEntretien.Dao.LocalDetailsRepository;
 import GestionEntretien.Dao.LocaleRepository;
 import GestionEntretien.Dao.MaterielRepository;
+import GestionEntretien.Dao.PrestationExterneRepository;
+import GestionEntretien.Dao.PrestationInterneRepository;
+import GestionEntretien.Dao.ReclamationRepository;
 import GestionEntretien.Service.LocalDetailsService;
 import java.util.List;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,21 +31,32 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class LocalDetailsImpl implements LocalDetailsService {
-    
+
     @Autowired
     private LocalDetailsRepository localDetailsRepository;
-    
+
     @Autowired
     private MaterielRepository materielRepository;
-    
+
     @Autowired
     private LocaleRepository localeRepository;
+     @Autowired
+    private EntretienRepository entretienRepository;
+    @Autowired
+    private PrestationInterneRepository prestationInterneRepository;
+    @Autowired
+    private PrestationExterneRepository prestationExterneRepository;
+    @Autowired
+    private ReclamationRepository reclamationRepository;
     
+
     @Override
     public int save(LocalDetails localDetails) {
         LocalDetails foundedMaterielLocal = localDetailsRepository.findByReferenceML(localDetails.getReferenceML());
         if (foundedMaterielLocal != null) {
             return -1;
+        } else if(localDetails.getLocale() == null || localDetails.getLocale().getReference() == null){
+            return -2;
         } else {
 
             //update locale associe a ce materielLocale
@@ -63,18 +79,30 @@ public class LocalDetailsImpl implements LocalDetailsService {
             localDetails.setLocaleAssocie(localDetails.getLocale().getDescriptionDropDown());
             localDetails.setMaterielLocale(localDetails.getMateriel().getDescriptionDropDown());
             localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
+            LocalDetails.setNbr(LocalDetails.getNbr() + 1);
+            localDetails.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(LocalDetails.getNbr()));
+            while (foundedMaterielLocal != null) {
+            localDetails.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(LocalDetails.getNbr()));
+            foundedMaterielLocal = localDetailsRepository.findByReference(localDetails.getReference());
+        }
+            localDetails.setReferenceML(localDetails.getReferenceML());
             localDetailsRepository.save(localDetails);
             return 1;
         }
     }
-    
+
     @Override
     public int update(LocalDetails localDetails) {
-        LocalDetails foundedMaterielLocale = localDetailsRepository.findByReferenceML(localDetails.getReferenceML());
+        LocalDetails foundedMaterielLocale = localDetailsRepository.findByReference(localDetails.getReference());
+        LocalDetails foundedMaterielLoc = localDetailsRepository.findByReferenceML(localDetails.getReferenceML());
         
-        if (localDetails.getLocale().getReference() == null || localDetails.getLocale().getReference().equals("") || localDetails.getMateriel().getReference() == null || localDetails.getMateriel().getReference().equals("")) {
-            return -1;
-        } else {
+        if(localDetails.getLocale() == null || localDetails.getLocale().getReference() == null){
+        return -1;
+        }
+        else if(foundedMaterielLoc != null && !(foundedMaterielLocale.getReferenceML().equals(localDetails.getReferenceML()))){
+        return -2;
+        }
+        else{
             // update du locale associe 
             if (!foundedMaterielLocale.getLocale().getReference().equals(localDetails.getLocale().getReference())) {
 
@@ -84,7 +112,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
                 foundedMaterielLocale.getLocale().setLocalDetails(materielslocaleToEdit);
                 foundedMaterielLocale.getLocale().setNbrMateriel(foundedMaterielLocale.getLocale().getNbrMateriel() - 1);
                 localeRepository.save(foundedMaterielLocale.getLocale());
-                
+
                 Locale loadedLocale = localeRepository.findByReference(localDetails.getLocale().getReference());
                 if (loadedLocale != null) {
                     List<LocalDetails> materielsLocle = loadedLocale.getLocalDetails();
@@ -106,7 +134,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
                 foundedMaterielLocale.getMateriel().setLocalDetails(mats);
                 foundedMaterielLocale.getMateriel().setNbrEntite(foundedMaterielLocale.getMateriel().getNbrEntite() - 1);
                 materielRepository.save(foundedMaterielLocale.getMateriel());
-                
+
                 Materiel loadedMateriel = materielRepository.findByReference(localDetails.getMateriel().getReference());
                 //update new Matriel associe
                 foundedMaterielLocale.setMateriel(loadedMateriel);
@@ -122,17 +150,19 @@ public class LocalDetailsImpl implements LocalDetailsService {
             foundedMaterielLocale.setLocaleAssocie(localDetails.getLocale().getDescriptionDropDown());
             foundedMaterielLocale.setMaterielLocale(localDetails.getMateriel().getDescriptionDropDown());
             foundedMaterielLocale.setDateAffectation(localDetails.getDateAffectation());
-            
             localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
-            localDetailsRepository.save(foundedMaterielLocale);
+            foundedMaterielLocale.setReferenceML(localDetails.getReferenceML());
             
+            localDetailsRepository.save(foundedMaterielLocale);
+
             return 1;
         }
+        
     }
-    
+
     @Override
     public int delete(String referenceMaterielLocal) {
-        LocalDetails foundedMaterielLocale = localDetailsRepository.findByReferenceML(referenceMaterielLocal);
+        LocalDetails foundedMaterielLocale = localDetailsRepository.findByReference(referenceMaterielLocal);
         //Edit locale associer
         if (foundedMaterielLocale.getLocale() != null) {
             Locale loadedLocale = localeRepository.findByReference(foundedMaterielLocale.getLocale().getReference());
@@ -159,28 +189,32 @@ public class LocalDetailsImpl implements LocalDetailsService {
         // set materiel to null
         preIs.forEach((pre) -> {
             pre.setMaterielLocale(null);
+            prestationInterneRepository.save(pre);
         });
         preEs.forEach((pre) -> {
             pre.setMaterielLocale(null);
+            prestationExterneRepository.save(pre);
         });
 
         // entretiens 
         List<Entretien> ents = foundedMaterielLocale.getEntretiensMateriele();
         ents.forEach((ent) -> {
             ent.setMateriel(null);
+            entretienRepository.save(ent);
         });
 
         // reclamations   
         List<Reclamation> recs = foundedMaterielLocale.getReclamations();
         recs.forEach((rec) -> {
             rec.setMateriel(null);
+            reclamationRepository.save(rec);
         });
 
         //delete this localeMateriels
         localDetailsRepository.delete(foundedMaterielLocale);
         return 1;
     }
-    
+
     @Override
     public List<LocalDetails> findAll() {
         return localDetailsRepository.findAll();

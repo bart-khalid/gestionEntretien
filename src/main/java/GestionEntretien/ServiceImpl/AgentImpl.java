@@ -6,9 +6,11 @@
 package GestionEntretien.ServiceImpl;
 
 import GestionEntretien.Bean.Agent;
+import GestionEntretien.Bean.Entretien;
 import GestionEntretien.Bean.PrestationExterne;
 import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Dao.AgentRepository;
+import GestionEntretien.Dao.EntretienRepository;
 import GestionEntretien.Dao.PrestationExterneRepository;
 import GestionEntretien.Dao.PrestationInterneRepository;
 import GestionEntretien.Service.AgentService;
@@ -30,10 +32,10 @@ public class AgentImpl implements AgentService {
     private PrestationInterneRepository prestationInterneRepository;
     @Autowired
     private PrestationExterneRepository prestationExterneRepository;
-    
-    
-    
-    
+
+    @Autowired
+    private EntretienRepository entretienRepository;
+
     @Override
     public int save(Agent agent) {
         Agent foundedAgent = agentRepository.findByCodeAgent(agent.getCodeAgent());
@@ -62,7 +64,25 @@ public class AgentImpl implements AgentService {
         foundedAgent.setDateEntree(agent.getDateEntree());
         foundedAgent.setNomAgent(agent.getNomAgent());
         foundedAgent.setTel(agent.getTel());
-
+        // update nomagent 
+        List<PrestationInterne> foundedPresInternes = prestationInterneRepository.findAll();
+        List<Entretien> listentretien = entretienRepository.findAll();
+         for (PrestationInterne pres : foundedPresInternes) {
+            if (pres.getAgent().getReference().equals(foundedAgent.getReference())) {
+                pres.setNomAgentI(foundedAgent.getDescriptionDropDown());
+            }
+            
+        for(Entretien ent : listentretien){
+             if (pres.getTypeEntretienI().equals("materiel") && ent.getNumFacture().equals(pres.getReferenceI()) ) {
+                ent.setPrestataire(foundedAgent.getDescriptionDropDown());
+                entretienRepository.save(ent);
+            }
+        }
+        
+            prestationInterneRepository.save(pres);
+        }
+        
+        
         agentRepository.save(foundedAgent);
         return 1;
 

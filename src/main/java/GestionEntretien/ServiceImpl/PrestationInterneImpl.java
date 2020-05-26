@@ -91,7 +91,7 @@ public class PrestationInterneImpl implements PrestationInterneService {
             addPrestationToListOfPrestationsOfMateriel(foundedMateriel, preInterne);
 
             // creation de fiche entretien
-            Entretien ent = new Entretien(preInterne.getDateI(), foundedMateriel.getMaterielLocale(), preInterne.getNomAgentI(), 0, preInterne.getReferenceI());
+            Entretien ent = new Entretien(preInterne.getDateI(), foundedMateriel.getDescriptionMaterielLocale(), preInterne.getNomAgentI(), 0, preInterne.getReferenceI());
             ent.setLocale(preInterne.getLocale());
             ent.setMateriel(foundedMateriel);
             ent.setNomLocale(preInterne.getLocale().getDescriptionDropDown());
@@ -231,9 +231,12 @@ public class PrestationInterneImpl implements PrestationInterneService {
 
         // update reclamation associe
         if (foundedPreInterne.isReclamedI()) {
+            if(foundedPreInterne.getReclamationI() != null){
             Reclamation loadedReclamation = reclamationRepository.findByReference(foundedPreInterne.getReclamationI().getReference());
             loadedReclamation.setEtat("Sous Traitement");
+            loadedReclamation.setPrestationInterne(null);
             reclamationRepository.save(loadedReclamation);
+        }
         }
 
         prestationInterneRepository.delete(foundedPreInterne);

@@ -12,9 +12,13 @@ import GestionEntretien.Bean.Materiel;
 import GestionEntretien.Bean.PrestationExterne;
 import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Bean.Reclamation;
+import GestionEntretien.Dao.EntretienRepository;
 import GestionEntretien.Dao.LocalDetailsRepository;
 import GestionEntretien.Dao.LocaleRepository;
 import GestionEntretien.Dao.MaterielRepository;
+import GestionEntretien.Dao.PrestationExterneRepository;
+import GestionEntretien.Dao.PrestationInterneRepository;
+import GestionEntretien.Dao.ReclamationRepository;
 import GestionEntretien.Service.LocalDetailsService;
 import GestionEntretien.Service.LocaleService;
 import java.util.List;
@@ -37,6 +41,15 @@ public class LocaleImpl implements LocaleService {
     private LocalDetailsRepository localDetailsRepository;
     @Autowired
     private MaterielRepository materielRepository;
+    @Autowired
+    private EntretienRepository entretienRepository;
+    @Autowired
+    private PrestationInterneRepository prestationInterneRepository;
+    @Autowired
+    private PrestationExterneRepository prestationExterneRepository;
+    @Autowired
+    private ReclamationRepository reclamationRepository;
+   
 
     @Override
     public int save(Locale locale) {
@@ -50,7 +63,7 @@ public class LocaleImpl implements LocaleService {
         }
         
         // 
-        locale.setDescriptionDropDown(locale.getTypeLocal() + " " + locale.getNomLocal() + ", " + locale.getDepartement());
+        locale.setDescriptionDropDown(locale.getNomLocal() + " " + locale.getTypeLocal() + ", " + locale.getDepartement());
 
         localeRepository.save(locale);
         return 1;
@@ -62,40 +75,75 @@ public class LocaleImpl implements LocaleService {
         foundedLocale.setNomLocal(locale.getNomLocal());
         foundedLocale.setDepartement(locale.getDepartement());
         foundedLocale.setTypeLocal(locale.getTypeLocal());
-        foundedLocale.setDescriptionDropDown(locale.getTypeLocal() + " " + locale.getNomLocal() + ", " + locale.getDepartement());
+        foundedLocale.setDescriptionDropDown(locale.getNomLocal() + " " + locale.getTypeLocal() + ", " + locale.getDepartement());
+         List<LocalDetails> mat = localDetailsRepository.findAll();
+         for (LocalDetails loc : mat) {
+            if (loc.getLocale().getReference().equals(foundedLocale.getReference())) {
+                loc.setLocaleAssocie(foundedLocale.getDescriptionDropDown());
+            }
+            localDetailsRepository.save(loc);
+        }
+        //
+         List<PrestationInterne> pres = prestationInterneRepository.findAll();
+        for (PrestationInterne pre : pres) {
+            if (pre.getLocale().getReference().equals(foundedLocale.getReference())) {
+                pre.setNomLocaleI(foundedLocale.getDescriptionDropDown());
+            }
+            prestationInterneRepository.save(pre);
+        }
+        //ent.setNomLocale(foundedLocale.getDescriptionDropDown());
+         List<Reclamation> rec = reclamationRepository.findAll();
+           for (Reclamation recla : rec) {
+            if (recla.getLocale().getReference().equals(foundedLocale.getReference())) {
+                recla.setNomLocale(foundedLocale.getDescriptionDropDown());
+            }
+            reclamationRepository.save(recla);
+           }
+        //    .setNomLocale(foundedLocale.getDescriptionDropDown());
+         List<Entretien> entre = entretienRepository.findAll();
+          for (Entretien ent : entre) {
+            if (ent.getLocale().getReference().equals(foundedLocale.getReference())) {
+                ent.setNomLocale(foundedLocale.getDescriptionDropDown());
+            }
+            entretienRepository.save(ent);
+           }
+            
+       
         localeRepository.save(foundedLocale);
         return 1;
     }
 
     @Override
-    @Transactional
     public int delete(String reference) {
         Locale foundedLocale = localeRepository.findByReference(reference);
         // set locale in reclamations to null
         List<Reclamation> reclamations = foundedLocale.getReclamations();
         reclamations.forEach((reclamation) -> {
             reclamation.setLocale(null);
-        });
-        reclamations.forEach((reclamation) -> {
             reclamation.setMateriel(null);
+            reclamationRepository.save(reclamation); 
         });
+       
 
         // set locale in prestations interne to null
         List<PrestationInterne> prestationsI = foundedLocale.getPrestationsI();
         prestationsI.forEach((prestation) -> {
             prestation.setLocale(null);
+            prestationInterneRepository.save(prestation); 
         });
 
         // set locale in prestations externe to null
         List<PrestationExterne> prestationsE = foundedLocale.getPrestationsE();
         prestationsE.forEach((prestationExterne) -> {
             prestationExterne.setLocale(null);
+            prestationExterneRepository.save(prestationExterne);
         });
 
         // set locale and materiel in enretiens to null
         List<Entretien> ents = foundedLocale.getEntretiens();
         ents.forEach((ent) -> {
             ent.setLocale(null);
+            entretienRepository.save(ent);
         });
 
         List<LocalDetails> materiels = foundedLocale.getLocalDetails();

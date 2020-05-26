@@ -28,6 +28,8 @@ public class LocalDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
+    private static Long nbr = 0000L;
     private String referenceML;
     private String materielLocale;
     private String localeAssocie;
@@ -59,6 +61,22 @@ public class LocalDetails implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "materielLocale")
     private List<PrestationExterne> prestationExternes;
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public static Long getNbr() {
+        return nbr;
+    }
+
+    public static void setNbr(Long nbr) {
+        LocalDetails.nbr = nbr;
+    }
     
     
     
