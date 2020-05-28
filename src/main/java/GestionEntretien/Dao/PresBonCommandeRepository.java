@@ -16,4 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PresBonCommandeRepository extends JpaRepository<PresBonCommande, Long> {
 
+    public PresBonCommande findByReference(String reference);
+
 }

@@ -5,6 +5,8 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -24,13 +26,17 @@ public class PresBonLivraison implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private double numeroBonLivraison;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateBonLivraison;
-    private double montant;
-    private String nomPrestataire;
+    private double montantL;
+    private String nomPrestataireL;
+    private String NomPrestationAssocie;
 
     @OneToOne
-    private PrestationExterne prestationExterne;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private PrestationExterne prestationExterneL;
 
     public double getNumeroBonLivraison() {
         return numeroBonLivraison;
@@ -48,21 +54,7 @@ public class PresBonLivraison implements Serializable {
         this.dateBonLivraison = dateBonLivraison;
     }
 
-    public double getMontant() {
-        return montant;
-    }
-
-    public void setMontant(double montant) {
-        this.montant = montant;
-    }
-
-    public String getNomPrestataire() {
-        return nomPrestataire;
-    }
-
-    public void setNomPrestataire(String nomPrestataire) {
-        this.nomPrestataire = nomPrestataire;
-    }
+   
 
     public Long getId() {
         return id;
@@ -97,12 +89,46 @@ public class PresBonLivraison implements Serializable {
         return "GestionEntretien.Bean.PresBonLivraison[ id=" + id + " ]";
     }
 
-    public PrestationExterne getPrestationExterne() {
-        return prestationExterne;
+    public double getMontantL() {
+        return montantL;
     }
 
-    public void setPrestationExterne(PrestationExterne prestationExterne) {
-        this.prestationExterne = prestationExterne;
+    public void setMontantL(double montantL) {
+        this.montantL = montantL;
     }
 
+    public String getNomPrestataireL() {
+        return nomPrestataireL;
+    }
+
+    public void setNomPrestataireL(String nomPrestataireL) {
+        this.nomPrestataireL = nomPrestataireL;
+    }
+
+    public String getNomPrestationAssocie() {
+        return NomPrestationAssocie;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    
+    public void setNomPrestationAssocie(String NomPrestationAssocie) {
+        this.NomPrestationAssocie = NomPrestationAssocie;
+    }
+
+    public PrestationExterne getPrestationExterneL() {
+        return prestationExterneL;
+    }
+
+    public void setPrestationExterneL(PrestationExterne prestationExterneL) {
+        this.prestationExterneL = prestationExterneL;
+    }
+
+   
 }

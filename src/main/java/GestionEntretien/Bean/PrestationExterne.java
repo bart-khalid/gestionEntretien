@@ -5,6 +5,8 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -28,16 +30,20 @@ public class PrestationExterne implements Serializable {
     
     private String referenceE;
     private String typeEntretienE;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateE;
     private boolean ReclamedE;
-    private String refrenceReclamationE;
     
     private String nomPrestataireE;
     private double montantFacE;
     private String numeroFacE;
     private boolean bonCommandeE;
     private boolean bonLivraisonE;
+    private String nomMateriel;
+    private String nomLocale;
 
+    private static Long nbrPresExterne = 0L;
+    
     @ManyToOne
     private Locale locale;
     
@@ -45,13 +51,13 @@ public class PrestationExterne implements Serializable {
     private LocalDetails materielLocale;
     
     @OneToOne
-    private PresBonCommande presBonCommande;
+    private PresBonCommande presBonCommandeE;
     
     @OneToOne
     private Reclamation reclamationE;
 
     @OneToOne
-    private PresBonLivraison presBonLivraison;
+    private PresBonLivraison presBonLivraisonE;
 
   
 
@@ -61,6 +67,36 @@ public class PrestationExterne implements Serializable {
 
     public void setReclamationE(Reclamation reclamationE) {
         this.reclamationE = reclamationE;
+    }
+
+    public String getNomMateriel() {
+        return nomMateriel;
+    }
+
+    public void setNomMateriel(String nomMateriel) {
+        this.nomMateriel = nomMateriel;
+    }
+
+    public String getNomLocale() {
+        return nomLocale;
+    }
+
+    public void setNomLocale(String nomLocale) {
+        this.nomLocale = nomLocale;
+    }
+    
+
+    public static Long getNbrPresExterne() {
+        return nbrPresExterne;
+    }
+
+    public static void setNbrPresExterne(Long nbrPresExterne) {
+        PrestationExterne.nbrPresExterne = nbrPresExterne;
+    }
+
+    
+    public boolean isReclamedE() {
+        return ReclamedE;
     }
 
 
@@ -97,22 +133,23 @@ public class PrestationExterne implements Serializable {
         return "GestionEntretien.Bean.PrestationExterne[ id=" + id + " ]";
     }
 
-    public PresBonCommande getPresBonCommande() {
-        return presBonCommande;
+    public PresBonCommande getPresBonCommandeE() {
+        return presBonCommandeE;
     }
 
-    public void setPresBonCommande(PresBonCommande presBonCommande) {
-        this.presBonCommande = presBonCommande;
+    public void setPresBonCommandeE(PresBonCommande presBonCommandeE) {
+        this.presBonCommandeE = presBonCommandeE;
     }
 
-    public PresBonLivraison getPresBonLivraison() {
-        return presBonLivraison;
+    public PresBonLivraison getPresBonLivraisonE() {
+        return presBonLivraisonE;
     }
 
-    public void setPresBonLivraison(PresBonLivraison presBonLivraison) {
-        this.presBonLivraison = presBonLivraison;
+    public void setPresBonLivraisonE(PresBonLivraison presBonLivraisonE) {
+        this.presBonLivraisonE = presBonLivraisonE;
     }
 
+   
     public String getReferenceE() {
         return referenceE;
     }
@@ -150,14 +187,6 @@ public class PrestationExterne implements Serializable {
 
     public void setReclamedE(boolean ReclamedE) {
         this.ReclamedE = ReclamedE;
-    }
-
-    public String getRefrenceReclamationE() {
-        return refrenceReclamationE;
-    }
-
-    public void setRefrenceReclamationE(String refrenceReclamationE) {
-        this.refrenceReclamationE = refrenceReclamationE;
     }
 
     public String getNomPrestataireE() {

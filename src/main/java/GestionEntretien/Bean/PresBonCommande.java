@@ -5,6 +5,8 @@
  */
 package GestionEntretien.Bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -24,12 +26,16 @@ public class PresBonCommande implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private double numeroBonCommande;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateBonCommande;
-    private double montant;
-    private String nomPrestataire;
+    private double montantC;
+    private String nomPrestataireC;
+    private String NomPrestationAssocie;
 
     @OneToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PrestationExterne prestationExterne;
 
     public double getNumeroBonCommande() {
@@ -40,6 +46,24 @@ public class PresBonCommande implements Serializable {
         this.numeroBonCommande = numeroBonCommande;
     }
 
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    
+    public String getNomPrestationAssocie() {
+        return NomPrestationAssocie;
+    }
+
+    public void setNomPrestationAssocie(String NomPrestationAssocie) {
+        this.NomPrestationAssocie = NomPrestationAssocie;
+    }
+
+    
     public Date getDateBonCommande() {
         return dateBonCommande;
     }
@@ -48,21 +72,23 @@ public class PresBonCommande implements Serializable {
         this.dateBonCommande = dateBonCommande;
     }
 
-    public double getMontant() {
-        return montant;
+    public double getMontantC() {
+        return montantC;
     }
 
-    public void setMontant(double montant) {
-        this.montant = montant;
+    public void setMontantC(double montantC) {
+        this.montantC = montantC;
     }
 
-    public String getNomPrestataire() {
-        return nomPrestataire;
+    public String getNomPrestataireC() {
+        return nomPrestataireC;
     }
 
-    public void setNomPrestataire(String nomPrestataire) {
-        this.nomPrestataire = nomPrestataire;
+    public void setNomPrestataireC(String nomPrestataireC) {
+        this.nomPrestataireC = nomPrestataireC;
     }
+
+  
 
     public Long getId() {
         return id;

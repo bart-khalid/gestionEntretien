@@ -67,6 +67,8 @@ public class ReclamationImpl implements ReclamationService {
         } else if (foundedReclamant == null) {
             return -2;
 
+        } else if(reclamation.getLocale().getReference() == null) {
+            return -3;
         } else {
             Reclamation.setNbr(Reclamation.getNbr() + 1);
             reclamation.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Reclamation.getNbr()));
@@ -201,13 +203,11 @@ public class ReclamationImpl implements ReclamationService {
     public List<Reclamation> findReclamationsNonTraiter() {
         List<Reclamation> reclamations = new ArrayList<>();
         List<Reclamation> recs = reclamationRepository.findAll();
-        recs.forEach((rec) -> {
-            if (rec.getEtat().equals("Sous Traitement"));
-            {
+        for (Reclamation rec : recs) {
+            if (rec.getEtat().equals("Sous Traitement")){
                 reclamations.add(rec);
             }
-
-        });
+        }
         return reclamations;
     }
 
