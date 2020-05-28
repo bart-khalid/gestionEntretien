@@ -15,7 +15,7 @@ import java.util.List;
 public interface ReclamationService {
 
     public List<Reclamation> findAll();
-
+    public List<Reclamation> findByReclamentName(String reclament);
     public int save(Reclamation reclamation, String username);
 
     public int reclamationSeen(String reference);

@@ -6,6 +6,7 @@
 package GestionEntretien.Dao;
 
 import GestionEntretien.Bean.Reclamation;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +18,6 @@ import org.springframework.stereotype.Repository;
 public interface ReclamationRepository extends JpaRepository<Reclamation, Long> {
 
     public Reclamation findByReference(String reference);
+    public List<Reclamation> findByReclamentName(String reclament);
 
 }
