@@ -186,9 +186,67 @@ public class PrestationExterneImpl implements PrestationExterneService {
 
     @Override
     public int update(PrestationExterne prestationExterne) {
+        if (prestationExterne.getTypeEntretienE().equals("materiel") && prestationExterne.getMaterielLocale().getReference() == null) {
+            return -1;
+        } else if (prestationExterne.getLocale().getReference() == null) {
+            return -2;
+        } else if (prestationExterne.isReclamedE() && prestationExterne.getReclamationE().getReference() == null) {
+            return -3;
+        } else if (prestationExterne.isBonCommandeE()
+                && (prestationExterne.getPresBonCommandeE().getNomPrestataireC() == null
+                || prestationExterne.getPresBonCommandeE().getDateBonCommande() == null)) {
+            return -4;
+        } else if (prestationExterne.isBonLivraisonE()
+                && (prestationExterne.getPresBonLivraisonE().getNomPrestataireL() == null
+                || prestationExterne.getPresBonLivraisonE().getDateBonLivraison() == null)) {
+            return -5;
+        } else {
+            PrestationExterne loadedPrestationExterne = prestationExterneRepository.findByReferenceE(prestationExterne.getReferenceE());
+            loadedPrestationExterne.setTypeEntretienE(prestationExterne.getTypeEntretienE());
+            loadedPrestationExterne.setDateE(prestationExterne.getDateE());
+            loadedPrestationExterne.setNomPrestataireE(prestationExterne.getNomPrestataireE());
+            loadedPrestationExterne.setMontantFacE(prestationExterne.getMontantFacE());
+            loadedPrestationExterne.setNumeroFacE(prestationExterne.getNumeroFacE());
 
-        return 1;
+            // update locale 
+            if (!loadedPrestationExterne.getLocale().getReference().equals(prestationExterne.getLocale().getReference())) {
+                Locale loadedOldLocale = localeRepository.findByReference(loadedPrestationExterne.getLocale().getReference());
+                Locale loadedNewLocale = localeRepository.findByReference(prestationExterne.getLocale().getReference());
+                // liste prestationsE old locale
+                List<PrestationExterne> presE = loadedOldLocale.getPrestationsE();
+                presE.remove(loadedPrestationExterne);
+                loadedOldLocale.setPrestationsE(presE);
+                localeRepository.save(loadedOldLocale);
+                // liste prestationsE new locale
+                List<PrestationExterne> presEN = loadedNewLocale.getPrestationsE();
+                presEN.add(loadedPrestationExterne);
+                loadedNewLocale.setPrestationsE(presEN);
+                localeRepository.save(loadedNewLocale);
+                //set
+                loadedPrestationExterne.setNomLocale(loadedNewLocale.getDescriptionDropDown());
+            }
+            if (prestationExterne.getTypeEntretienE().equals("materiel") && loadedPrestationExterne.getTypeEntretienE().equals("materiel")) {
+                if (!loadedPrestationExterne.getMaterielLocale().getReference().equals(prestationExterne.getMaterielLocale().getReference())) {
+                    LocalDetails loadedOldMateriel = localDetailsRepository.findByReferenceML(loadedPrestationExterne.getMaterielLocale().getReference());
+                    LocalDetails loadedNewMateriel = localDetailsRepository.findByReferenceML(prestationExterne.getMaterielLocale().getReference());
+                    // liste prestationsE old materiel
+                    List<PrestationExterne> presEx = loadedOldMateriel.getPrestationExternes();
+                    presEx.remove(loadedPrestationExterne);
+                    loadedOldMateriel.setPrestationExternes(presEx);
+                    localDetailsRepository.save(loadedOldMateriel);
+                    // liste prestaeionE newMateriel
+                    List<PrestationExterne> presExs = loadedNewMateriel.getPrestationExternes();
+                    presExs.add(loadedPrestationExterne);
+                    loadedNewMateriel.setPrestationExternes(presExs);
+                    localDetailsRepository.save(loadedNewMateriel);
+                    // set 
+                    loadedPrestationExterne.setMaterielLocale(loadedNewMateriel);
+                    loadedPrestationExterne.setNomMateriel(loadedNewMateriel.getDescriptionMaterielLocale());
+                }
+            }
 
+            return 1;
+        }
     }
 
     @Override
@@ -196,7 +254,7 @@ public class PrestationExterneImpl implements PrestationExterneService {
         PrestationExterne foundedPrestationExterne = prestationExterneRepository.findByReferenceE(reference);
         // set prestExterne to null in the reclamation 
         if (foundedPrestationExterne.getReclamationE() != null) {
-            Reclamation LoadedReclamation = reclamationRepository.findByReference(foundedPrestationExterne.getReclamationE().getReference()) ;
+            Reclamation LoadedReclamation = reclamationRepository.findByReference(foundedPrestationExterne.getReclamationE().getReference());
             LoadedReclamation.setPrestationExterne(null);
             reclamationRepository.save(LoadedReclamation);
         }
@@ -208,7 +266,7 @@ public class PrestationExterneImpl implements PrestationExterneService {
             PresBonLivraison foundedPresBonLivraison = presBonLivraisonRepository.findByReference(foundedPrestationExterne.getPresBonLivraisonE().getReference());
             presBonLivraisonRepository.delete(foundedPresBonLivraison);
         }
-        
+
         prestationExterneRepository.delete(foundedPrestationExterne);
         return 1;
     }

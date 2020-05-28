@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author lenovo
  */
 @Service
-public class PresBonCommandeServiceImpl implements PresBonCommandeService{
+public class PresBonCommandeImpl implements PresBonCommandeService{
 
     @Autowired
     private PresBonCommandeRepository presBonCommandeRepository;
