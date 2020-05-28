@@ -67,6 +67,8 @@ public class ReclamationImpl implements ReclamationService {
         } else if (foundedReclamant == null) {
             return -2;
 
+        } else if(reclamation.getLocale().getReference() == null) {
+            return -3;
         } else {
             Reclamation.setNbr(Reclamation.getNbr() + 1);
             reclamation.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Reclamation.getNbr()));
