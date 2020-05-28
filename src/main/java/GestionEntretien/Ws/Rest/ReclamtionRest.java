@@ -31,6 +31,13 @@ public class ReclamtionRest {
     @Autowired
     private ReclamationService reclamtionService;
 
+    @GetMapping("/reclaments/{reclament}")
+    public List<Reclamation> findByReclamentName(@PathVariable String reclament) {
+        return reclamtionService.findByReclamentName(reclament);
+    }
+    
+    
+
     @GetMapping("/")
     public List<Reclamation> findAll() {
         return reclamtionService.findAll();

@@ -211,4 +211,10 @@ public class ReclamationImpl implements ReclamationService {
         return reclamations;
     }
 
+   
+    @Override
+    public List<Reclamation> findByReclamentName(String reclament) {
+    return reclamationRepository.findByReclamentName(reclament);
+         }
+
 }
