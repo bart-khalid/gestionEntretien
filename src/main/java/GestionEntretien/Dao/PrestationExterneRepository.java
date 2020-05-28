@@ -6,6 +6,7 @@
 package GestionEntretien.Dao;
 
 import GestionEntretien.Bean.PrestationExterne;
+import GestionEntretien.Bean.Reclamation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PrestationExterneRepository extends JpaRepository<PrestationExterne, Long> {
+
+    public PrestationExterne findByReferenceE(String reference);
 
 }

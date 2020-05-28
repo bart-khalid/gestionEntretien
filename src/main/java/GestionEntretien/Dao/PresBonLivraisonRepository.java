@@ -16,4 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PresBonLivraisonRepository extends JpaRepository<PresBonLivraison, Long> {
 
+    public PresBonLivraison findByReference(String reference);
+
 }

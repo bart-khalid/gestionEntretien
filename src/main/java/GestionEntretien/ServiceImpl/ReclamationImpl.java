@@ -201,13 +201,11 @@ public class ReclamationImpl implements ReclamationService {
     public List<Reclamation> findReclamationsNonTraiter() {
         List<Reclamation> reclamations = new ArrayList<>();
         List<Reclamation> recs = reclamationRepository.findAll();
-        recs.forEach((rec) -> {
-            if (rec.getEtat().equals("Sous Traitement"));
-            {
+        for (Reclamation rec : recs) {
+            if (rec.getEtat().equals("Sous Traitement")){
                 reclamations.add(rec);
             }
-
-        });
+        }
         return reclamations;
     }
 
