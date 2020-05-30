@@ -20,7 +20,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     public Users findByReference(String reference);
 
-    public Users findByTelephone(String tele);
+    public Users findByTelephone(double tele);
 
     public Users findByUsername(String username);
 

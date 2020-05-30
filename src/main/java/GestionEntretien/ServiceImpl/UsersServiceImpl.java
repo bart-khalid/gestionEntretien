@@ -76,7 +76,7 @@ public class UsersServiceImpl implements UsersService {
         return usersdao.findAll();
     }
 
-    @Override
+    /*   @Override
     public int Update(Users users) {
         Users user = usersdao.findByReference(users.getReference());
         user.setUsername(users.getUsername());
@@ -85,6 +85,35 @@ public class UsersServiceImpl implements UsersService {
         user.setType(users.getType());
         user.setPrenom(users.getPrenom());
         user.setTelephone(users.getTelephone());
+        usersdao.save(user);
+        return 1;
+    }
+
+     */
+    @Override
+    public int Update(Users users) {
+        Users user = usersdao.findByReference(users.getReference());
+        if (!(user.getUsername().equals(users.getUsername()))) {
+            Users foundedlogin = findByUsername(users.getUsername());
+            if (!user.getReference().equals(foundedlogin.getReference())) {
+                return -1;
+            } else {
+                user.setUsername(users.getUsername());
+            }
+        }
+        if (!(user.getTelephone() == users.getTelephone())) {
+            Users foundedlogin = findByTelephone(users.getTelephone());
+            if (!user.getReference().equals(foundedlogin.getReference())) {
+                return -2;
+            } else {
+                user.setTelephone(users.getTelephone());
+            }
+        }
+
+        user.setNom(users.getNom());
+        user.setPassword(users.getPassword());
+        user.setType(users.getType());
+        user.setPrenom(users.getPrenom());
         usersdao.save(user);
         return 1;
     }
@@ -102,7 +131,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Users findByTelephone(String tele) {
+    public Users findByTelephone(double tele) {
         return usersdao.findByTelephone(tele);
     }
 

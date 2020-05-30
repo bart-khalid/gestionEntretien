@@ -36,7 +36,11 @@ public class UsersRest {
     public int Update(@RequestBody Users login) {
         return usersservice.Update(login);
     }
-
+  /*  @PutMapping("/updateuser")
+    public int Updateuser(Users users) {
+        return usersservice.Updateuser(users);
+    }
+*/
     @PostMapping("/")
     public int Save(@RequestBody Users login) {
         return usersservice.Save(login);
