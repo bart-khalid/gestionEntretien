@@ -18,6 +18,6 @@ import org.springframework.stereotype.Repository;
 public interface ReclamationRepository extends JpaRepository<Reclamation, Long> {
 
     public Reclamation findByReference(String reference);
-    public List<Reclamation> findByReclamentName(String reclament);
+    public List<Reclamation> findByReclamentUsername(String username);
 
 }

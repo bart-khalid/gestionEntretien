@@ -48,75 +48,74 @@ public class PrestationInterneImpl implements PrestationInterneService {
 
         if (preInterne.getAgent().getNomAgent() == null || preInterne.getAgent().getNomAgent().equals("") || preInterne.getLocale().getNomLocal() == null || preInterne.getLocale().getNomLocal().equals("")) {
             return -2;
-        }else if(preInterne.getTypeEntretienI().equals("materiel") && preInterne.getMaterielLocale().getReferenceML() == null){
+        } else if (preInterne.getTypeEntretienI().equals("materiel") && preInterne.getMaterielLocale().getReferenceML() == null) {
             return -3;
-        }else {
+        } else {
             //generate random string
-        PrestationInterne.setNbrPresInterne(PrestationInterne.getNbrPresInterne() + 1);
-        preInterne.setReferenceI(RandomStringUtils.random(6, true, false) + String.valueOf(PrestationInterne.getNbrPresInterne()));
-        PrestationInterne foundedPrestataionInterne = prestationInterneRepository.findByReferenceI(preInterne.getReferenceI());
-        while (foundedPrestataionInterne != null) {
+            PrestationInterne.setNbrPresInterne(PrestationInterne.getNbrPresInterne() + 1);
             preInterne.setReferenceI(RandomStringUtils.random(6, true, false) + String.valueOf(PrestationInterne.getNbrPresInterne()));
-            foundedPrestataionInterne = prestationInterneRepository.findByReferenceI(preInterne.getReferenceI());
-        }
-        // fin generate random string
+            PrestationInterne foundedPrestataionInterne = prestationInterneRepository.findByReferenceI(preInterne.getReferenceI());
+            while (foundedPrestataionInterne != null) {
+                preInterne.setReferenceI(RandomStringUtils.random(6, true, false) + String.valueOf(PrestationInterne.getNbrPresInterne()));
+                foundedPrestataionInterne = prestationInterneRepository.findByReferenceI(preInterne.getReferenceI());
+            }
+            // fin generate random string
 
-        
-        // set
-        preInterne.setNomAgentI(preInterne.getAgent().getCodeAgent() + ", " + preInterne.getAgent().getNomAgent());
-        preInterne.setNomMaterielI("Pas de materiel");
+            // set
+            preInterne.setNomAgentI(preInterne.getAgent().getCodeAgent() + ", " + preInterne.getAgent().getNomAgent());
+            preInterne.setNomMaterielI("Pas de materiel");
 
-        // update liste prestationInterne du locale
-        addPrestationToListOfPrestationsofLocale(preInterne);
+            // update liste prestationInterne du locale
+            addPrestationToListOfPrestationsofLocale(preInterne);
 
-        // set attribute NomLocale
-        preInterne.setNomLocaleI(preInterne.getLocale().getDescriptionDropDown());
+            // set attribute NomLocale
+            preInterne.setNomLocaleI(preInterne.getLocale().getDescriptionDropDown());
 
-        //si reclamer alors regler letat de la reclamation associe
-        if (preInterne.isReclamedI()) {
-            Reclamation foundedRclamation = reclamationRepository.findByReference(preInterne.getReclamationI().getReference());
-            foundedRclamation.setEtat("Bien Traitée");
-            reclamationRepository.save(foundedRclamation);
-        } else {
-            preInterne.setReclamationI(null);
-        }
+            //si reclamer alors regler letat de la reclamation associe
+            if (preInterne.isReclamedI()) {
+                Reclamation foundedRclamation = reclamationRepository.findByReference(preInterne.getReclamationI().getReference());
+                foundedRclamation.setEtat("Bien Traitée");
+                reclamationRepository.save(foundedRclamation);
+            } else {
+                preInterne.setReclamationI(null);
+            }
 
-        //si pres d un materiel donc il sagit d un entretien
-        if (preInterne.getTypeEntretienI().equals("materiel")) {
+            //si pres d un materiel donc il sagit d un entretien
+            if (preInterne.getTypeEntretienI().equals("materiel")) {
 
-            // find from database
-            LocalDetails foundedMateriel = localDetailsRepository.findByReferenceML(preInterne.getMaterielLocale().getReferenceML());
+                // find from database
+                LocalDetails foundedMateriel = localDetailsRepository.findByReferenceML(preInterne.getMaterielLocale().getReferenceML());
 
-            // update liste prestationsInterne of materiel
-            addPrestationToListOfPrestationsOfMateriel(foundedMateriel, preInterne);
+                // update liste prestationsInterne of materiel
+                addPrestationToListOfPrestationsOfMateriel(foundedMateriel, preInterne);
 
-            // creation de fiche entretien
-            Entretien ent = new Entretien(preInterne.getDateI(), foundedMateriel.getDescriptionMaterielLocale(), preInterne.getNomAgentI(), 0, preInterne.getReferenceI());
-            ent.setLocale(preInterne.getLocale());
-            ent.setMateriel(foundedMateriel);
-            ent.setNomLocale(preInterne.getLocale().getDescriptionDropDown());
-            entretienRepository.save(ent);
+                // creation de fiche entretien
+                Entretien ent = new Entretien(preInterne.getDateI(), foundedMateriel.getDescriptionMaterielLocale(), preInterne.getNomAgentI(), 0, preInterne.getReferenceI());
+                ent.setLocale(preInterne.getLocale());
+                ent.setMateriel(foundedMateriel);
+                ent.setNomLocale(preInterne.getLocale().getDescriptionDropDown());
+                entretienRepository.save(ent);
 
-            // update liste des entretiens
-            addEntretienToListOfEntretiensOfMateriel(foundedMateriel, ent);
+                // update liste des entretiens
+                addEntretienToListOfEntretiensOfMateriel(foundedMateriel, ent);
 
-            // update list entretien of locale
-            addEntretienToListOfEntretiensOfLocale(preInterne.getLocale(), ent);
+                // update list entretien of locale
+                addEntretienToListOfEntretiensOfLocale(preInterne.getLocale(), ent);
 
-            // set nom Materiel
-            preInterne.setNomMaterielI(foundedMateriel.getDescriptionMaterielLocale());
-        } else {
-            preInterne.setMaterielLocale(null);
-        }
+                // set nom Materiel
+                preInterne.setNomMaterielI(foundedMateriel.getDescriptionMaterielLocale());
+            } else {
+                preInterne.setMaterielLocale(null);
+            }
 
-        prestationInterneRepository.save(preInterne);
-        // set this prestation to reclamation
-        if (preInterne.isReclamedI()) {
-            Reclamation loadedReclamation = reclamationRepository.findByReference(preInterne.getReclamationI().getReference());
-            loadedReclamation.setPrestationInterne(preInterne);
-            reclamationRepository.save(loadedReclamation);
-        }
-        return 1;
+            prestationInterneRepository.save(preInterne);
+            // set this prestation to reclamation
+            if (preInterne.isReclamedI()) {
+                Reclamation loadedReclamation = reclamationRepository.findByReference(preInterne.getReclamationI().getReference());
+                loadedReclamation.setPrestationInterne(preInterne);
+                reclamationRepository.save(loadedReclamation);
+            }
+            return 1;
         }
     }
 
@@ -124,48 +123,68 @@ public class PrestationInterneImpl implements PrestationInterneService {
     public int update(PrestationInterne preInterne) {
         PrestationInterne foundedPrestationInterne = prestationInterneRepository.findByReferenceI(preInterne.getReferenceI());
 
-        //update attriibutes de bases
-        foundedPrestationInterne.setTypeEntretienI(preInterne.getTypeEntretienI());
-        foundedPrestationInterne.setDateI(preInterne.getDateI());
-        foundedPrestationInterne.setLocale(preInterne.getLocale());
-
-        //update etat reclamation associer
-        if (foundedPrestationInterne.isReclamedI() && preInterne.isReclamedI()) {
-            if (foundedPrestationInterne.getReclamationI() == null && preInterne.getReclamationI() == null) {
-                return -2;
-            } else if (!foundedPrestationInterne.getReclamationI().getReference().equals(preInterne.getReclamationI().getReference())) {
-                Reclamation foundedReclamationold = reclamationRepository.findByReference(foundedPrestationInterne.getRefrenceReclamationI());
-                Reclamation foundedReclamationNew = reclamationRepository.findByReference(preInterne.getRefrenceReclamationI());
-
-                foundedReclamationold.setEtat("Sous Traitement");
-                foundedReclamationNew.setEtat("Bien Traitée");
-                reclamationRepository.save(foundedReclamationNew);
-                reclamationRepository.save(foundedReclamationold);
-            }
+        if (foundedPrestationInterne.getMaterielLocale() != null && preInterne.getMaterielLocale().getReference() == null) {
+            return -1;
+        } else if (preInterne.isReclamedI() && preInterne.getReclamationI() == null) {
+            return -2;
+        } else if (preInterne.getTypeEntretienI().equals("materiel") && preInterne.getMaterielLocale() == null) {
+            return -4;
         } else {
-            foundedPrestationInterne.setReclamationI(null);
-        }
+            //update attriibutes de bases
+            foundedPrestationInterne.setTypeEntretienI(preInterne.getTypeEntretienI());
+            foundedPrestationInterne.setDateI(preInterne.getDateI());
+            foundedPrestationInterne.setLocale(preInterne.getLocale());
 
-        //si on change l'agent
-        if (!foundedPrestationInterne.getAgent().getCodeAgent().equals(preInterne.getAgent().getCodeAgent())) {
-            foundedPrestationInterne.setAgent(preInterne.getAgent());
-            foundedPrestationInterne.setNomAgentI(preInterne.getAgent().getNomAgent() + ", " + preInterne.getAgent().getCodeAgent());
-        }
+            //update etat reclamation associer
+            if (foundedPrestationInterne.isReclamedI() && preInterne.isReclamedI()) {
+                if (!foundedPrestationInterne.getReclamationI().getReference().equals(preInterne.getReclamationI().getReference())) {
+                    Reclamation foundedReclamationold = reclamationRepository.findByReference(foundedPrestationInterne.getRefrenceReclamationI());
+                    Reclamation foundedReclamationNew = reclamationRepository.findByReference(preInterne.getRefrenceReclamationI());
 
-        // modifier liste presInterne old locale
-        removePrestationToListOfPrestationsofLocale(foundedPrestationInterne);
-
-        // update liste prestationInterne new locale
-        addPrestationToListOfPrestationsofLocale(preInterne);
-
-        // set NomLocale
-        preInterne.setNomLocaleI(preInterne.getLocale().getDescriptionDropDown());
-
-        //update Materiel
-        if (preInterne.getTypeEntretienI().equals("materiel")) {
-            if (preInterne.getMaterielLocale() == null) {
-                return -2;
+                    foundedReclamationold.setEtat("Sous Traitement");
+                    foundedReclamationold.setPrestationInterne(null);
+                    foundedReclamationNew.setEtat("Bien Traitée");
+                    foundedReclamationNew.setPrestationInterne(foundedPrestationInterne);
+                    reclamationRepository.save(foundedReclamationNew);
+                    reclamationRepository.save(foundedReclamationold);
+                    foundedPrestationInterne.setReclamationI(foundedReclamationNew);
+                }
+            } else if (!foundedPrestationInterne.isReclamedI() && preInterne.isReclamedI()) {
+                Reclamation newReclamation = reclamationRepository.findByReference(preInterne.getReclamationI().getReference());
+                newReclamation.setEtat("Bien Traitée");
+                newReclamation.setPrestationInterne(foundedPrestationInterne);
+                reclamationRepository.save(newReclamation);
+                foundedPrestationInterne.setReclamedI(true);
+                foundedPrestationInterne.setReclamationI(newReclamation);
             } else {
+                if (foundedPrestationInterne.getReclamationI() != null) {
+                    Reclamation foundedReclamation = reclamationRepository.findByReference(foundedPrestationInterne.getReclamationI().getReference());
+                    foundedReclamation.setPrestationInterne(null);
+                    foundedReclamation.setEtat("Sous Traitement");
+                    reclamationRepository.save(foundedReclamation);
+                }
+                foundedPrestationInterne.setReclamedI(false);
+                foundedPrestationInterne.setReclamationI(null);
+            }
+
+            //si on change l'agent
+            if (!foundedPrestationInterne.getAgent().getCodeAgent().equals(preInterne.getAgent().getCodeAgent())) {
+                foundedPrestationInterne.setAgent(preInterne.getAgent());
+                foundedPrestationInterne.setNomAgentI(preInterne.getAgent().getCodeAgent() + ", " + preInterne.getAgent().getNomAgent());
+            }
+
+            // modifier liste presInterne old locale
+            removePrestationToListOfPrestationsofLocale(foundedPrestationInterne);
+
+            // update liste prestationInterne new locale
+            addPrestationToListOfPrestationsofLocale(foundedPrestationInterne);
+
+            // set NomLocale
+            foundedPrestationInterne.setNomLocaleI(preInterne.getLocale().getDescriptionDropDown());
+
+            //update Materiel
+            if (preInterne.getTypeEntretienI().equals("materiel")) {
+
                 // find Entretien associe
                 Entretien loadedEntretien = entretienRepository.findByNumFacture(foundedPrestationInterne.getReferenceI());
 
@@ -198,21 +217,15 @@ public class PrestationInterneImpl implements PrestationInterneService {
                 addPrestationToListOfPrestationsOfMateriel(foundedMaterielNew, foundedPrestationInterne);
 
                 // update name materiel associe
-                preInterne.setNomMaterielI(foundedMaterielNew.getDescriptionMaterielLocale());
+                foundedPrestationInterne.setNomMaterielI(foundedMaterielNew.getDescriptionMaterielLocale());
 
+            } else {
+                foundedPrestationInterne.setNomMaterielI("Pas de materiel");
             }
-        } else {
-            preInterne.setNomMaterielI("Pas de materiel");
-        }
 
-        prestationInterneRepository.save(preInterne);
-        // set this prestation to reclamation
-        if (preInterne.isReclamedI()) {
-            Reclamation loadedReclamation = reclamationRepository.findByReference(preInterne.getReclamationI().getReference());
-            loadedReclamation.setPrestationInterne(preInterne);
-            reclamationRepository.save(loadedReclamation);
+            prestationInterneRepository.save(foundedPrestationInterne);
+            return 1;
         }
-        return 1;
     }
 
     @Override
@@ -231,12 +244,12 @@ public class PrestationInterneImpl implements PrestationInterneService {
 
         // update reclamation associe
         if (foundedPreInterne.isReclamedI()) {
-            if(foundedPreInterne.getReclamationI() != null){
-            Reclamation loadedReclamation = reclamationRepository.findByReference(foundedPreInterne.getReclamationI().getReference());
-            loadedReclamation.setEtat("Sous Traitement");
-            loadedReclamation.setPrestationInterne(null);
-            reclamationRepository.save(loadedReclamation);
-        }
+            if (foundedPreInterne.getReclamationI() != null) {
+                Reclamation loadedReclamation = reclamationRepository.findByReference(foundedPreInterne.getReclamationI().getReference());
+                loadedReclamation.setEtat("Sous Traitement");
+                loadedReclamation.setPrestationInterne(null);
+                reclamationRepository.save(loadedReclamation);
+            }
         }
 
         prestationInterneRepository.delete(foundedPreInterne);

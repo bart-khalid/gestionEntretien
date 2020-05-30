@@ -67,7 +67,7 @@ public class ReclamationImpl implements ReclamationService {
         } else if (foundedReclamant == null) {
             return -2;
 
-        } else if(reclamation.getLocale().getReference() == null) {
+        } else if (reclamation.getLocale().getReference() == null) {
             return -3;
         } else {
             Reclamation.setNbr(Reclamation.getNbr() + 1);
@@ -115,54 +115,61 @@ public class ReclamationImpl implements ReclamationService {
     @Override
     public int update(Reclamation reclamation) {
         Reclamation foundedReclamation = reclamationRepository.findByReference(reclamation.getReference());
-        LocalDetails loadedMateriel = reclamation.getMateriel();
+        if (foundedReclamation.getMateriel() != null && reclamation.getMateriel() == null) {
+            return -1;
+        } else if (foundedReclamation.getEtat().equals("Bien Traitée")) {
+            return -2;
+        } else {
+            LocalDetails loadedMateriel = reclamation.getMateriel();
 
-        foundedReclamation.setObjet(reclamation.getObjet());
-        foundedReclamation.setDescription(reclamation.getDescription());
+            foundedReclamation.setObjet(reclamation.getObjet());
+            foundedReclamation.setDescription(reclamation.getDescription());
 
-        //update locale associe a cette reclamation
-        if (!foundedReclamation.getLocale().getReference().equals(reclamation.getLocale().getReference())) {
-            //delete cette reclam de la liste de lancian locale
-            Locale foundedLocalee = localeRepository.findByReference(foundedReclamation.getLocale().getReference());
-            List<Reclamation> reclamss = foundedLocalee.getReclamations();
-            reclamss.remove(reclamation);
-            foundedLocalee.setReclamations(reclamss);
-            localeRepository.save(foundedLocalee);
+            //update locale associe a cette reclamation
+            if (!foundedReclamation.getLocale().getReference().equals(reclamation.getLocale().getReference())) {
+                //delete cette reclam de la liste de lancian locale
+                Locale foundedLocalee = localeRepository.findByReference(foundedReclamation.getLocale().getReference());
+                List<Reclamation> reclamss = foundedLocalee.getReclamations();
+                reclamss.remove(reclamation);
+                foundedLocalee.setReclamations(reclamss);
+                localeRepository.save(foundedLocalee);
 
-            //update listes reclamations du nv materiel
-            Locale foundedLocale = localeRepository.findByReference(reclamation.getLocale().getReference());
-            foundedReclamation.setLocale(foundedLocale);
-            List<Reclamation> reclams = foundedLocale.getReclamations();
-            reclams.add(reclamation);
-            foundedLocale.setReclamations(reclams);
-            localeRepository.save(foundedLocale);
-        }
-
-        if (loadedMateriel != null) {
-            if (!foundedReclamation.getMateriel().getReferenceML().equals(reclamation.getMateriel().getReferenceML())) {
-
-                //update list reclamations ancien materiel
-                LocalDetails LoadedMaterielOld = localDetailsRepository.findByReferenceML(foundedReclamation.getMateriel().getReferenceML());
-                List<Reclamation> reclms = LoadedMaterielOld.getReclamations();
-                reclms.remove(foundedReclamation);
-                LoadedMaterielOld.setReclamations(reclms);
-                localDetailsRepository.save(LoadedMaterielOld);
-
-                //update liste reclamation du nv Materiel
-                LocalDetails LoadedMaterielNv = localDetailsRepository.findByReferenceML(reclamation.getMateriel().getReferenceML());
-                foundedReclamation.setMateriel(LoadedMaterielNv);
-                List<Reclamation> recs = LoadedMaterielNv.getReclamations();
-                recs.add(reclamation);
-                LoadedMaterielNv.setReclamations(recs);
-                localDetailsRepository.save(LoadedMaterielNv);
-                reclamation.setNomMateriel(reclamation.getMateriel().getDescriptionMaterielLocale());
+                //update listes reclamations du nv materiel
+                Locale foundedLocale = localeRepository.findByReference(reclamation.getLocale().getReference());
+                foundedReclamation.setLocale(foundedLocale);
+                List<Reclamation> reclams = foundedLocale.getReclamations();
+                reclams.add(reclamation);
+                foundedLocale.setReclamations(reclams);
+                localeRepository.save(foundedLocale);
             }
+
+            if (loadedMateriel != null) {
+                if (!foundedReclamation.getMateriel().getReferenceML().equals(reclamation.getMateriel().getReferenceML())) {
+
+                    //update list reclamations ancien materiel
+                    LocalDetails LoadedMaterielOld = localDetailsRepository.findByReferenceML(foundedReclamation.getMateriel().getReferenceML());
+                    List<Reclamation> reclms = LoadedMaterielOld.getReclamations();
+                    reclms.remove(foundedReclamation);
+                    LoadedMaterielOld.setReclamations(reclms);
+                    localDetailsRepository.save(LoadedMaterielOld);
+
+                    //update liste reclamation du nv Materiel
+                    LocalDetails LoadedMaterielNv = localDetailsRepository.findByReferenceML(reclamation.getMateriel().getReferenceML());
+                    foundedReclamation.setMateriel(LoadedMaterielNv);
+                    List<Reclamation> recs = LoadedMaterielNv.getReclamations();
+                    recs.add(reclamation);
+                    LoadedMaterielNv.setReclamations(recs);
+                    localDetailsRepository.save(LoadedMaterielNv);
+                    reclamation.setNomMateriel(reclamation.getMateriel().getDescriptionMaterielLocale());
+                }
+            }
+
+            reclamation.setDescreptionDropDownReclamation(reclamation.getReference() + ", " + reclamation.getObjet());
+            reclamation.setNomLocale(reclamation.getLocale().getDescriptionDropDown());
+            reclamationRepository.save(reclamation);
+            return 1;
         }
 
-        reclamation.setDescreptionDropDownReclamation(reclamation.getReference() + ", " + reclamation.getObjet());
-        reclamation.setNomLocale(reclamation.getLocale().getDescriptionDropDown());
-        reclamationRepository.save(reclamation);
-        return 1;
     }
 
     @Override
@@ -174,13 +181,13 @@ public class ReclamationImpl implements ReclamationService {
             // set reclamation to null in prestations associate
             PrestationInterne prestationInterne = founReclamation.getPrestationInterne();
             PrestationExterne prestationExterne = founReclamation.getPrestationExterne();
-            if(prestationExterne != null) {
+            if (prestationExterne != null) {
                 prestationExterne.setReclamationE(null);
             }
-            if(prestationInterne != null) {
+            if (prestationInterne != null) {
                 prestationInterne.setReclamationI(null);
             }
-            
+
             reclamationRepository.delete(founReclamation);
             return 1;
         }
@@ -204,17 +211,16 @@ public class ReclamationImpl implements ReclamationService {
         List<Reclamation> reclamations = new ArrayList<>();
         List<Reclamation> recs = reclamationRepository.findAll();
         for (Reclamation rec : recs) {
-            if (rec.getEtat().equals("Sous Traitement")){
+            if (rec.getEtat().equals("Sous Traitement")) {
                 reclamations.add(rec);
             }
         }
         return reclamations;
     }
 
-   
     @Override
     public List<Reclamation> findByReclamentName(String reclament) {
-    return reclamationRepository.findByReclamentName(reclament);
-         }
+        return reclamationRepository.findByReclamentUsername(reclament);
+    }
 
 }
