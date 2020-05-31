@@ -68,6 +68,8 @@ public class LocaleImpl implements LocaleService {
         localeRepository.save(locale);
         return 1;
     }
+    
+   
 
     @Override
     public int update(Locale locale) {
@@ -76,39 +78,7 @@ public class LocaleImpl implements LocaleService {
         foundedLocale.setDepartement(locale.getDepartement());
         foundedLocale.setTypeLocal(locale.getTypeLocal());
         foundedLocale.setDescriptionDropDown(locale.getNomLocal() + " " + locale.getTypeLocal() + ", " + locale.getDepartement());
-         List<LocalDetails> mat = localDetailsRepository.findAll();
-         for (LocalDetails loc : mat) {
-            if (loc.getLocale().getReference().equals(foundedLocale.getReference())) {
-                loc.setLocaleAssocie(foundedLocale.getDescriptionDropDown());
-            }
-            localDetailsRepository.save(loc);
-        }
-        //
-         List<PrestationInterne> pres = prestationInterneRepository.findAll();
-        for (PrestationInterne pre : pres) {
-            if (pre.getLocale().getReference().equals(foundedLocale.getReference())) {
-                pre.setNomLocaleI(foundedLocale.getDescriptionDropDown());
-            }
-            prestationInterneRepository.save(pre);
-        }
-        //ent.setNomLocale(foundedLocale.getDescriptionDropDown());
-         List<Reclamation> rec = reclamationRepository.findAll();
-           for (Reclamation recla : rec) {
-            if (recla.getLocale().getReference().equals(foundedLocale.getReference())) {
-                recla.setNomLocale(foundedLocale.getDescriptionDropDown());
-            }
-            reclamationRepository.save(recla);
-           }
-        //    .setNomLocale(foundedLocale.getDescriptionDropDown());
-         List<Entretien> entre = entretienRepository.findAll();
-          for (Entretien ent : entre) {
-            if (ent.getLocale().getReference().equals(foundedLocale.getReference())) {
-                ent.setNomLocale(foundedLocale.getDescriptionDropDown());
-            }
-            entretienRepository.save(ent);
-           }
-            
-       
+        updatelocal(foundedLocale);
         localeRepository.save(foundedLocale);
         return 1;
     }
@@ -199,5 +169,47 @@ public class LocaleImpl implements LocaleService {
 
         //delete this localeMateriels
         localDetailsRepository.delete(foundedMaterielLocale);
+    }
+    
+     public void updatelocal(Locale foundedLocale){
+     List<LocalDetails> mat = localDetailsRepository.findAll();
+         for (LocalDetails loc : mat) {
+            if (loc.getLocale().getReference().equals(foundedLocale.getReference())) {
+                loc.setLocaleAssocie(foundedLocale.getDescriptionDropDown());
+            }
+            localDetailsRepository.save(loc);
+        }
+        //pres interne update
+         List<PrestationInterne> pres = prestationInterneRepository.findAll();
+        for (PrestationInterne pre : pres) {
+            if (pre.getLocale().getReference().equals(foundedLocale.getReference())) {
+                pre.setNomLocaleI(foundedLocale.getDescriptionDropDown());
+            }
+            prestationInterneRepository.save(pre);
+        }
+        //pres externe update
+         List<PrestationExterne> prese = prestationExterneRepository.findAll();
+        for (PrestationExterne pre : prese) {
+            if (pre.getLocale().getReference().equals(foundedLocale.getReference())) {
+                pre.setNomLocale(foundedLocale.getDescriptionDropDown());
+            }
+            prestationExterneRepository.save(pre);
+        }
+        //ent.setNomLocale(foundedLocale.getDescriptionDropDown());
+         List<Reclamation> rec = reclamationRepository.findAll();
+           for (Reclamation recla : rec) {
+            if (recla.getLocale().getReference().equals(foundedLocale.getReference())) {
+                recla.setNomLocale(foundedLocale.getDescriptionDropDown());
+            }
+            reclamationRepository.save(recla);
+           }
+        //    .setNomLocale(foundedLocale.getDescriptionDropDown());
+         List<Entretien> entre = entretienRepository.findAll();
+          for (Entretien ent : entre) {
+            if (ent.getLocale().getReference().equals(foundedLocale.getReference())) {
+                ent.setNomLocale(foundedLocale.getDescriptionDropDown());
+            }
+            entretienRepository.save(ent);
+           }
     }
 }

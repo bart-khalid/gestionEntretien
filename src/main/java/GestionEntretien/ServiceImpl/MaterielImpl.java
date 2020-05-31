@@ -9,11 +9,13 @@ import GestionEntretien.Bean.Entretien;
 import GestionEntretien.Bean.FournisseurSV;
 import GestionEntretien.Bean.LocalDetails;
 import GestionEntretien.Bean.Materiel;
+import GestionEntretien.Bean.PrestationExterne;
 import GestionEntretien.Bean.PrestationInterne;
 import GestionEntretien.Bean.Reclamation;
 import GestionEntretien.Dao.EntretienRepository;
 import GestionEntretien.Dao.LocalDetailsRepository;
 import GestionEntretien.Dao.MaterielRepository;
+import GestionEntretien.Dao.PrestationExterneRepository;
 import GestionEntretien.Dao.PrestationInterneRepository;
 import GestionEntretien.Dao.ReclamationRepository;
 import GestionEntretien.Service.MaterielService;
@@ -39,6 +41,8 @@ public class MaterielImpl implements MaterielService {
     @Autowired
     private PrestationInterneRepository prestationInterneRepository;
     @Autowired
+    private PrestationExterneRepository prestationExterneRepository;
+    @Autowired
     private ReclamationRepository reclamationRepository;
 
     @Override
@@ -47,7 +51,7 @@ public class MaterielImpl implements MaterielService {
         Materiel.setNbrMateriel(Materiel.getNbrMateriel() + 1);
         materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
         Materiel foundedMateriel = materielRepository.findByReference(materiel.getReference());
-        while(foundedMateriel != null) {
+        while (foundedMateriel != null) {
             materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
             foundedMateriel = materielRepository.findByReference(materiel.getReference());
         }
@@ -66,44 +70,7 @@ public class MaterielImpl implements MaterielService {
         foundedMateriel.setNom(materiel.getNom());
         foundedMateriel.setType(materiel.getType());
         foundedMateriel.setDescriptionDropDown(materiel.getNom() + ", " + materiel.getMarque());
-        List<LocalDetails> materielLocales = localDetailsRepository.findAll();
-        for(LocalDetails mate : materielLocales) {
-            if(mate.getMateriel().getReference().equals(foundedMateriel.getReference())){
-                mate.setMaterielLocale(foundedMateriel.getDescriptionDropDown());
-                mate.setDescriptionMaterielLocale(mate.getReferenceML() + ", " + mate.getMaterielLocale());
-            if(mate.getPrestationInternes() != null){
-            List<PrestationInterne> pres = prestationInterneRepository.findAll();
-                for (PrestationInterne pre : pres) {
-                    if(pre.getMaterielLocale().getReferenceML().equals(mate.getReferenceML())){
-                    pre.setNomMaterielI(mate.getReferenceML() + ", " + foundedMateriel.getDescriptionDropDown());
-                    prestationInterneRepository.save(pre);
-                    }
-                }
-            }
-            //
-            if(mate.getReclamations()!= null ){
-            List<Reclamation> recl = reclamationRepository.findAll();
-             for (Reclamation rec : recl) {
-                    if(rec.getMateriel().getReferenceML().equals(mate.getReferenceML())){
-                    rec.setNomMateriel(mate.getReferenceML() + ", " + foundedMateriel.getDescriptionDropDown());
-                    reclamationRepository.save(rec);
-                    }
-                }
-            }
-            //setNomMateriel(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
-            if(mate.getLocale().getEntretiens() != null){
-            List<Entretien> entre = entretienRepository.findAll();
-           for (Entretien ent : entre) {
-                    if(ent.getMateriel().getReferenceML().equals(mate.getReferenceML())){
-                    ent.setNomMateriel(mate.getReferenceML() + ", " + foundedMateriel.getDescriptionDropDown());
-                    entretienRepository.save(ent);
-                    }
-                }
-           }
-            
-            }
-            localDetailsRepository.save(mate);
-        }
+        updatebeans(foundedMateriel);
         materielRepository.save(foundedMateriel);
         return 1;
     }
@@ -124,4 +91,55 @@ public class MaterielImpl implements MaterielService {
         return materielRepository.findAll();
     }
 
+    public void updatebeans(Materiel foundedMateriel) {
+        List<LocalDetails> materielLocales = localDetailsRepository.findAll();
+        for (LocalDetails mate : materielLocales) {
+            if (mate.getMateriel().getReference().equals(foundedMateriel.getReference())) {
+                mate.setMaterielLocale(foundedMateriel.getDescriptionDropDown());
+                mate.setDescriptionMaterielLocale(mate.getReferenceML() + ", " + mate.getMaterielLocale());
+                localDetailsRepository.save(mate);
+                if (mate.getPrestationInternes() != null) {
+                    List<PrestationInterne> pres = prestationInterneRepository.findAll();
+                    for (PrestationInterne pre : pres) {
+                        if (pre.getMaterielLocale().getReferenceML().equals(mate.getReferenceML())) {
+                            pre.setNomMaterielI(mate.getDescriptionMaterielLocale());
+                            prestationInterneRepository.save(pre);
+                        }
+                    }
+                }
+                // update pres externe
+                if (mate.getPrestationExternes() != null) {
+                    List<PrestationExterne> prese = prestationExterneRepository.findAll();
+                    for (PrestationExterne pre : prese) {
+                        if (pre.getMaterielLocale().getReferenceML().equals(mate.getReferenceML())) {
+                            pre.setNomMateriel(mate.getDescriptionMaterielLocale());
+                            prestationExterneRepository.save(pre);
+                        }
+                    }
+                }
+                //
+                if (mate.getReclamations() != null) {
+                    List<Reclamation> recl = reclamationRepository.findAll();
+                    for (Reclamation rec : recl) {
+                        if (rec.getMateriel().getReferenceML().equals(mate.getReferenceML())) {
+                            rec.setNomMateriel(mate.getDescriptionMaterielLocale());
+                            reclamationRepository.save(rec);
+                        }
+                    }
+                }
+                //setNomMateriel(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
+                if (mate.getLocale().getEntretiens() != null) {
+                    List<Entretien> entre = entretienRepository.findAll();
+                    for (Entretien ent : entre) {
+                        if (ent.getMateriel().getReferenceML().equals(mate.getReferenceML())) {
+                            ent.setNomMateriel(mate.getDescriptionMaterielLocale());
+                            entretienRepository.save(ent);
+                        }
+                    }
+                }
+
+            }
+        }
+        System.out.println("salit");
+    }
 }

@@ -36,11 +36,11 @@ public class LocalDetailsImpl implements LocalDetailsService {
     private LocalDetailsRepository localDetailsRepository;
 
     @Autowired
-    private MaterielRepository materielRepository;
+    private MaterielRepository foundedMaterielrielRepository;
 
     @Autowired
     private LocaleRepository localeRepository;
-     @Autowired
+    @Autowired
     private EntretienRepository entretienRepository;
     @Autowired
     private PrestationInterneRepository prestationInterneRepository;
@@ -48,43 +48,45 @@ public class LocalDetailsImpl implements LocalDetailsService {
     private PrestationExterneRepository prestationExterneRepository;
     @Autowired
     private ReclamationRepository reclamationRepository;
-    
+
+    @Autowired
+    private LocaleImpl localimpl;
 
     @Override
     public int save(LocalDetails localDetails) {
         LocalDetails foundedMaterielLocal = localDetailsRepository.findByReferenceML(localDetails.getReferenceML());
         if (foundedMaterielLocal != null) {
             return -1;
-        } else if(localDetails.getLocale() == null || localDetails.getLocale().getReference() == null){
+        } else if (localDetails.getLocale() == null || localDetails.getLocale().getReference() == null) {
             return -2;
         } else {
 
-            //update locale associe a ce materielLocale
+            //update locale associe a ce foundedMaterielrielLocale
             Locale loadedLocale = localeRepository.findByReference(localDetails.getLocale().getReference());
-            List<LocalDetails> materielsLocle = loadedLocale.getLocalDetails();
-            materielsLocle.add(localDetails);
-            loadedLocale.setLocalDetails(materielsLocle);
+            List<LocalDetails> foundedMaterielrielsLocle = loadedLocale.getLocalDetails();
+            foundedMaterielrielsLocle.add(localDetails);
+            loadedLocale.setLocalDetails(foundedMaterielrielsLocle);
             loadedLocale.setNbrMateriel(loadedLocale.getNbrMateriel() + 1);
             localeRepository.save(loadedLocale);
 
-            //update materiel associe a ce materielLocale
-            Materiel loadedMateriel = materielRepository.findByReference(localDetails.getMateriel().getReference());
-            List<LocalDetails> materiels = loadedMateriel.getLocalDetails();
-            materiels.add(localDetails);
-            loadedMateriel.setLocalDetails(materiels);
+            //update foundedMaterielriel associe a ce foundedMaterielrielLocale
+            Materiel loadedMateriel = foundedMaterielrielRepository.findByReference(localDetails.getMateriel().getReference());
+            List<LocalDetails> foundedMaterielriels = loadedMateriel.getLocalDetails();
+            foundedMaterielriels.add(localDetails);
+            loadedMateriel.setLocalDetails(foundedMaterielriels);
             loadedMateriel.setNbrEntite(loadedMateriel.getNbrEntite() + 1);
-            materielRepository.save(loadedMateriel);
+            foundedMaterielrielRepository.save(loadedMateriel);
 
-            //save du Nom LOcale et Nom materiel
+            //save du Nom LOcale et Nom foundedMaterielriel
             localDetails.setLocaleAssocie(localDetails.getLocale().getDescriptionDropDown());
             localDetails.setMaterielLocale(localDetails.getMateriel().getDescriptionDropDown());
             localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
             LocalDetails.setNbr(LocalDetails.getNbr() + 1);
             localDetails.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(LocalDetails.getNbr()));
             while (foundedMaterielLocal != null) {
-            localDetails.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(LocalDetails.getNbr()));
-            foundedMaterielLocal = localDetailsRepository.findByReference(localDetails.getReference());
-        }
+                localDetails.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(LocalDetails.getNbr()));
+                foundedMaterielLocal = localDetailsRepository.findByReference(localDetails.getReference());
+            }
             localDetails.setReferenceML(localDetails.getReferenceML());
             localDetailsRepository.save(localDetails);
             return 1;
@@ -95,29 +97,27 @@ public class LocalDetailsImpl implements LocalDetailsService {
     public int update(LocalDetails localDetails) {
         LocalDetails foundedMaterielLocale = localDetailsRepository.findByReference(localDetails.getReference());
         LocalDetails foundedMaterielLoc = localDetailsRepository.findByReferenceML(localDetails.getReferenceML());
-        
-        if(localDetails.getLocale() == null || localDetails.getLocale().getReference() == null){
-        return -1;
-        }
-        else if(foundedMaterielLoc != null && !(foundedMaterielLocale.getReferenceML().equals(localDetails.getReferenceML()))){
-        return -2;
-        }
-        else{
+
+        if (localDetails.getLocale() == null || localDetails.getLocale().getReference() == null) {
+            return -1;
+        } else if (foundedMaterielLoc != null && !(foundedMaterielLocale.getReferenceML().equals(localDetails.getReferenceML()))) {
+            return -2;
+        } else {
             // update du locale associe 
             if (!foundedMaterielLocale.getLocale().getReference().equals(localDetails.getLocale().getReference())) {
 
                 //modifier lancien locale associe 
-                List<LocalDetails> materielslocaleToEdit = foundedMaterielLocale.getLocale().getLocalDetails();
-                materielslocaleToEdit.remove(foundedMaterielLocale);
-                foundedMaterielLocale.getLocale().setLocalDetails(materielslocaleToEdit);
+                List<LocalDetails> foundedMaterielrielslocaleToEdit = foundedMaterielLocale.getLocale().getLocalDetails();
+                foundedMaterielrielslocaleToEdit.remove(foundedMaterielLocale);
+                foundedMaterielLocale.getLocale().setLocalDetails(foundedMaterielrielslocaleToEdit);
                 foundedMaterielLocale.getLocale().setNbrMateriel(foundedMaterielLocale.getLocale().getNbrMateriel() - 1);
                 localeRepository.save(foundedMaterielLocale.getLocale());
 
                 Locale loadedLocale = localeRepository.findByReference(localDetails.getLocale().getReference());
                 if (loadedLocale != null) {
-                    List<LocalDetails> materielsLocle = loadedLocale.getLocalDetails();
-                    materielsLocle.add(localDetails);
-                    loadedLocale.setLocalDetails(materielsLocle);
+                    List<LocalDetails> foundedMaterielrielsLocle = loadedLocale.getLocalDetails();
+                    foundedMaterielrielsLocle.add(localDetails);
+                    loadedLocale.setLocalDetails(foundedMaterielrielsLocle);
                     loadedLocale.setNbrMateriel(loadedLocale.getNbrMateriel() + 1);
                     localeRepository.save(loadedLocale);
                 }
@@ -126,6 +126,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
             }
 
             //update du Materiel Associer
+            Materiel loadedMateriel = foundedMaterielrielRepository.findByReference(localDetails.getMateriel().getReference());
             if (!foundedMaterielLocale.getMateriel().getReference().equals(localDetails.getMateriel().getReference())) {
 
                 //modifier l' ancien Materiel associer
@@ -133,29 +134,78 @@ public class LocalDetailsImpl implements LocalDetailsService {
                 mats.remove(foundedMaterielLocale);
                 foundedMaterielLocale.getMateriel().setLocalDetails(mats);
                 foundedMaterielLocale.getMateriel().setNbrEntite(foundedMaterielLocale.getMateriel().getNbrEntite() - 1);
-                materielRepository.save(foundedMaterielLocale.getMateriel());
+                foundedMaterielrielRepository.save(foundedMaterielLocale.getMateriel());
 
-                Materiel loadedMateriel = materielRepository.findByReference(localDetails.getMateriel().getReference());
+                //
                 //update new Matriel associe
                 foundedMaterielLocale.setMateriel(loadedMateriel);
                 // list
-                List<LocalDetails> materiels = loadedMateriel.getLocalDetails();
-                materiels.add(localDetails);
-                loadedMateriel.setLocalDetails(materiels);
+                List<LocalDetails> foundedMaterielriels = loadedMateriel.getLocalDetails();
+                foundedMaterielriels.add(localDetails);
+                loadedMateriel.setLocalDetails(foundedMaterielriels);
                 loadedMateriel.setNbrEntite(loadedMateriel.getNbrEntite() + 1);
-                materielRepository.save(loadedMateriel);
+                foundedMaterielrielRepository.save(loadedMateriel);
             }
 
             //update attributes of this MaterielLocale
             foundedMaterielLocale.setLocaleAssocie(localDetails.getLocale().getDescriptionDropDown());
             foundedMaterielLocale.setMaterielLocale(localDetails.getMateriel().getDescriptionDropDown());
             foundedMaterielLocale.setDateAffectation(localDetails.getDateAffectation());
-            localDetails.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
             foundedMaterielLocale.setReferenceML(localDetails.getReferenceML());
-            
+            foundedMaterielLocale.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
             localDetailsRepository.save(foundedMaterielLocale);
+            updatebeans(foundedMaterielLocale);
+            
 
+            
             return 1;
+        }
+
+    }
+
+    public void updatebeans(LocalDetails foundedMateriel) {
+        if (foundedMateriel.getPrestationInternes() != null) {
+            List<PrestationInterne> pres = prestationInterneRepository.findAll();
+            for (PrestationInterne pre : pres) {
+                if (pre.getMaterielLocale().getReference().equals(foundedMateriel.getReference())) {
+                    pre.setNomMaterielI(foundedMateriel.getDescriptionMaterielLocale());
+                    pre.setNomLocaleI(foundedMateriel.getLocaleAssocie());
+                    prestationInterneRepository.save(pre);
+                }
+            }
+        }
+        // update pres externe
+        if (foundedMateriel.getPrestationExternes() != null) {
+            List<PrestationExterne> prese = prestationExterneRepository.findAll();
+            for (PrestationExterne pre : prese) {
+                if (pre.getMaterielLocale().getReference().equals(foundedMateriel.getReference())) {
+                    pre.setNomMateriel(foundedMateriel.getDescriptionMaterielLocale());
+                    pre.setNomLocale(foundedMateriel.getLocaleAssocie());
+                    prestationExterneRepository.save(pre);
+                }
+            }
+        }
+        //
+        if (foundedMateriel.getReclamations() != null) {
+            List<Reclamation> recl = reclamationRepository.findAll();
+            for (Reclamation rec : recl) {
+                if (rec.getMateriel().getReference().equals(foundedMateriel.getReference())) {
+                    rec.setNomMateriel(foundedMateriel.getDescriptionMaterielLocale());
+                    rec.setNomLocale(foundedMateriel.getLocaleAssocie());
+                    reclamationRepository.save(rec);
+                }
+            }
+        }
+        //setNomMateriel(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
+        if (foundedMateriel.getLocale().getEntretiens() != null) {
+            List<Entretien> entre = entretienRepository.findAll();
+            for (Entretien ent : entre) {
+                if (ent.getMateriel().getReference().equals(foundedMateriel.getReference())) {
+                    ent.setNomMateriel(foundedMateriel.getDescriptionMaterielLocale());
+                    ent.setNomLocale(foundedMateriel.getLocaleAssocie()); 
+                    entretienRepository.save(ent);
+                }
+            }
         }
         
     }
@@ -166,27 +216,27 @@ public class LocalDetailsImpl implements LocalDetailsService {
         //Edit locale associer
         if (foundedMaterielLocale.getLocale() != null) {
             Locale loadedLocale = localeRepository.findByReference(foundedMaterielLocale.getLocale().getReference());
-            List<LocalDetails> materielslocaleToEdit = loadedLocale.getLocalDetails();
-            materielslocaleToEdit.remove(foundedMaterielLocale);
-            loadedLocale.setLocalDetails(materielslocaleToEdit);
+            List<LocalDetails> foundedMaterielrielslocaleToEdit = loadedLocale.getLocalDetails();
+            foundedMaterielrielslocaleToEdit.remove(foundedMaterielLocale);
+            loadedLocale.setLocalDetails(foundedMaterielrielslocaleToEdit);
             loadedLocale.setNbrMateriel(loadedLocale.getNbrMateriel() - 1);
             localeRepository.save(loadedLocale);
         }
 
-        //Edit materiel asoocier
+        //Edit foundedMaterielriel asoocier
         if (foundedMaterielLocale.getMateriel() != null) {
-            Materiel loadedMateriel = materielRepository.findByReference(foundedMaterielLocale.getMateriel().getReference());
+            Materiel loadedMateriel = foundedMaterielrielRepository.findByReference(foundedMaterielLocale.getMateriel().getReference());
             List<LocalDetails> mats = loadedMateriel.getLocalDetails();
             mats.remove(foundedMaterielLocale);
             loadedMateriel.setLocalDetails(mats);
             loadedMateriel.setNbrEntite(foundedMaterielLocale.getMateriel().getNbrEntite() - 1);
-            materielRepository.save(loadedMateriel);
+            foundedMaterielrielRepository.save(loadedMateriel);
         }
 
         // list of prestations associate
         List<PrestationInterne> preIs = foundedMaterielLocale.getPrestationInternes();
         List<PrestationExterne> preEs = foundedMaterielLocale.getPrestationExternes();
-        // set materiel to null
+        // set foundedMaterielriel to null
         preIs.forEach((pre) -> {
             pre.setMaterielLocale(null);
             prestationInterneRepository.save(pre);
