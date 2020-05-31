@@ -299,6 +299,19 @@ public class PrestationExterneImpl implements PrestationExterneService {
                 loadedBonCommande.setNomPrestationAssocie(prestationExterne.getReferenceE() + ", " + prestationExterne.getTypeEntretienE());
                 loadedBonCommande.setPrestationExterne(loadedPrestationExterne);
                 presBonCommandeRepository.save(loadedBonCommande);
+            } else if (!loadedPrestationExterne.isBonCommandeE() && prestationExterne.isBonCommandeE()) {
+                PresBonCommande bonCommande = new PresBonCommande();
+                bonCommande.setReference(prestationExterne.getReferenceE());
+                bonCommande.setDateBonCommande(prestationExterne.getPresBonCommandeE().getDateBonCommande());
+                bonCommande.setNumeroBonCommande(prestationExterne.getPresBonCommandeE().getNumeroBonCommande());
+                bonCommande.setMontantC(prestationExterne.getPresBonCommandeE().getMontantC());
+                bonCommande.setNomPrestataireC(prestationExterne.getPresBonCommandeE().getNomPrestataireC());
+                bonCommande.setNumeroBonCommande(prestationExterne.getPresBonCommandeE().getNumeroBonCommande());
+                bonCommande.setNomPrestationAssocie(prestationExterne.getReferenceE() + ", " + prestationExterne.getTypeEntretienE());
+                bonCommande.setPrestationExterne(loadedPrestationExterne);
+                presBonCommandeRepository.save(bonCommande);
+                loadedPrestationExterne.setPresBonCommandeE(bonCommande);
+                loadedPrestationExterne.setBonCommandeE(true);
             }
             if (loadedPrestationExterne.isBonLivraisonE() && prestationExterne.isBonLivraisonE()) {
                 PresBonLivraison loadedBonLivraison = presBonLivraisonRepository.findByReference(loadedPrestationExterne.getReferenceE());
@@ -311,6 +324,19 @@ public class PrestationExterneImpl implements PrestationExterneService {
                 loadedBonLivraison.setNomPrestationAssocie(prestationExterne.getReferenceE() + ", " + prestationExterne.getTypeEntretienE());
                 loadedBonLivraison.setPrestationExterneL(loadedPrestationExterne);
                 presBonLivraisonRepository.save(loadedBonLivraison);
+            } else if (!loadedPrestationExterne.isBonLivraisonE() && prestationExterne.isBonLivraisonE()) {
+                PresBonLivraison bonLivraison = new PresBonLivraison();
+                bonLivraison.setReference(prestationExterne.getReferenceE());
+                bonLivraison.setDateBonLivraison(prestationExterne.getPresBonLivraisonE().getDateBonLivraison());
+                bonLivraison.setNumeroBonLivraison(prestationExterne.getPresBonLivraisonE().getNumeroBonLivraison());
+                bonLivraison.setMontantL(prestationExterne.getPresBonLivraisonE().getMontantL());
+                bonLivraison.setNomPrestataireL(prestationExterne.getPresBonLivraisonE().getNomPrestataireL());
+                bonLivraison.setNumeroBonLivraison(prestationExterne.getPresBonLivraisonE().getNumeroBonLivraison());
+                bonLivraison.setNomPrestationAssocie(prestationExterne.getReferenceE() + ", " + prestationExterne.getTypeEntretienE());
+                bonLivraison.setPrestationExterneL(loadedPrestationExterne);
+                presBonLivraisonRepository.save(bonLivraison);
+                loadedPrestationExterne.setPresBonLivraisonE(bonLivraison);
+                loadedPrestationExterne.setBonLivraisonE(true);
             }
             if (loadedPrestationExterne.isReclamedE() && prestationExterne.isReclamedE()) {
                 if (!loadedPrestationExterne.getReclamationE().getReference().equals(prestationExterne.getReclamationE().getReference())) {
