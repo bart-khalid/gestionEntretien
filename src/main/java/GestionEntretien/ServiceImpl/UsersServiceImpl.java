@@ -131,7 +131,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Users findByTelephone(double tele) {
+    public Users findByTelephone(String tele) {
         return usersdao.findByTelephone(tele);
     }
 

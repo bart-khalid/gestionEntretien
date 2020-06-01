@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface UsersService {
 
-    public Users findByTelephone(double tele);
+    public Users findByTelephone(String tele);
 
     public Users findByUsername(String username);
 
