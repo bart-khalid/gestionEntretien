@@ -23,5 +23,10 @@ public interface FournisseurSVService {
     public List<FournisseurSV> findAll();
 
     public FournisseurSV findByReference(String reference);
+    
+    public FournisseurSV findByTelephonef(String tele);
+
+    public FournisseurSV findByEmailf(String mail);
+
 
 }

@@ -101,7 +101,7 @@ public class MaterielImpl implements MaterielService {
                 if (mate.getPrestationInternes() != null) {
                     List<PrestationInterne> pres = prestationInterneRepository.findAll();
                     for (PrestationInterne pre : pres) {
-                        if (pre.getMaterielLocale().getReferenceML().equals(mate.getReferenceML())) {
+                        if (pre.getMaterielLocale().getReference().equals(mate.getReference())) {
                             pre.setNomMaterielI(mate.getDescriptionMaterielLocale());
                             prestationInterneRepository.save(pre);
                         }
@@ -111,7 +111,7 @@ public class MaterielImpl implements MaterielService {
                 if (mate.getPrestationExternes() != null) {
                     List<PrestationExterne> prese = prestationExterneRepository.findAll();
                     for (PrestationExterne pre : prese) {
-                        if (pre.getMaterielLocale().getReferenceML().equals(mate.getReferenceML())) {
+                        if (pre.getMaterielLocale().getReference().equals(mate.getReference())) {
                             pre.setNomMateriel(mate.getDescriptionMaterielLocale());
                             prestationExterneRepository.save(pre);
                         }
@@ -121,7 +121,7 @@ public class MaterielImpl implements MaterielService {
                 if (mate.getReclamations() != null) {
                     List<Reclamation> recl = reclamationRepository.findAll();
                     for (Reclamation rec : recl) {
-                        if (rec.getMateriel().getReferenceML().equals(mate.getReferenceML())) {
+                        if (rec.getMateriel().getReference().equals(mate.getReference())) {
                             rec.setNomMateriel(mate.getDescriptionMaterielLocale());
                             reclamationRepository.save(rec);
                         }
@@ -131,7 +131,7 @@ public class MaterielImpl implements MaterielService {
                 if (mate.getLocale().getEntretiens() != null) {
                     List<Entretien> entre = entretienRepository.findAll();
                     for (Entretien ent : entre) {
-                        if (ent.getMateriel().getReferenceML().equals(mate.getReferenceML())) {
+                        if (ent.getMateriel().getReference().equals(mate.getReference())) {
                             ent.setNomMateriel(mate.getDescriptionMaterielLocale());
                             entretienRepository.save(ent);
                         }

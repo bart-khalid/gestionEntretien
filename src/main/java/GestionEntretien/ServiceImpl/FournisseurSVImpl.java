@@ -41,10 +41,17 @@ public class FournisseurSVImpl implements FournisseurSVService {
 
     @Override
     public int save(FournisseurSV fournisseur) {
-        FournisseurSV foundedFournisseur = fournisseurRepository.findByNomfAndAdressef(fournisseur.getNomf(), fournisseur.getAdressef());
+        FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(fournisseur.getReference());
+        FournisseurSV foundedtele = fournisseurRepository.findByTelephonef(fournisseur.getTelephonef());
+        FournisseurSV foundedmail = fournisseurRepository.findByEmailf(fournisseur.getEmailf());
         if (foundedFournisseur != null) {
             return -1;
-        } else {
+        } else if(foundedtele != null){
+            return -2;
+        } else if(foundedmail != null){
+            return -3;
+        }
+        else {
             fournisseur.setDescriptionDropDown(fournisseur.getNomf() + ',' + fournisseur.getAdressef());
             FournisseurSV.setNbr(fournisseur.getNbr() + 1);
             fournisseur.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(fournisseur.getNbr()));
@@ -57,11 +64,38 @@ public class FournisseurSVImpl implements FournisseurSVService {
     @Override
     public int update(FournisseurSV fournisseur) {
         FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(fournisseur.getReference());
+
+        // check mail
+        if (!(foundedFournisseur.getEmailf().equals(fournisseur.getEmailf()))) {
+            FournisseurSV foundedlogin = findByEmailf(fournisseur.getEmailf());
+            if (foundedlogin != null) {
+                return -1;
+            } else {
+                if (!foundedFournisseur.getReference().equals(fournisseur.getReference())) {
+                    foundedFournisseur.setEmailf(fournisseur.getEmailf());
+                }
+            }
+        } else {
+            foundedFournisseur.setEmailf(fournisseur.getEmailf());
+        }
+
+        //check tele
+        if (!(foundedFournisseur.getTelephonef().equals(fournisseur.getTelephonef()))) {
+            FournisseurSV foundedlogin = findByTelephonef(fournisseur.getTelephonef());
+            if (foundedlogin != null) {
+                return -2;
+            } else {
+                if (foundedFournisseur.getReference().equals(fournisseur.getReference())) {
+                    foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
+                }
+            }
+        } else {
+            foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
+        }
+
         foundedFournisseur.setDescriptionDropDown(fournisseur.getNomf() + ',' + fournisseur.getAdressef());
         foundedFournisseur.setNomf(fournisseur.getNomf());
         foundedFournisseur.setAdressef(fournisseur.getAdressef());
-        foundedFournisseur.setEmailf(fournisseur.getEmailf());
-        foundedFournisseur.setTelephonef(fournisseur.getTelephonef());
         foundedFournisseur.setTypef(fournisseur.getTypef());
 
         List<BonCarburant> listBons = boncarrepo.findAll();
@@ -142,6 +176,16 @@ public class FournisseurSVImpl implements FournisseurSVService {
     @Override
     public FournisseurSV findByReference(String reference) {
         return fournisseurRepository.findByReference(reference);
+    }
+
+    @Override
+    public FournisseurSV findByTelephonef(String tele) {
+        return fournisseurRepository.findByTelephonef(tele);
+    }
+
+    @Override
+    public FournisseurSV findByEmailf(String mail) {
+        return fournisseurRepository.findByEmailf(mail);
     }
 
 }

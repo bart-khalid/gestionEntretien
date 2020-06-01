@@ -22,6 +22,7 @@ public interface FournisseurSVRepository extends JpaRepository<FournisseurSV, Lo
 //    @Query(value = "select fournisseur from fournisseur where nom=")
 //    public Fournisseur findByNomAndAdresse(@Param String nom,@Param String adresse);
     public FournisseurSV findByNomfAndAdressef(String nomf, String adressef);
-
+    public FournisseurSV findByTelephonef(String tele);
+    public FournisseurSV findByEmailf(String mail);
     public FournisseurSV findByReference(String reference);
 }

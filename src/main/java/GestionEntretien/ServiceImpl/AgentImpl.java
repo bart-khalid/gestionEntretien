@@ -57,6 +57,21 @@ public class AgentImpl implements AgentService {
     @Override
     public int update(Agent agent) {
         Agent foundedAgent = agentRepository.findByReference(agent.getReference());
+        //check phone
+          if (!(foundedAgent.getTel().equals(agent.getTel()))) {
+            Agent foundedlogin = findByTel(agent.getTel());
+            if (foundedlogin != null) {
+                return -1;
+            } else {
+                if (foundedAgent.getReference().equals(agent.getReference())) {
+                    foundedAgent.setTel(agent.getTel());
+                }
+            }
+        } else {
+            foundedAgent.setTel(agent.getTel());
+        }
+        
+        
         foundedAgent.setDescriptionDropDown(agent.getCodeAgent() + ',' + agent.getNomAgent());
         foundedAgent.setEntrepriseliee(agent.getEntrepriseliee());
         foundedAgent.setCodeAgent(agent.getCodeAgent());

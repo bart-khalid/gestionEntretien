@@ -31,7 +31,7 @@ public class Users implements Serializable {
     private String type;
     private String prenom;
     private String nom;
-    private double telephone;
+    private String telephone;
     private static Long nbr = 0000L;
 
     @OneToMany(mappedBy = "reclament")
@@ -78,11 +78,11 @@ public class Users implements Serializable {
         this.nom = nom;
     }
 
-    public double getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(double telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

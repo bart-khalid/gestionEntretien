@@ -153,8 +153,9 @@ public class LocalDetailsImpl implements LocalDetailsService {
             foundedMaterielLocale.setDateAffectation(localDetails.getDateAffectation());
             foundedMaterielLocale.setReferenceML(localDetails.getReferenceML());
             foundedMaterielLocale.setDescriptionMaterielLocale(localDetails.getReferenceML() + ", " + localDetails.getMaterielLocale());
-            localDetailsRepository.save(foundedMaterielLocale);
             updatebeans(foundedMaterielLocale);
+            localDetailsRepository.save(foundedMaterielLocale);
+            
             
 
             

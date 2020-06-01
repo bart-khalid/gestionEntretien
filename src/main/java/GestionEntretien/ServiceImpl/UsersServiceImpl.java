@@ -5,7 +5,9 @@
  */
 package GestionEntretien.ServiceImpl;
 
+import GestionEntretien.Bean.Reclamation;
 import GestionEntretien.Bean.Users;
+import GestionEntretien.Dao.ReclamationRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     UsersRepository usersdao;
+    @Autowired
+    ReclamationRepository reclamationRepository;
 
     @Override
     public Users findByUsername(String username) {
@@ -93,21 +97,32 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public int Update(Users users) {
         Users user = usersdao.findByReference(users.getReference());
+        // check user
         if (!(user.getUsername().equals(users.getUsername()))) {
             Users foundedlogin = findByUsername(users.getUsername());
-            if (!user.getReference().equals(foundedlogin.getReference())) {
+            if (foundedlogin != null) {
                 return -1;
             } else {
-                user.setUsername(users.getUsername());
+                if (!user.getReference().equals(users.getReference())) {
+                    user.setUsername(users.getUsername());
+                }
             }
+        } else {
+            user.setUsername(users.getUsername());
         }
-        if (!(user.getTelephone() == users.getTelephone())) {
+
+        //check telephone
+        if (!(user.getTelephone().equals(users.getTelephone()))) {
             Users foundedlogin = findByTelephone(users.getTelephone());
-            if (!user.getReference().equals(foundedlogin.getReference())) {
+            if (foundedlogin != null) {
                 return -2;
             } else {
-                user.setTelephone(users.getTelephone());
+                if (user.getReference().equals(users.getReference())) {
+                    user.setTelephone(users.getTelephone());
+                }
             }
+        } else {
+            user.setTelephone(users.getTelephone());
         }
 
         user.setNom(users.getNom());
@@ -115,12 +130,30 @@ public class UsersServiceImpl implements UsersService {
         user.setType(users.getType());
         user.setPrenom(users.getPrenom());
         usersdao.save(user);
+
+        //update reclamation
+        List<Reclamation> recl = reclamationRepository.findAll();
+        for (Reclamation rec : recl) {
+            if (rec.getReclamentName().equals(users.getNom() + ", " + users.getPrenom())) {
+                rec.setReclamentName(users.getNom() + ", " + users.getPrenom());
+                reclamationRepository.save(rec);
+            }
+        }
+
         return 1;
     }
 
     @Override
     public int Delete(String reference) {
         Users user = usersdao.findByReference(reference);
+        
+        List<Reclamation> recl = reclamationRepository.findAll();
+        for (Reclamation rec : recl) {
+            if (rec.getReclament() == user ) {
+                rec.setReclament(null);
+                reclamationRepository.save(rec);
+            }
+        }
         usersdao.delete(user);
         return 1;
     }
@@ -131,7 +164,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Users findByTelephone(double tele) {
+    public Users findByTelephone(String tele) {
         return usersdao.findByTelephone(tele);
     }
 
