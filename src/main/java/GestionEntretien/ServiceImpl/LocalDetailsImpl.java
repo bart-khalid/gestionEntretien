@@ -168,10 +168,12 @@ public class LocalDetailsImpl implements LocalDetailsService {
         if (foundedMateriel.getPrestationInternes() != null) {
             List<PrestationInterne> pres = prestationInterneRepository.findAll();
             for (PrestationInterne pre : pres) {
+                if(pre.getMaterielLocale() != null){
                 if (pre.getMaterielLocale().getReference().equals(foundedMateriel.getReference())) {
                     pre.setNomMaterielI(foundedMateriel.getDescriptionMaterielLocale());
                     pre.setNomLocaleI(foundedMateriel.getLocaleAssocie());
                     prestationInterneRepository.save(pre);
+                }
                 }
             }
         }
@@ -179,10 +181,12 @@ public class LocalDetailsImpl implements LocalDetailsService {
         if (foundedMateriel.getPrestationExternes() != null) {
             List<PrestationExterne> prese = prestationExterneRepository.findAll();
             for (PrestationExterne pre : prese) {
+                if(pre.getMaterielLocale() != null) {
                 if (pre.getMaterielLocale().getReference().equals(foundedMateriel.getReference())) {
                     pre.setNomMateriel(foundedMateriel.getDescriptionMaterielLocale());
                     pre.setNomLocale(foundedMateriel.getLocaleAssocie());
                     prestationExterneRepository.save(pre);
+                }
                 }
             }
         }
@@ -190,10 +194,12 @@ public class LocalDetailsImpl implements LocalDetailsService {
         if (foundedMateriel.getReclamations() != null) {
             List<Reclamation> recl = reclamationRepository.findAll();
             for (Reclamation rec : recl) {
+                if(rec.getMateriel() != null) {
                 if (rec.getMateriel().getReference().equals(foundedMateriel.getReference())) {
                     rec.setNomMateriel(foundedMateriel.getDescriptionMaterielLocale());
                     rec.setNomLocale(foundedMateriel.getLocaleAssocie());
                     reclamationRepository.save(rec);
+                }
                 }
             }
         }
@@ -201,10 +207,12 @@ public class LocalDetailsImpl implements LocalDetailsService {
         if (foundedMateriel.getLocale().getEntretiens() != null) {
             List<Entretien> entre = entretienRepository.findAll();
             for (Entretien ent : entre) {
+                if(ent.getMateriel() != null){
                 if (ent.getMateriel().getReference().equals(foundedMateriel.getReference())) {
                     ent.setNomMateriel(foundedMateriel.getDescriptionMaterielLocale());
                     ent.setNomLocale(foundedMateriel.getLocaleAssocie()); 
                     entretienRepository.save(ent);
+                }
                 }
             }
         }
