@@ -27,7 +27,7 @@ public class PresBonCommande implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String reference;
-    private double numeroBonCommande;
+    private String numeroBonCommande;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateBonCommande;
     private double montantC;
@@ -38,11 +38,11 @@ public class PresBonCommande implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PrestationExterne prestationExterne;
 
-    public double getNumeroBonCommande() {
+    public String getNumeroBonCommande() {
         return numeroBonCommande;
     }
 
-    public void setNumeroBonCommande(double numeroBonCommande) {
+    public void setNumeroBonCommande(String numeroBonCommande) {
         this.numeroBonCommande = numeroBonCommande;
     }
 
