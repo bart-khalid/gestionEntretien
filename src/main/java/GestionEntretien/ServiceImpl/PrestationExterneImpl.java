@@ -57,10 +57,12 @@ public class PrestationExterneImpl implements PrestationExterneService {
             return -3;
         } else if (prestationExterne.isBonCommandeE()
                 && (prestationExterne.getPresBonCommandeE().getNomPrestataireC() == null
+                || prestationExterne.getPresBonCommandeE().getNumeroBonCommande() == null
                 || prestationExterne.getPresBonCommandeE().getDateBonCommande() == null)) {
             return -4;
         } else if (prestationExterne.isBonLivraisonE()
                 && (prestationExterne.getPresBonLivraisonE().getNomPrestataireL() == null
+                || prestationExterne.getPresBonLivraisonE().getNumeroBonLivraison() == null
                 || prestationExterne.getPresBonLivraisonE().getDateBonLivraison() == null)) {
             return -5;
         } else {
@@ -198,10 +200,12 @@ public class PrestationExterneImpl implements PrestationExterneService {
             return -3;
         } else if (prestationExterne.isBonCommandeE()
                 && (prestationExterne.getPresBonCommandeE().getNomPrestataireC() == null
+                || prestationExterne.getPresBonCommandeE().getNumeroBonCommande() == null
                 || prestationExterne.getPresBonCommandeE().getDateBonCommande() == null)) {
             return -4;
         } else if (prestationExterne.isBonLivraisonE()
                 && (prestationExterne.getPresBonLivraisonE().getNomPrestataireL() == null
+                || prestationExterne.getPresBonLivraisonE().getNumeroBonLivraison() == null
                 || prestationExterne.getPresBonLivraisonE().getDateBonLivraison() == null)) {
             return -5;
         } else if (loadedPrestationExterne.getTypeEntretienE().equals("materiel") == false && prestationExterne.getTypeEntretienE().equals("materiel")) {
