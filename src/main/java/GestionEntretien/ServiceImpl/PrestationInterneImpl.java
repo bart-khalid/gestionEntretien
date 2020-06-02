@@ -138,8 +138,8 @@ public class PrestationInterneImpl implements PrestationInterneService {
             //update etat reclamation associer
             if (foundedPrestationInterne.isReclamedI() && preInterne.isReclamedI()) {
                 if (!foundedPrestationInterne.getReclamationI().getReference().equals(preInterne.getReclamationI().getReference())) {
-                    Reclamation foundedReclamationold = reclamationRepository.findByReference(foundedPrestationInterne.getRefrenceReclamationI());
-                    Reclamation foundedReclamationNew = reclamationRepository.findByReference(preInterne.getRefrenceReclamationI());
+                    Reclamation foundedReclamationold = reclamationRepository.findByReference(foundedPrestationInterne.getReclamationI().getReference());
+                    Reclamation foundedReclamationNew = reclamationRepository.findByReference(preInterne.getReclamationI().getReference());
 
                     foundedReclamationold.setEtat("Sous Traitement");
                     foundedReclamationold.setPrestationInterne(null);
