@@ -5,7 +5,6 @@
  */
 package GestionEntretien.ServiceImpl;
 
-import GestionEntretien.Bean.LocalDetails;
 import GestionEntretien.Bean.Materiel;
 import GestionEntretien.Bean.Reclamation;
 import GestionEntretien.Bean.Users;
@@ -14,6 +13,8 @@ import GestionEntretien.Dao.BonCarburantRepository;
 import GestionEntretien.Dao.BonReparationRepository;
 import GestionEntretien.Dao.BonVidangeRepository;
 import GestionEntretien.Dao.MaterielRepository;
+import GestionEntretien.Dao.PresBonCommandeRepository;
+import GestionEntretien.Dao.PresBonLivraisonRepository;
 import GestionEntretien.Dao.PrestationExterneRepository;
 import GestionEntretien.Dao.PrestationInterneRepository;
 import GestionEntretien.Dao.ReclamationRepository;
@@ -49,6 +50,10 @@ public class AccuieiImpl implements AccueilService {
     private VehiculeRepository vehiculeRepository;
     @Autowired
     private MaterielRepository materielRepository;
+    @Autowired
+    private PresBonCommandeRepository presBonCommandeRepository;
+    @Autowired
+    private PresBonLivraisonRepository presBonLivraisonRepository;
 
     @Override
     public int findAllPrestationInterne() {
@@ -181,6 +186,16 @@ public class AccuieiImpl implements AccueilService {
             }
         }
         return size;
+    }
+
+    @Override
+    public int findAllBonCommande() {
+        return presBonCommandeRepository.findAll().size();
+    }
+
+    @Override
+    public int findAllBonLivraison() {
+        return presBonLivraisonRepository.findAll().size();
     }
 
 }

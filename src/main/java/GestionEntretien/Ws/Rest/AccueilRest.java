@@ -92,5 +92,16 @@ public class AccueilRest {
     public int findAllMaterielEnseinement() {
         return accuieiService.findAllMaterielEnseinement();
     }
+
+    @GetMapping("/sizeBonCmd")
+    public int findAllBonCommande() {
+        return accuieiService.findAllBonCommande();
+    }
+
+    @GetMapping("/sizeBonLiv")
+    public int findAllBonLivraison() {
+        return accuieiService.findAllBonLivraison();
+    }
+    
     
 }

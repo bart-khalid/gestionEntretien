@@ -24,4 +24,6 @@ public interface AccueilService {
     public int findAllVehiculeVoiture();
     public int findAllMaterielInformatique();
     public int findAllMaterielEnseinement();
+    public int findAllBonCommande();
+    public int findAllBonLivraison();
 }
