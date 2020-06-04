@@ -70,7 +70,7 @@ public class AccuieiImpl implements AccueilService {
         int size = 0;
         List<Reclamation> recs = reclamationRepository.findAll();
         for (Reclamation reclamation : recs) {
-            if (reclamation.getEtat().equals("Pas Encore Vu")) {
+            if (reclamation.getEtat().equals("Pas Encore Vue")) {
                 size++;
             }
         }
