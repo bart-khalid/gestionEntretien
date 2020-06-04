@@ -72,7 +72,7 @@ public class ReclamationImpl implements ReclamationService {
         } else {
             Reclamation.setNbr(Reclamation.getNbr() + 1);
             reclamation.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Reclamation.getNbr()));
-            reclamation.setEtat("Pas Encore Vu");
+            reclamation.setEtat("Pas Encore Vue");
             reclamation.setReclamentName(foundedReclamant.getNom() + ", " + foundedReclamant.getPrenom());
             reclamation.setDate(new Date());
             reclamation.setNomLocale(reclamation.getLocale().getDescriptionDropDown());

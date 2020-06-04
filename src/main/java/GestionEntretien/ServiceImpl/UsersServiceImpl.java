@@ -103,13 +103,15 @@ public class UsersServiceImpl implements UsersService {
             if (foundedlogin != null) {
                 return -1;
             } else {
-                if (!user.getReference().equals(users.getReference())) {
+//                if (!user.getReference().equals(users.getReference())) {
+//                    user.setUsername(users.getUsername());
+//                }
                     user.setUsername(users.getUsername());
-                }
             }
-        } else {
-            user.setUsername(users.getUsername());
         }
+//        } else {
+//            user.setUsername(users.getUsername());
+//        }
 
         //check telephone
         if (!(user.getTelephone().equals(users.getTelephone()))) {
@@ -146,10 +148,10 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public int Delete(String reference) {
         Users user = usersdao.findByReference(reference);
-        
+
         List<Reclamation> recl = reclamationRepository.findAll();
         for (Reclamation rec : recl) {
-            if (rec.getReclament() == user ) {
+            if (rec.getReclament() == user) {
                 rec.setReclament(null);
                 reclamationRepository.save(rec);
             }

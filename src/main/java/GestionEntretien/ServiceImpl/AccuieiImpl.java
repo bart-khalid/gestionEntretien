@@ -133,7 +133,7 @@ public class AccuieiImpl implements AccueilService {
         int size = 0;
         List<Users> users = usersRepository.findAll();
         for (Users user : users) {
-            if (user.getType().equals("employé")) {
+            if (user.getType().equals("normal")) {
                 size++;
             }
         }
