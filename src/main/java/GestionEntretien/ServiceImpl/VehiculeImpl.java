@@ -41,9 +41,15 @@ public class VehiculeImpl implements VehiculeService {
         if (foundedv != null) {
             return -1;
         }
-        vehicule.setDescriptionDropDown(vehicule.getMatricule() + ',' + vehicule.getMarque());
         Vehicule.setNbr(vehicule.getNbr() + 1);
         vehicule.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(vehicule.getNbr()));
+        Vehicule foundedVehicule = vehiculeRepository.findByReference(vehicule.getReference());
+        while (foundedVehicule != null) {
+            Vehicule.setNbr(vehicule.getNbr() + 1);
+            vehicule.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(vehicule.getNbr()));
+            foundedVehicule = vehiculeRepository.findByReference(vehicule.getReference());
+        }
+        vehicule.setDescriptionDropDown(vehicule.getMatricule() + ',' + vehicule.getMarque());
         vehiculeRepository.save(vehicule);
         return 1;
     }

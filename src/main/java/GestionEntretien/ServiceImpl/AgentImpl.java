@@ -48,6 +48,12 @@ public class AgentImpl implements AgentService {
             agent.setDescriptionDropDown(agent.getCodeAgent() + ',' + agent.getNomAgent());
             Agent.setNbr(agent.getNbr() + 1);
             agent.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(agent.getNbr()));
+            Agent foundedAgentWithRef = agentRepository.findByReference(agent.getReference());
+            while (foundedAgentWithRef != null) {
+                Agent.setNbr(agent.getNbr() + 1);
+                agent.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(agent.getNbr()));
+                foundedAgentWithRef = agentRepository.findByReference(agent.getReference());
+            }
             agentRepository.save(agent);
             return 1;
         }
@@ -58,7 +64,7 @@ public class AgentImpl implements AgentService {
     public int update(Agent agent) {
         Agent foundedAgent = agentRepository.findByReference(agent.getReference());
         //check phone
-          if (!(foundedAgent.getTel().equals(agent.getTel()))) {
+        if (!(foundedAgent.getTel().equals(agent.getTel()))) {
             Agent foundedlogin = findByTel(agent.getTel());
             if (foundedlogin != null) {
                 return -1;
@@ -70,8 +76,7 @@ public class AgentImpl implements AgentService {
         } else {
             foundedAgent.setTel(agent.getTel());
         }
-        
-        
+
         foundedAgent.setDescriptionDropDown(agent.getCodeAgent() + ',' + agent.getNomAgent());
         foundedAgent.setEntrepriseliee(agent.getEntrepriseliee());
         foundedAgent.setCodeAgent(agent.getCodeAgent());
@@ -82,22 +87,21 @@ public class AgentImpl implements AgentService {
         // update nomagent 
         List<PrestationInterne> foundedPresInternes = prestationInterneRepository.findAll();
         List<Entretien> listentretien = entretienRepository.findAll();
-         for (PrestationInterne pres : foundedPresInternes) {
+        for (PrestationInterne pres : foundedPresInternes) {
             if (pres.getAgent().getReference().equals(foundedAgent.getReference())) {
                 pres.setNomAgentI(foundedAgent.getDescriptionDropDown());
             }
-            
-        for(Entretien ent : listentretien){
-             if (pres.getTypeEntretienI().equals("materiel") && ent.getNumFacture().equals(pres.getReferenceI()) ) {
-                ent.setPrestataire(foundedAgent.getDescriptionDropDown());
-                entretienRepository.save(ent);
+
+            for (Entretien ent : listentretien) {
+                if (pres.getTypeEntretienI().equals("materiel") && ent.getNumFacture().equals(pres.getReferenceI())) {
+                    ent.setPrestataire(foundedAgent.getDescriptionDropDown());
+                    entretienRepository.save(ent);
+                }
             }
-        }
-        
+
             prestationInterneRepository.save(pres);
         }
-        
-        
+
         agentRepository.save(foundedAgent);
         return 1;
 

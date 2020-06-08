@@ -58,20 +58,25 @@ public class ReclamationImpl implements ReclamationService {
 
     @Override
     public int save(Reclamation reclamation, String username) {
-        Reclamation foundedReclamation = reclamationRepository.findByReference(reclamation.getReference());
+
         Users foundedReclamant = loginRepository.findByUsername(username);
         LocalDetails foundedMateriel = localDetailsRepository.findByReferenceML(reclamation.getMateriel().getReferenceML());
 
-        if (foundedReclamation != null) {
-            return -1;
-        } else if (foundedReclamant == null) {
+        if (foundedReclamant == null) {
             return -2;
-
         } else if (reclamation.getLocale().getReference() == null) {
             return -3;
         } else {
+            // genarate a string
             Reclamation.setNbr(Reclamation.getNbr() + 1);
             reclamation.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Reclamation.getNbr()));
+            Reclamation foundedReclamation = reclamationRepository.findByReference(reclamation.getReference());
+            while (foundedReclamation != null) {
+                Reclamation.setNbr(Reclamation.getNbr() + 1);
+                reclamation.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Reclamation.getNbr()));
+                foundedReclamation = reclamationRepository.findByReference(reclamation.getReference());
+            }
+
             reclamation.setEtat("Pas Encore Vue");
             reclamation.setReclamentName(foundedReclamant.getNom() + ", " + foundedReclamant.getPrenom());
             reclamation.setDate(new Date());

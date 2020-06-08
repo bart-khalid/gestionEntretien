@@ -56,6 +56,7 @@ public class PrestationInterneImpl implements PrestationInterneService {
             preInterne.setReferenceI(RandomStringUtils.random(6, true, false) + String.valueOf(PrestationInterne.getNbrPresInterne()));
             PrestationInterne foundedPrestataionInterne = prestationInterneRepository.findByReferenceI(preInterne.getReferenceI());
             while (foundedPrestataionInterne != null) {
+                PrestationInterne.setNbrPresInterne(PrestationInterne.getNbrPresInterne() + 1);
                 preInterne.setReferenceI(RandomStringUtils.random(6, true, false) + String.valueOf(PrestationInterne.getNbrPresInterne()));
                 foundedPrestataionInterne = prestationInterneRepository.findByReferenceI(preInterne.getReferenceI());
             }

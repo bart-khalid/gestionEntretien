@@ -71,6 +71,7 @@ public class PrestationExterneImpl implements PrestationExterneService {
             prestationExterne.setReferenceE(RandomStringUtils.random(6, true, false) + String.valueOf(PrestationExterne.getNbrPresExterne()));
             PrestationExterne foundedPresExterne = prestationExterneRepository.findByReferenceE(prestationExterne.getReferenceE());
             while (foundedPresExterne != null) {
+                PrestationExterne.setNbrPresExterne(PrestationExterne.getNbrPresExterne() + 1);
                 prestationExterne.setReferenceE(RandomStringUtils.random(6, true, false) + String.valueOf(PrestationExterne.getNbrPresExterne()));
                 foundedPresExterne = prestationExterneRepository.findByReferenceE(prestationExterne.getReferenceE());
             }

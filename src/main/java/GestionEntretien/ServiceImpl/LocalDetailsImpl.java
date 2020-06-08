@@ -84,6 +84,7 @@ public class LocalDetailsImpl implements LocalDetailsService {
             LocalDetails.setNbr(LocalDetails.getNbr() + 1);
             localDetails.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(LocalDetails.getNbr()));
             while (foundedMaterielLocal != null) {
+                LocalDetails.setNbr(LocalDetails.getNbr() + 1);
                 localDetails.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(LocalDetails.getNbr()));
                 foundedMaterielLocal = localDetailsRepository.findByReference(localDetails.getReference());
             }

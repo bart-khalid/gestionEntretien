@@ -41,20 +41,24 @@ public class FournisseurSVImpl implements FournisseurSVService {
 
     @Override
     public int save(FournisseurSV fournisseur) {
-        FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(fournisseur.getReference());
+
         FournisseurSV foundedtele = fournisseurRepository.findByTelephonef(fournisseur.getTelephonef());
         FournisseurSV foundedmail = fournisseurRepository.findByEmailf(fournisseur.getEmailf());
-        if (foundedFournisseur != null) {
-            return -1;
-        } else if(foundedtele != null){
+
+        if (foundedtele != null) {
             return -2;
-        } else if(foundedmail != null){
+        } else if (foundedmail != null) {
             return -3;
-        }
-        else {
+        } else {
             fournisseur.setDescriptionDropDown(fournisseur.getNomf() + ',' + fournisseur.getAdressef());
             FournisseurSV.setNbr(fournisseur.getNbr() + 1);
             fournisseur.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(fournisseur.getNbr()));
+            FournisseurSV foundedFournisseur = fournisseurRepository.findByReference(fournisseur.getReference());
+            while (foundedFournisseur != null) {
+                FournisseurSV.setNbr(fournisseur.getNbr() + 1);
+                fournisseur.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(fournisseur.getNbr()));
+                foundedFournisseur = fournisseurRepository.findByReference(fournisseur.getReference());
+            }
             fournisseurRepository.save(fournisseur);
             return 1;
         }

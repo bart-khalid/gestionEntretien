@@ -70,6 +70,12 @@ public class UsersServiceImpl implements UsersService {
         } else {
             Users.setNbr(users.getNbr() + 1);
             users.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(users.getNbr()));
+            Users foundedUser = usersdao.findByReference(users.getReference());
+            while (foundedUser != null) {
+                Users.setNbr(users.getNbr() + 1);
+                users.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(users.getNbr()));
+                foundedUser = usersdao.findByReference(users.getReference());
+            }
             usersdao.save(users);
         }
         return 1;
@@ -106,7 +112,7 @@ public class UsersServiceImpl implements UsersService {
 //                if (!user.getReference().equals(users.getReference())) {
 //                    user.setUsername(users.getUsername());
 //                }
-                    user.setUsername(users.getUsername());
+                user.setUsername(users.getUsername());
             }
         }
 //        } else {

@@ -52,6 +52,7 @@ public class MaterielImpl implements MaterielService {
         materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
         Materiel foundedMateriel = materielRepository.findByReference(materiel.getReference());
         while (foundedMateriel != null) {
+            Materiel.setNbrMateriel(Materiel.getNbrMateriel() + 1);
             materiel.setReference(RandomStringUtils.random(6, true, false) + String.valueOf(Materiel.getNbrMateriel()));
             foundedMateriel = materielRepository.findByReference(materiel.getReference());
         }

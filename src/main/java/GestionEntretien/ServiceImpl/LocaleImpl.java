@@ -58,6 +58,7 @@ public class LocaleImpl implements LocaleService {
         locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
         Locale foundedLocale = localeRepository.findByReference(locale.getReference());
         while (foundedLocale != null) {
+            Locale.setNbrLocale(Locale.getNbrLocale() + 1);
             locale.setReference(RandomStringUtils.random(3, true, false) + String.valueOf(Locale.getNbrLocale()));
             foundedLocale = localeRepository.findByReference(locale.getReference());
         }
