@@ -35,6 +35,7 @@ public class Locale implements Serializable {
     private static Long nbrLocale = 0L;
 
     @OneToMany(mappedBy = "locale")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<LocalDetails> localDetails;
 
     @OneToMany(mappedBy = "locale")

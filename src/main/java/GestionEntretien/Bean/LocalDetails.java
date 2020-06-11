@@ -40,7 +40,6 @@ public class LocalDetails implements Serializable {
     private String descriptionMaterielLocale;
 
     @ManyToOne
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Locale locale;
 
     @ManyToOne
